@@ -12,7 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class GuestDao implements BaseDao<GuestBean> {
+public class AdminDao implements BaseDao<AdminBean> {
+	
 
 	private static DataSource ds;
 
@@ -28,22 +29,22 @@ public class GuestDao implements BaseDao<GuestBean> {
 		}
 	}
 
-	private static final String TABLE_NAME = "clienteGuest";
+	private static final String TABLE_NAME = "amministratore";
+
 	@Override
-	public synchronized void doSave(GuestBean user) throws SQLException {
-		
+	public synchronized void doSave(AdminBean admin) throws SQLException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO " + GuestDao.TABLE_NAME
-				+ " (nome, cognome, telefono, indirizzo) VALUES (?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO " + AdminDao.TABLE_NAME
+				+ " (nome, email, password) VALUES (?, ?, ?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, user.getNome());
-			preparedStatement.setString(2, user.getCognome());
-			preparedStatement.setString(3, user.getTelefono());
-			preparedStatement.setString(4, user.getIndirizzo());
+			preparedStatement.setString(1, admin.getNome());
+			preparedStatement.setString(2, admin.getEmail());
+			preparedStatement.setString(3, admin.getPassword());
 
 			preparedStatement.executeUpdate();
 
@@ -68,7 +69,7 @@ public class GuestDao implements BaseDao<GuestBean> {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + GuestDao.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM " + AdminDao.TABLE_NAME + " WHERE CODE = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
@@ -89,13 +90,13 @@ public class GuestDao implements BaseDao<GuestBean> {
 	}
 
 	@Override
-	public synchronized GuestBean doRetrieveByKey(int code) throws SQLException {
+	public synchronized AdminBean doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		GuestBean bean = new GuestBean();
+		AdminBean bean = new AdminBean();
 
-		String selectSQL = "SELECT * FROM " + GuestDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME + " WHERE CODE = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -105,11 +106,10 @@ public class GuestDao implements BaseDao<GuestBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceGuest"));
+				bean.setCodice(rs.getInt("codiceAmministratore"));
 				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setTelefono(rs.getString("telefono"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
 			}
 
 		} finally {
@@ -125,14 +125,14 @@ public class GuestDao implements BaseDao<GuestBean> {
 	}
 
 	@Override
-	public Collection<GuestBean> doRetrieveAll(String order) throws SQLException {
-		
+	public synchronized Collection<AdminBean> doRetrieveAll(String order) throws SQLException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<GuestBean> products = new LinkedList<GuestBean>();
+		Collection<AdminBean> products = new LinkedList<AdminBean>();
 
-		String selectSQL = "SELECT * FROM " + GuestDao.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -145,13 +145,12 @@ public class GuestDao implements BaseDao<GuestBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				GuestBean bean = new GuestBean();
+				AdminBean bean = new AdminBean();
 
-				bean.setCodice(rs.getInt("codiceGuest"));
+				bean.setCodice(rs.getInt("codiceAmministratore"));
 				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setTelefono(rs.getString("telefono"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
 				products.add(bean);
 			}
 
@@ -169,4 +168,3 @@ public class GuestDao implements BaseDao<GuestBean> {
 	
 
 }
-
