@@ -1,20 +1,19 @@
 package database;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.LinkedList;
+public class GuestDao implements BaseDao<GuestBean> {
 
-
-public class UserDao implements BaseDao<UserBean> {
 	private static DataSource ds;
 
 	static {
@@ -31,13 +30,13 @@ public class UserDao implements BaseDao<UserBean> {
 
 	private static final String TABLE_NAME = "clienti";
 	@Override
-	public synchronized void doSave(UserBean user) throws SQLException {
+	public synchronized void doSave(GuestBean user) throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO " + UserDao.TABLE_NAME
-				+ " (nome, cognome, telefono, indirizzo, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO " + GuestDao.TABLE_NAME
+				+ " (nome, cognome, telefono, indirizzo) VALUES (?, ?, ?, ?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
@@ -45,8 +44,6 @@ public class UserDao implements BaseDao<UserBean> {
 			preparedStatement.setString(2, user.getCognome());
 			preparedStatement.setString(3, user.getTelefono());
 			preparedStatement.setString(4, user.getIndirizzo());
-			preparedStatement.setString(5, user.getEmail());
-			preparedStatement.setString(6, user.getPassword());
 
 			preparedStatement.executeUpdate();
 
@@ -71,7 +68,7 @@ public class UserDao implements BaseDao<UserBean> {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + UserDao.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM " + GuestDao.TABLE_NAME + " WHERE CODE = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
@@ -92,13 +89,13 @@ public class UserDao implements BaseDao<UserBean> {
 	}
 
 	@Override
-	public synchronized UserBean doRetrieveByKey(int code) throws SQLException {
+	public synchronized GuestBean doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		UserBean bean = new UserBean();
+		GuestBean bean = new GuestBean();
 
-		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + GuestDao.TABLE_NAME + " WHERE CODE = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -108,13 +105,11 @@ public class UserDao implements BaseDao<UserBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceCliente"));
+				bean.setCodice(rs.getInt("codiceGuest"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
 			}
 
 		} finally {
@@ -130,14 +125,14 @@ public class UserDao implements BaseDao<UserBean> {
 	}
 
 	@Override
-	public Collection<UserBean> doRetrieveAll(String order) throws SQLException {
+	public Collection<GuestBean> doRetrieveAll(String order) throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<UserBean> products = new LinkedList<UserBean>();
+		Collection<GuestBean> products = new LinkedList<GuestBean>();
 
-		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + GuestDao.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -150,15 +145,13 @@ public class UserDao implements BaseDao<UserBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				UserBean bean = new UserBean();
+				GuestBean bean = new GuestBean();
 
-				bean.setCodice(rs.getInt("codiceCliente"));
+				bean.setCodice(rs.getInt("codiceGuest"));
 				bean.setNome(rs.getString("nome"));
 				bean.setCognome(rs.getString("cognome"));
 				bean.setTelefono(rs.getString("telefono"));
 				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
 				products.add(bean);
 			}
 
@@ -176,3 +169,4 @@ public class UserDao implements BaseDao<UserBean> {
 	
 
 }
+

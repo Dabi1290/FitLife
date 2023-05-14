@@ -1,9 +1,8 @@
 package database;
 
-
 import java.io.Serializable;
 
-public class UserBean implements Serializable {
+public class GuestBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -12,18 +11,14 @@ public class UserBean implements Serializable {
 	String cognome;
 	String telefono;
 	String indirizzo;
-	String email;
-	String password;
 	
 
-	public UserBean() {
+	public GuestBean() {
 		codice = -1;
 		nome = "";
 		cognome = "";
 		telefono = "";
 		indirizzo= "";
-		email= "";
-		password= "";
 	}
 
 	
@@ -97,38 +92,9 @@ public class UserBean implements Serializable {
 	}
 
 
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	
-	
-	public String getPassword() {
-		return password;
-	}
-
-
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-
-
 	@Override
 	public String toString() {
-		return nome + " " + cognome + " " + telefono + " " + indirizzo+ " " + email;
+		return nome + " " + cognome + " " + telefono + " " + indirizzo+ " ";
 	}
 
 
@@ -136,3 +102,6 @@ public class UserBean implements Serializable {
 	
 
 }
+
+
+
