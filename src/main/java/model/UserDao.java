@@ -71,7 +71,7 @@ public class UserDao implements BaseDao<UserBean> {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + UserDao.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM " + UserDao.TABLE_NAME + " WHERE codiceCliente = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
@@ -98,7 +98,7 @@ public class UserDao implements BaseDao<UserBean> {
 
 		UserBean bean = new UserBean();
 
-		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME + " WHERE codiceCliente = ?";
 
 		try {
 			connection = ds.getConnection();
