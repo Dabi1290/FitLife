@@ -1,4 +1,4 @@
-package database;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class GuestDao implements BaseDao<GuestBean> {
+public class OrdineDao implements BaseDao<OrdineBean> {
 
 	private static DataSource ds;
 
@@ -28,22 +28,21 @@ public class GuestDao implements BaseDao<GuestBean> {
 		}
 	}
 
-	private static final String TABLE_NAME = "clienteGuest";
-	@Override
-	public synchronized void doSave(GuestBean user) throws SQLException {
-		
+	private static final String TABLE_NAME = "ordini";
+	
+	public void doSave(OrdineBean product,AdminBean admin, UserBean user,GuestBean guest) throws SQLException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
-		String insertSQL = "INSERT INTO " + GuestDao.TABLE_NAME
-				+ " (nome, cognome, telefono, indirizzo) VALUES (?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO " + OrdineDao.TABLE_NAME
+				+ " (data, codiceAdmin, codiceClienti, codiceGuests) VALUES (?, ?, ?, ?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, user.getNome());
-			preparedStatement.setString(2, user.getCognome());
-			preparedStatement.setString(3, user.getTelefono());
-			preparedStatement.setString(4, user.getIndirizzo());
+			//preparedStatement.set(1, product.getNome());
+			preparedStatement.setInt(2,admin.getCodice());
+			preparedStatement.setInt(3, user.getCodice());
+			preparedStatement.setInt(4, guest.getCodice());
 
 			preparedStatement.executeUpdate();
 
@@ -62,13 +61,13 @@ public class GuestDao implements BaseDao<GuestBean> {
 	}
 
 	@Override
-	public synchronized boolean doDelete(int code) throws SQLException {
+	public boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + GuestDao.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM " + OrdineDao.TABLE_NAME + " WHERE codiceOrdine = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
@@ -89,13 +88,13 @@ public class GuestDao implements BaseDao<GuestBean> {
 	}
 
 	@Override
-	public synchronized GuestBean doRetrieveByKey(int code) throws SQLException {
+	public OrdineBean doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		GuestBean bean = new GuestBean();
+		OrdineBean bean = new OrdineBean();
 
-		String selectSQL = "SELECT * FROM " + GuestDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + OrdineDao.TABLE_NAME + " WHERE codiceOrdine = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -105,11 +104,11 @@ public class GuestDao implements BaseDao<GuestBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceGuest"));
-				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setTelefono(rs.getString("telefono"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
+				bean.setCodice(rs.getInt("codiceOrdine"));
+				bean.setData(rs.getDate("data").toString());
+				bean.setCodAdmin(rs.getInt("codiceAdmin"));
+				bean.setCodCliente(rs.getInt("codiceClienti"));
+				bean.setCodGuest(rs.getInt("codiceGuests"));
 			}
 
 		} finally {
@@ -125,14 +124,13 @@ public class GuestDao implements BaseDao<GuestBean> {
 	}
 
 	@Override
-	public Collection<GuestBean> doRetrieveAll(String order) throws SQLException {
-		
+	public Collection<OrdineBean> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<GuestBean> products = new LinkedList<GuestBean>();
+		Collection<OrdineBean> products = new LinkedList<OrdineBean>();
 
-		String selectSQL = "SELECT * FROM " + GuestDao.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + OrdineDao.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -145,13 +143,13 @@ public class GuestDao implements BaseDao<GuestBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				GuestBean bean = new GuestBean();
+				OrdineBean bean = new OrdineBean();
 
-				bean.setCodice(rs.getInt("codiceGuest"));
-				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setTelefono(rs.getString("telefono"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
+				bean.setCodice(rs.getInt("codiceOrdine"));
+				bean.setData(rs.getDate("data").toString());
+				bean.setCodAdmin(rs.getInt("codiceAdmin"));
+				bean.setCodCliente(rs.getInt("codiceClienti"));
+				bean.setCodGuest(rs.getInt("codiceGuests"));
 				products.add(bean);
 			}
 
@@ -166,7 +164,11 @@ public class GuestDao implements BaseDao<GuestBean> {
 		}
 		return products;
 	}
-	
+
+	@Override
+	public void doSave(OrdineBean product) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
-

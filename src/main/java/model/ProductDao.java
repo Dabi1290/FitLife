@@ -1,4 +1,4 @@
-package database;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class AdminDao implements BaseDao<AdminBean> {
-	
+public class ProductDao implements BaseDao<ProductBean> {
 
 	private static DataSource ds;
 
@@ -29,22 +28,20 @@ public class AdminDao implements BaseDao<AdminBean> {
 		}
 	}
 
-	private static final String TABLE_NAME = "amministratore";
-
-	@Override
-	public synchronized void doSave(AdminBean admin) throws SQLException {
+	private static final String TABLE_NAME = "prodotti";
+	public synchronized void doSave(ProductBean product,AdminBean admin) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-
-		String insertSQL = "INSERT INTO " + AdminDao.TABLE_NAME
-				+ " (nome, email, password) VALUES (?, ?, ?)";
+		String insertSQL = "INSERT INTO " + ProductDao.TABLE_NAME
+				+ " (nome, categoria, prezzo, codiceAmministratore) VALUES (?, ?, ?, ?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, admin.getNome());
-			preparedStatement.setString(2, admin.getEmail());
-			preparedStatement.setString(3, admin.getPassword());
+			preparedStatement.setString(1, product.getNome());
+			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setDouble(3, product.getPrezzo());
+			preparedStatement.setInt(4, admin.getCodice());
 
 			preparedStatement.executeUpdate();
 
@@ -69,7 +66,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + AdminDao.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM " + ProductDao.TABLE_NAME + " WHERE CODE = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
@@ -90,13 +87,13 @@ public class AdminDao implements BaseDao<AdminBean> {
 	}
 
 	@Override
-	public synchronized AdminBean doRetrieveByKey(int code) throws SQLException {
+	public synchronized ProductBean doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		AdminBean bean = new AdminBean();
+		ProductBean bean = new ProductBean();
 
-		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE CODE = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -106,10 +103,11 @@ public class AdminDao implements BaseDao<AdminBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceAmministratore"));
+				bean.setCodice(rs.getInt("codiceProdotto"));
 				bean.setNome(rs.getString("nome"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setCategoria(rs.getString("categoria"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setAdmin(rs.getInt("codiceAmministratore"));
 			}
 
 		} finally {
@@ -125,14 +123,14 @@ public class AdminDao implements BaseDao<AdminBean> {
 	}
 
 	@Override
-	public synchronized Collection<AdminBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<AdminBean> products = new LinkedList<AdminBean>();
+		Collection<ProductBean> products = new LinkedList<ProductBean>();
 
-		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -145,12 +143,13 @@ public class AdminDao implements BaseDao<AdminBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				AdminBean bean = new AdminBean();
+				ProductBean bean = new ProductBean();
 
-				bean.setCodice(rs.getInt("codiceAmministratore"));
+				bean.setCodice(rs.getInt("codiceProdotto"));
 				bean.setNome(rs.getString("nome"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setCategoria(rs.getString("categoria"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setAdmin(rs.getInt("codiceAmministratore"));
 				products.add(bean);
 			}
 
@@ -164,6 +163,12 @@ public class AdminDao implements BaseDao<AdminBean> {
 			}
 		}
 		return products;
+	}
+
+	@Override
+	public void doSave(ProductBean product) throws SQLException {
+		
+		
 	}
 	
 

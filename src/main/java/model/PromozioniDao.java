@@ -1,20 +1,18 @@
-package database;
+package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.LinkedList;
-
-
-public class UserDao implements BaseDao<UserBean> {
+public class PromozioniDao implements BaseDao<PromozioniBean> {
 	private static DataSource ds;
 
 	static {
@@ -29,24 +27,20 @@ public class UserDao implements BaseDao<UserBean> {
 		}
 	}
 
-	private static final String TABLE_NAME = "clienti";
-	@Override
-	public synchronized void doSave(UserBean user) throws SQLException {
-		
+	private static final String TABLE_NAME = "Promozione";
+	
+	public void doSave(PromozioniBean product,AdminBean admin) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO " + UserDao.TABLE_NAME
-				+ " (nome, cognome, telefono, indirizzo, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO " + PromozioniDao.TABLE_NAME
+				+ " (codicePromozione, categoria, codiceAmministratore) VALUES (?, ?, ?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, user.getNome());
-			preparedStatement.setString(2, user.getCognome());
-			preparedStatement.setString(3, user.getTelefono());
-			preparedStatement.setString(4, user.getIndirizzo());
-			preparedStatement.setString(5, user.getEmail());
-			preparedStatement.setString(6, user.getPassword());
+			preparedStatement.setString(1, product.getCodice());
+			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setInt(3, admin.getCodice());
 
 			preparedStatement.executeUpdate();
 
@@ -61,17 +55,16 @@ public class UserDao implements BaseDao<UserBean> {
 					connection.close();
 			}
 		}
-		
 	}
 
 	@Override
-	public synchronized boolean doDelete(int code) throws SQLException {
+	public boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + UserDao.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM " + PromozioniDao.TABLE_NAME + " WHERE codicePromozione = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
@@ -92,13 +85,13 @@ public class UserDao implements BaseDao<UserBean> {
 	}
 
 	@Override
-	public synchronized UserBean doRetrieveByKey(int code) throws SQLException {
+	public PromozioniBean doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		UserBean bean = new UserBean();
+		PromozioniBean bean = new PromozioniBean();
 
-		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + PromozioniDao.TABLE_NAME + " WHERE codicePromozioni = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -108,13 +101,10 @@ public class UserDao implements BaseDao<UserBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceCliente"));
-				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setTelefono(rs.getString("telefono"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setCodice(rs.getString("codicePromozione"));
+				bean.setCategoria(rs.getString("categoria"));
+				bean.setCodiceAdmin(rs.getInt("codiceAdministrator"));
+
 			}
 
 		} finally {
@@ -130,14 +120,13 @@ public class UserDao implements BaseDao<UserBean> {
 	}
 
 	@Override
-	public Collection<UserBean> doRetrieveAll(String order) throws SQLException {
-		
+	public Collection<PromozioniBean> doRetrieveAll(String order) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<UserBean> products = new LinkedList<UserBean>();
+		Collection<PromozioniBean> products = new LinkedList<PromozioniBean>();
 
-		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + PromozioniDao.TABLE_NAME;
 
 		if (order != null && !order.equals("")) {
 			selectSQL += " ORDER BY " + order;
@@ -150,15 +139,11 @@ public class UserDao implements BaseDao<UserBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				UserBean bean = new UserBean();
+				PromozioniBean bean = new PromozioniBean();
 
-				bean.setCodice(rs.getInt("codiceCliente"));
-				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setTelefono(rs.getString("telefono"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setCodice(rs.getString("codicePromozione"));
+				bean.setCategoria(rs.getString("categoria"));
+				bean.setCodiceAdmin(rs.getInt("codiceAdministrator"));
 				products.add(bean);
 			}
 
@@ -173,6 +158,11 @@ public class UserDao implements BaseDao<UserBean> {
 		}
 		return products;
 	}
-	
+
+	@Override
+	public void doSave(PromozioniBean product) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
