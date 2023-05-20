@@ -128,7 +128,42 @@ public class UserDao implements BaseDao<UserBean> {
 		}
 		return bean;
 	}
+	public synchronized UserBean doRetrieveByEmail(String email) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 
+		UserBean bean = new UserBean();
+
+		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME + " WHERE email = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setCodice(rs.getInt("codiceCliente"));
+				bean.setNome(rs.getString("nome"));
+				bean.setCognome(rs.getString("cognome"));
+				bean.setTelefono(rs.getString("telefono"));
+				bean.setIndirizzo(rs.getString("indirizzo"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return bean;
+	}
 	@Override
 	public Collection<UserBean> doRetrieveAll(String order) throws SQLException {
 		

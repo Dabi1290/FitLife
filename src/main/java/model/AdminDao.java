@@ -96,12 +96,45 @@ public class AdminDao implements BaseDao<AdminBean> {
 
 		AdminBean bean = new AdminBean();
 
-		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME + " WHERE codiceAmministratore = ?";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, code);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				bean.setCodice(rs.getInt("codiceAmministratore"));
+				bean.setNome(rs.getString("nome"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPassword(rs.getString("password"));
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return bean;
+	}
+	public synchronized AdminBean doRetrieveByEmail(String email) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		AdminBean bean = new AdminBean();
+
+		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME + " WHERE email = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
