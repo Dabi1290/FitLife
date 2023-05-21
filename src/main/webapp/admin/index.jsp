@@ -11,10 +11,17 @@
     
   <%@ include file="/admin/header.jsp" %>
   
-  Admin
-  <form action="/FitLife/Logout" method="get">
-  <input type="submit" value="Logout">
+  Admin<br>
+  <form action="GestioneProdotti">
+  
+  <input type="submit" value="Prodotti">
   </form>
-  <%@ include file="/admin/footer.jsp" %>
+    <form action="GestionePromozioni">
+  
+  <input type="submit" value="Promozioni">
+  </form>
+  <a href="">Gestione Prodotti</a>
+  <a href="">Gestione Ordine</a>
+  <a href="">Gestione Offerte</a>	
   </body>
 </html>
