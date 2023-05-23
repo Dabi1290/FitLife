@@ -29,7 +29,8 @@ public class ProductDao implements BaseDao<ProductBean> {
 	}
 
 	private static final String TABLE_NAME = "prodotti";
-	public synchronized void doSave(ProductBean product,AdminBean admin) throws SQLException {
+	@Override
+	public synchronized void doSave(ProductBean product) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -41,10 +42,10 @@ public class ProductDao implements BaseDao<ProductBean> {
 			preparedStatement.setString(1, product.getNome());
 			preparedStatement.setString(2, product.getCategoria());
 			preparedStatement.setDouble(3, product.getPrezzo());
-			preparedStatement.setInt(4, admin.getCodice());
+			preparedStatement.setInt(4, product.getAdmin());
 
 			preparedStatement.executeUpdate();
-
+			connection.setAutoCommit(false); 
 			connection.commit();
 			
 		} finally {
@@ -58,7 +59,38 @@ public class ProductDao implements BaseDao<ProductBean> {
 		}
 		
 	}
+	public synchronized void doUpdate(ProductBean product) throws SQLException {
 
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+
+		String insertSQL = "UPDATE " + ProductDao.TABLE_NAME
+				+ " SET nome=?, categoria=?, prezzo=?, codiceAmministratore=? WHERE codiceProdotto= ?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, product.getNome());
+			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setDouble(3, product.getPrezzo());
+			preparedStatement.setInt(4, product.getAdmin());
+			preparedStatement.setInt(5,product.getCodice());
+
+			preparedStatement.executeUpdate();
+			connection.setAutoCommit(false); 
+			connection.commit();
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
 	@Override
 	public synchronized boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
@@ -66,7 +98,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + ProductDao.TABLE_NAME + " WHERE CODE = ?";
+		String deleteSQL = "DELETE FROM " + ProductDao.TABLE_NAME + " WHERE codiceProdotto = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
@@ -165,11 +197,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 		return products;
 	}
 
-	@Override
-	public void doSave(ProductBean product) throws SQLException {
-		
-		
-	}
+	
 	
 
 }

@@ -41,14 +41,25 @@ public class GestioneProdotti extends HttpServlet {
 		ProductDao dao = new ProductDao();
 		try {
 			product= (List<ProductBean>) dao.doRetrieveAll("");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		  request.getSession().setAttribute("prodotti", product);
+		if(product.isEmpty()) {
+			
+			request.setAttribute("void", true);
+			request.setAttribute("tipo",new ProductBean());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/gestione.jsp");
+			dispatcher.forward(request, response);
+		}
+		else {
+			request.setAttribute("void", false);
+			request.setAttribute("tipo",new ProductBean());
+		  request.setAttribute("prodotti", product);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/gestione.jsp");
 		dispatcher.forward(request, response);
-	}
+	}}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
