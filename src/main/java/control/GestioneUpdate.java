@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,20 +46,38 @@ public class GestioneUpdate extends HttpServlet {
 		String type=request.getParameter("tipo");
 		String operazione;
 		String riga;
+		List<String> errors = new ArrayList<>();
+		RequestDispatcher dispatcherToLoginPage ;
 		switch(type) {
 		case "ProductBean":
+			
 			operazione= request.getParameter("updateBtn");
 			riga=String.valueOf(Integer.parseInt(operazione.substring(1, operazione.length())));
 			ProductBean prodotto=new ProductBean();
 			ProductDao dao=new ProductDao();
+			dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestioneProdotti");
 			if(operazione.charAt(0)=='0') { // operazione di salvataggio
+				String codice=request.getParameter("codice"+riga);
+				String nome=request.getParameter("nome"+riga);
+				String categoria=request.getParameter("categoria"+riga);
+				String prezzo=request.getParameter("prezzo"+riga);
+				String admin=request.getParameter("Admin"+riga);
+				if(codice == null || codice.trim().isEmpty() || nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty() || admin == null || admin.trim().isEmpty()) {
+					errors.add("Non lasciare i campi vuoti!!!");
+					request.setAttribute("errors", errors);
+					dispatcherToLoginPage.forward(request, response);
+	            	return;
+				}
 				
-				prodotto.setCodice(Integer.parseInt(request.getParameter("codice"+riga)));
 				
-				prodotto.setNome(request.getParameter("nome"+riga));
-				prodotto.setCategoria(request.getParameter("categoria"+riga));
-				prodotto.setPrezzo(Double.parseDouble(request.getParameter("prezzo"+riga)));
-				prodotto.setAdmin(Integer.parseInt(request.getParameter("Admin"+riga)));
+				
+				
+				prodotto.setCodice(Integer.parseInt(codice));
+				prodotto.setNome(nome);
+				prodotto.setCategoria(categoria);
+				prodotto.setPrezzo(Double.parseDouble(prezzo));
+				prodotto.setAdmin(Integer.parseInt(admin));
+				
 				try {
 					dao.doUpdate(prodotto);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
@@ -69,7 +89,7 @@ public class GestioneUpdate extends HttpServlet {
 			}
 			else { //operazione di eliminazione
 				try {
-					System.out.println(riga);
+					
 					dao.doDelete(Integer.parseInt(riga));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
 					dispatcher.forward(request, response);
@@ -117,7 +137,7 @@ public class GestioneUpdate extends HttpServlet {
 			}
 			else { //operazione di eliminazione
 				try {
-					System.out.println(riga);
+					
 					daoOrdine.doDelete(Integer.parseInt(riga));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneOrdine");
 					dispatcher.forward(request, response);

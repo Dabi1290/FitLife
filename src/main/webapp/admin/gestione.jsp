@@ -29,7 +29,15 @@ th, td {
 <div style="padding-bottom:30px;">
 <%@ include file="/admin/header.jsp" %>
 </div>
-	
+<% 
+List<String> errors = (List<String>) request.getAttribute("errors");
+if (errors != null){
+	for (String error: errors){ %>
+		<%=error %> <br>		
+	<%
+	}
+}
+%>	
 	
 	
 	<table>
@@ -42,6 +50,7 @@ th, td {
 				int lowerbound; //0 mostra anche il codice 1 non lo mostra
 				int columns; 
 				int i=0;
+				String readonly="readonly";
 				String ordType=(String)request.getSession().getAttribute("ordType");
 				String btn1="Salva";
 				String btn2="Elimina";
@@ -63,7 +72,7 @@ th, td {
       	      	
       	      	else if(clazz.getSimpleName().equals("PromozioniBean")==true) lowerbound=0; // se si tratta di una promozione mostro il codice
       	      	
-            	else lowerbound=1; //altrimenti non lo mostro
+            	else {lowerbound=1;readonly="";} //altrimenti non lo mostro
             	
             	
             	 
@@ -118,7 +127,7 @@ th, td {
       %>
 					<td><input type="text"
 						name="<%=field.getName()+String.valueOf(m.invoke(elements))%>"
-						value="<%=value%>"></td>
+						value="<%=value%>" <%=readonly %>></td>
 					<%        
         					}catch (IllegalAccessException e) {
                 				e.printStackTrace();
@@ -147,7 +156,7 @@ th, td {
       
       
 				i=clazz.getDeclaredFields().length;
-				System.out.println(i);
+				
       %>
 				<th colspan="<%=i-lowerbound-1%>">Inserisci</th>
 			</tr>

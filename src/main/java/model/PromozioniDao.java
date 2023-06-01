@@ -114,19 +114,19 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		return (result != 0);
 	}
 
-	@Override
-	public PromozioniBean doRetrieveByKey(int code) throws SQLException {
+	
+	public PromozioniBean doRetrieveByKey(String code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		PromozioniBean bean = new PromozioniBean();
 
-		String selectSQL = "SELECT * FROM " + PromozioniDao.TABLE_NAME + " WHERE codicePromozioni = ?";
+		String selectSQL = "SELECT * FROM " + PromozioniDao.TABLE_NAME + " WHERE codicePromozione = ?";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, code);
+			preparedStatement.setString(1, code);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -194,6 +194,11 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 	public boolean doDelete(int code) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	@Override
+	public PromozioniBean doRetrieveByKey(int code) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

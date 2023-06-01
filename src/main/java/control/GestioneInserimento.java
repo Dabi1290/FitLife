@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,15 +45,48 @@ public class GestioneInserimento extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String type=request.getParameter("tipo");
+		List<String> errors = new ArrayList<>();
+		RequestDispatcher dispatcherToLoginPage ;
 		switch(type) {
 		case "ProductBean":
+			dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestioneProdotti");
 			ProductBean prodotto=new ProductBean();
 			ProductDao dao=new ProductDao();
+			String nome=request.getParameter("nome");
+			String categoria=request.getParameter("categoria");
+			String prezzo=request.getParameter("prezzo");
+			String admin=request.getParameter("Admin");
+			Double newp;
+			int newa;
+			if(nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty() || admin == null || admin.trim().isEmpty()) {
+				errors.add("Non puoi inserire campi vuoti!!!");
+				request.setAttribute("errors", errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			}
 			
-				prodotto.setNome(request.getParameter("nome"));
-				prodotto.setCategoria(request.getParameter("categoria"));
-				prodotto.setPrezzo(Double.parseDouble(request.getParameter("prezzo")));
-				prodotto.setAdmin(Integer.parseInt(request.getParameter("Admin")));
+			try {
+				newp=Double.parseDouble(prezzo);
+			} catch (NumberFormatException e1) {
+				errors.add("Prezzo Errato!!!");
+				request.setAttribute("errors", errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			}
+			
+			try {
+				newa=Integer.parseInt(admin);
+			} catch (NumberFormatException e1) {
+				errors.add("Inserisci admin corretto!!!");
+				request.setAttribute("errors", errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			}
+			
+				prodotto.setNome(nome);
+				prodotto.setCategoria(categoria);
+				prodotto.setPrezzo(newp);
+				prodotto.setAdmin(newa);
 				try {
 					dao.doSave(prodotto);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
@@ -64,12 +99,43 @@ public class GestioneInserimento extends HttpServlet {
 			
 			break;
 		case "PromozioniBean":
+			dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestionePromozioni");
 			PromozioniBean promoz=new PromozioniBean();
 			PromozioniDao daopromoz=new PromozioniDao();
-			
-				promoz.setCodice(request.getParameter("codice"));
-				promoz.setCategoria(request.getParameter("categoria"));
-				promoz.setCodiceAdmin(Integer.parseInt(request.getParameter("codiceAdmin"))); 
+			String codice=request.getParameter("codice");
+			String cat=request.getParameter("categoria");
+			String adm=request.getParameter("codiceAdmin");
+			int newadm;
+			if(codice == null || codice.trim().isEmpty() || cat == null || cat.trim().isEmpty() || adm == null || adm.trim().isEmpty()) {
+				errors.add("Non puoi inserire campi vuoti!!!");
+				request.setAttribute("errors", errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			}
+			try {
+				newadm=Integer.parseInt(adm);
+			} catch (NumberFormatException e1) {
+				errors.add("Inserisci admin corretto!!!");
+				request.setAttribute("errors", errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			}
+			try {
+				promoz=daopromoz.doRetrieveByKey(codice);
+				if(promoz.getCodice().isEmpty()==false) {
+					errors.add("Promozione già esistente!!!");
+					request.setAttribute("errors", errors);
+					dispatcherToLoginPage.forward(request, response);
+	            	return;
+				}
+				
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+				promoz.setCodice(codice);
+				promoz.setCategoria(cat);
+				promoz.setCodiceAdmin(newadm); 
 				try {
 					daopromoz.doSave(promoz);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
