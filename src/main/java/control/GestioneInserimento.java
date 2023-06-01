@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.ProductBean;
 import model.ProductDao;
+import model.PromozioniBean;
+import model.PromozioniDao;
 
 /**
  * Servlet implementation class GestioneInserimento
@@ -62,9 +64,22 @@ public class GestioneInserimento extends HttpServlet {
 			
 			break;
 		case "PromozioniBean":
+			PromozioniBean promoz=new PromozioniBean();
+			PromozioniDao daopromoz=new PromozioniDao();
+			
+				promoz.setCodice(request.getParameter("codice"));
+				promoz.setCategoria(request.getParameter("categoria"));
+				promoz.setCodiceAdmin(Integer.parseInt(request.getParameter("codiceAdmin"))); 
+				try {
+					daopromoz.doSave(promoz);
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
+					dispatcher.forward(request, response);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			break;
-		case "OrdineBean":
-			break;
+		
 		}
 	}
 

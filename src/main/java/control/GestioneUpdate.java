@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.OrdineBean;
+import model.OrdineDao;
 import model.ProductBean;
 import model.ProductDao;
+import model.PromozioniBean;
+import model.PromozioniDao;
 
 /**
  * Servlet implementation class GestioneUpdate
@@ -32,11 +36,18 @@ public class GestioneUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String type=request.getParameter("tipo");
+		String operazione;
+		String riga;
 		switch(type) {
 		case "ProductBean":
-			String operazione= request.getParameter("updateBtn");
-			String riga=String.valueOf(Integer.parseInt(operazione.substring(1, operazione.length())));
+			operazione= request.getParameter("updateBtn");
+			riga=String.valueOf(Integer.parseInt(operazione.substring(1, operazione.length())));
 			ProductBean prodotto=new ProductBean();
 			ProductDao dao=new ProductDao();
 			if(operazione.charAt(0)=='0') { // operazione di salvataggio
@@ -68,19 +79,55 @@ public class GestioneUpdate extends HttpServlet {
 				}
 			}
 			break;
-		case "PromozioniBean":
+		case "PromozioniBean": //posso Solo eliminarle
+			operazione= request.getParameter("updateBtn");
+			riga=operazione.substring(1, operazione.length());
+			
+			PromozioniDao daopromoz=new PromozioniDao();
+			
+				try {
+					
+					daopromoz.doDelete(riga);
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
+					dispatcher.forward(request, response);
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+			
 			break;
 		case "OrdineBean":
+			operazione= request.getParameter("updateBtn");
+			riga=String.valueOf(Integer.parseInt(operazione.substring(1, operazione.length())));
+			OrdineBean ordine=new OrdineBean();
+			OrdineDao daoOrdine=new OrdineDao();
+			if(operazione.charAt(0)=='0') { // operazione di salvataggio
+				
+				int codice=Integer.parseInt(request.getParameter("codice"+riga));
+				
+			
+				try {
+					daoOrdine.doUpdate(codice);
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneOrdine");
+					dispatcher.forward(request, response);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else { //operazione di eliminazione
+				try {
+					System.out.println(riga);
+					daoOrdine.doDelete(Integer.parseInt(riga));
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneOrdine");
+					dispatcher.forward(request, response);
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+			}
 			break;
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

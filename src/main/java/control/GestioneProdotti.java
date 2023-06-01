@@ -36,7 +36,10 @@ public class GestioneProdotti extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doPost(request,response);
+		}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<ProductBean> product= new ArrayList<>();
 		ProductDao dao = new ProductDao();
 		try {
@@ -59,14 +62,7 @@ public class GestioneProdotti extends HttpServlet {
 		  request.setAttribute("prodotti", product);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/gestione.jsp");
 		dispatcher.forward(request, response);
-	}}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	}
 	}
 
 }

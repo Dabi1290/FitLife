@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class OrdineBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	int codice;
+	Boolean isProcessed;
 	String data;
 	int codAdmin;
 	int codCliente;
@@ -15,6 +16,13 @@ public class OrdineBean implements Serializable{
 		this.codAdmin=-1;
 		this.codCliente=-1;
 		this.codGuest=-1;
+		this.isProcessed=false;
+	}
+	public Boolean getIsProcessed() {
+		return isProcessed;
+	}
+	public void setIsProcessed(Boolean isProcessed) {
+		this.isProcessed = isProcessed;
 	}
 	public int getCodice() {
 		return codice;
