@@ -10,6 +10,13 @@
 <head>
 <title>Gestione</title>
 <style>
+.container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-right: 20px;
+    }
+
 table {
 	border-collapse: collapse;
 	position: absolute;
@@ -22,6 +29,22 @@ th, td {
 	padding: 8px;
 }
 </style>
+<script>
+    function handleRadioChange() {
+      var option1Radio = document.getElementById('option1');
+      var option2Radio = document.getElementById('option2');
+      var text = document.getElementById('text');
+
+      if (option1Radio.checked) {
+    	  var data = { predicate: "date" };
+    	  window.location.href = "GestioneOrdine?predicate=data&testo="+text.value;
+    	  
+      } else if (option2Radio.checked) {
+    	  var data = { predicate: "client" };
+    	  window.location.href = "GestioneOrdine?predicate=cliente&testo="+text.value;
+      }
+    }
+  </script>
 </head>
 <body>
 
@@ -38,7 +61,25 @@ if (errors != null){
 	}
 }
 %>	
-	
+	<div class="container">
+    <span>
+    <input type="radio" name="option" value="option1" id="option1" onchange="handleRadioChange()">
+    <label for="option1">Option 1</label>
+    
+    </span>
+    <br>
+    <span>
+    <input type="radio" name="option" value="option2" id="option2" onchange="handleRadioChange()">
+    <label for="option2">Option 2</label>
+    
+    </span>
+    <br>
+    
+    <span>
+    <label for="text">Enter text:</label>
+    <input type="text" id="text" name="text">
+    </span>
+  </div>
 	
 	<table>
 		<thead>

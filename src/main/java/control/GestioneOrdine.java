@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,6 +48,25 @@ public class GestioneOrdine extends HttpServlet {
 		OrdineDao dao = new OrdineDao();
 		String ordtypeReq=(String) request.getParameter("OrdType");
 		String ordtypeSes=(String) request.getSession().getAttribute("ordType");
+		String predicate=(String) request.getParameter("predicate");
+		String text=(String) request.getParameter("testo");
+		Predicate<OrdineBean> filter;
+		if(predicate==null || text==null || text.trim().isEmpty()) {
+			System.out.println("dasdsa");
+			filter = order -> true;
+		}
+		else {
+			if(predicate.equals("data")) {
+				
+				filter = order -> order.getData().equals(text);
+			}
+			else if (predicate.equals("cliente")) {
+				filter = order -> String.valueOf(order.getCodCliente()).equals(text);
+			}
+			else {
+				filter = order -> true;
+			}
+		}
 		
 		try {
 			product= (List<OrdineBean>) dao.doRetrieveAll("");
@@ -63,19 +83,19 @@ public class GestioneOrdine extends HttpServlet {
 			if(ordtypeReq.equals("1")==true){
 				
 				request.getSession().setAttribute("ordType", "1");
-				product=product.stream().filter(a->a.getIsProcessed()==false).toList();
+				product=product.stream().filter(a->a.getIsProcessed()==false).filter(filter).toList();
 			}
-			else {product=product.stream().filter(a->a.getIsProcessed()==true).toList();
+			else {product=product.stream().filter(a->a.getIsProcessed()==true).filter(filter).toList();
 			request.getSession().setAttribute("ordType", "0");
 			
 			}
 		}
 		else {
 			if(ordtypeSes.equals("1")==true){
-				product=product.stream().filter(a->a.getIsProcessed()==false).toList();
+				product=product.stream().filter(a->a.getIsProcessed()==false).filter(filter).toList();
 				
 			}
-			else { product=product.stream().filter(a->a.getIsProcessed()==true).toList();
+			else { product=product.stream().filter(a->a.getIsProcessed()==true).filter(filter).toList();
 			
 			}
 		}
