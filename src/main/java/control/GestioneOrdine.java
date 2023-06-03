@@ -1,8 +1,12 @@
 package control;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -50,15 +54,33 @@ public class GestioneOrdine extends HttpServlet {
 		String ordtypeSes=(String) request.getSession().getAttribute("ordType");
 		String predicate=(String) request.getParameter("predicate");
 		String text=(String) request.getParameter("testo");
+		String text1=(String) request.getParameter("testo1");
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date1;
+		Date date2;
+		
 		Predicate<OrdineBean> filter;
-		if(predicate==null || text==null || text.trim().isEmpty()) {
-			System.out.println("dasdsa");
+		if(predicate==null || text==null || text.trim().isEmpty() || text1==null || text.trim().isEmpty()) {
+			
 			filter = order -> true;
 		}
 		else {
 			if(predicate.equals("data")) {
-				
-				filter = order -> order.getData().equals(text);
+				 try {
+					date1 = dateformat.parse(text);
+					date2 = dateformat.parse(text1);
+					filter = order -> {
+						try {
+							return dateformat.parse(order.getData()).compareTo(date1)>=0 && dateformat.parse(order.getData()).compareTo(date2)<=0;
+						} catch (ParseException e) {
+							return false;
+						}
+						
+					};
+				} catch (ParseException e) {
+					filter = order -> true;
+				}
+				 
 			}
 			else if (predicate.equals("cliente")) {
 				filter = order -> String.valueOf(order.getCodCliente()).equals(text);

@@ -10,6 +10,12 @@
 <head>
 <title>Gestione</title>
 <style>
+#cliente{
+display:none;
+}
+#data{
+display:none;
+}
 .container {
       display: flex;
       flex-direction: column;
@@ -34,16 +40,36 @@ th, td {
       var option1Radio = document.getElementById('option1');
       var option2Radio = document.getElementById('option2');
       var text = document.getElementById('text');
+      var text1 = document.getElementById('text1');
+      var text2 = document.getElementById('text2');
 
       if (option1Radio.checked) {
     	  var data = { predicate: "date" };
-    	  window.location.href = "GestioneOrdine?predicate=data&testo="+text.value;
+    	  window.location.href = "GestioneOrdine?predicate=data&testo="+text1.value+"&testo1="+text2.value;
     	  
       } else if (option2Radio.checked) {
     	  var data = { predicate: "client" };
     	  window.location.href = "GestioneOrdine?predicate=cliente&testo="+text.value;
       }
     }
+    
+    function mostra(){
+    	var option1Radio = document.getElementById('option1');
+        var option2Radio = document.getElementById('option2');
+        var heading = document.getElementById('data');
+        var heading2 = document.getElementById('cliente');
+    	 if (option1Radio.checked) {
+
+    		 heading2.style.display = 'none';
+    		 heading.style.display = 'block';
+       	  
+         } else if (option2Radio.checked) {
+        	 heading.style.display = 'none';
+        	 heading2.style.display = 'block';
+    		 
+         }
+    }
+    
   </script>
 </head>
 <body>
@@ -63,23 +89,25 @@ if (errors != null){
 %>	
 	<div class="container">
     <span>
-    <input type="radio" name="option" value="option1" id="option1" onchange="handleRadioChange()">
-    <label for="option1">Option 1</label>
-    
+    <input type="radio" name="option"  id="option1" onchange="mostra()">
+    <label for="option1">Data</label>
     </span>
     <br>
     <span>
-    <input type="radio" name="option" value="option2" id="option2" onchange="handleRadioChange()">
-    <label for="option2">Option 2</label>
-    
+    <input type="radio" name="option"  id="option2" onchange="mostra()">
+    <label for="option2">Cliente</label>
     </span>
     <br>
-    
-    <span>
-    <label for="text">Enter text:</label>
+    <span id="cliente">
     <input type="text" id="text" name="text">
+    <button onclick="handleRadioChange()">Filtra</button>
     </span>
-  </div>
+    <span id="data">
+    da: <input type="date" id="text1" name="text">
+    a: <input type="date" id="text2" name="text">
+    <button onclick="handleRadioChange()">Filtra</button>
+    </span>
+  	</div>
 	
 	<table>
 		<thead>
