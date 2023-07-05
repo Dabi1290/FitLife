@@ -16,7 +16,7 @@ display:none;
 #data{
 display:none;
 }
-.container {
+#container {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -36,6 +36,16 @@ th, td {
 }
 </style>
 <script>
+
+
+
+
+	
+	function Filtering(){
+	var element = document.getElementById('container');
+	element.style.display='none';
+	}
+	
     function handleRadioChange() {
       var option1Radio = document.getElementById('option1');
       var option2Radio = document.getElementById('option2');
@@ -87,7 +97,7 @@ if (errors != null){
 	}
 }
 %>	
-	<div class="container">
+	<div id="container">
     <span>
     <input type="radio" name="option"  id="option1" onchange="mostra()">
     <label for="option1">Data</label>
@@ -139,9 +149,27 @@ if (errors != null){
       	      	
       	      	} 
       	      	
-      	      	else if(clazz.getSimpleName().equals("PromozioniBean")==true) lowerbound=0; // se si tratta di una promozione mostro il codice
+      	      	else if(clazz.getSimpleName().equals("PromozioniBean")==true) {lowerbound=0;
       	      	
-            	else {lowerbound=1;readonly="";} //altrimenti non lo mostro
+      	      	
+      	      %>
+    	      	
+    	      	<script>Filtering();</script>
+    	      	<%
+      	      	
+      	      	
+      	      	
+      	      	
+      	      	} // se si tratta di una promozione mostro il codice
+      	      	
+            	else {lowerbound=1;readonly="";
+            	
+            	 %>
+     	      	
+     	      	<script>Filtering();</script>
+     	      	<%
+            	
+            	} //altrimenti non lo mostro
             	
             	
             	 
@@ -156,7 +184,7 @@ if (errors != null){
         				field.setAccessible(true);
         	
         		
-      %>
+      			%>
 				<th><%=field.getName() %></th>
 				<%
         			}	
