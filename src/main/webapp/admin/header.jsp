@@ -4,13 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="../CSS/header.css" rel="stylesheet">
 </head>
 <body>
- <span>
-    
+<div class="principale">
     <a href="">Home</a>
-    <label>Cerca</label>
+    <div class="ricerca">
     <input type="text" name="cerca" placeholder="Proteine">
+    <input type="button" name="cercaButton" value="Cerca"> 
+    </div>
     <%
     Boolean isLogged=true; //Controllo per verificare se l'utente è registrato, dovrà essere rimpiazzato!!
     if(!isLogged){ %>
@@ -20,6 +22,6 @@
     <a href="">Account</a>
     <%} %>
     <a href="">Carrello</a>
-   </span>
+</div>
 </body>
 </html>
