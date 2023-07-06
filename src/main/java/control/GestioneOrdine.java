@@ -125,9 +125,8 @@ public class GestioneOrdine extends HttpServlet {
 		
 		if(product.isEmpty()) {
 			
-			request.setAttribute("void", true);
-			request.setAttribute("tipo",new OrdineBean());
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/gestione.jsp");
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");
 			dispatcher.forward(request, response);
 		}
 		else {
