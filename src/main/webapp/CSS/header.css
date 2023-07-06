@@ -1,0 +1,15 @@
+@charset "ISO-8859-1";
+
+li{
+	list-style-type: none;
+}
+
+.principale{
+	margin: 0px 0px 0px 0px;
+	background-color: #4eb8dd;
+}
+
+.ricerca{
+	border: 10px, 10px, 10px, 10px;
+	float:right;
+}
