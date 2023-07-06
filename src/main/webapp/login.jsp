@@ -5,8 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Pagina di Login</title>
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
-  <link rel="stylesheet" href="./CSS/login.css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet"><link rel="stylesheet" href="./CSS/login.css">
+
 
 </head>
 <body>
