@@ -59,7 +59,28 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 		}
 		
 	}
+	public void doUpdate(int code) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;	
 
+		String insertSQL = "UPDATE "+ OrdineDao.TABLE_NAME+ " SET isProcessed = true"+ " WHERE codiceOrdine=?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setInt(1, code);
+			connection.setAutoCommit(false);
+			preparedStatement.executeUpdate();
+			connection.commit();
+		} 
+		finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}}
+	}
 	@Override
 	public boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
@@ -105,6 +126,8 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 
 			while (rs.next()) {
 				bean.setCodice(rs.getInt("codiceOrdine"));
+				bean.setIsProcessed(rs.getBoolean("isProcessed"));
+				
 				bean.setData(rs.getDate("data").toString());
 				bean.setCodAdmin(rs.getInt("codiceAdmin"));
 				bean.setCodCliente(rs.getInt("codiceClienti"));
@@ -146,6 +169,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 				OrdineBean bean = new OrdineBean();
 
 				bean.setCodice(rs.getInt("codiceOrdine"));
+				bean.setIsProcessed(rs.getBoolean("isProcessed"));
 				bean.setData(rs.getDate("data").toString());
 				bean.setCodAdmin(rs.getInt("codiceAdmin"));
 				bean.setCodCliente(rs.getInt("codiceClienti"));
@@ -164,7 +188,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 		}
 		return products;
 	}
-
+	
 	@Override
 	public void doSave(OrdineBean product) throws SQLException {
 		// TODO Auto-generated method stub

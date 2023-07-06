@@ -28,22 +28,22 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 	}
 
 	private static final String TABLE_NAME = "Promozione";
-	
-	public void doSave(PromozioniBean product,AdminBean admin) throws SQLException {
+	@Override
+	public void doSave(PromozioniBean product) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + PromozioniDao.TABLE_NAME
-				+ " (codicePromozione, categoria, codiceAmministratore) VALUES (?, ?, ?)";
+				+ " (codicePromozione, categoria, codiceAdministrator) VALUES (?, ?, ?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getCodice());
 			preparedStatement.setString(2, product.getCategoria());
-			preparedStatement.setInt(3, admin.getCodice());
+			preparedStatement.setInt(3, product.getCodiceAdmin());
 
 			preparedStatement.executeUpdate();
-
+			connection.setAutoCommit(false); 
 			connection.commit();
 			
 		} finally {
@@ -56,9 +56,39 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 			}
 		}
 	}
+	public synchronized void doUpdate(PromozioniBean product,String oldCode) throws SQLException {
 
-	@Override
-	public boolean doDelete(int code) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+
+		String insertSQL = "UPDATE " + PromozioniDao.TABLE_NAME
+				+ " SET codicePromozione=?, categoria=?, codiceAdministrator=? WHERE codicePromozione= ?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, product.getCodice());
+			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setInt(3, product.getCodiceAdmin());
+			preparedStatement.setString(4,oldCode);
+
+			preparedStatement.executeUpdate();
+			connection.setAutoCommit(false); 
+			connection.commit();
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
+	
+	public boolean doDelete(String code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -68,7 +98,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, code);
+			preparedStatement.setString(1, code);
 
 			result = preparedStatement.executeUpdate();
 
@@ -84,19 +114,19 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		return (result != 0);
 	}
 
-	@Override
-	public PromozioniBean doRetrieveByKey(int code) throws SQLException {
+	
+	public PromozioniBean doRetrieveByKey(String code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		PromozioniBean bean = new PromozioniBean();
 
-		String selectSQL = "SELECT * FROM " + PromozioniDao.TABLE_NAME + " WHERE codicePromozioni = ?";
+		String selectSQL = "SELECT * FROM " + PromozioniDao.TABLE_NAME + " WHERE codicePromozione = ?";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, code);
+			preparedStatement.setString(1, code);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
@@ -159,10 +189,16 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		return products;
 	}
 
+	
 	@Override
-	public void doSave(PromozioniBean product) throws SQLException {
+	public boolean doDelete(int code) throws SQLException {
 		// TODO Auto-generated method stub
-		
+		return false;
+	}
+	@Override
+	public PromozioniBean doRetrieveByKey(int code) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

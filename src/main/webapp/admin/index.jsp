@@ -1,6 +1,11 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="javax.servlet.http.HttpSession" %>
+    
+    <%
+ %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,16 +17,9 @@
   <%@ include file="/admin/header.jsp" %>
   
   Admin<br>
-  <form action="GestioneProdotti">
   
-  <input type="submit" value="Prodotti">
-  </form>
-    <form action="GestionePromozioni">
   
-  <input type="submit" value="Promozioni">
-  </form>
-  <a href="">Gestione Prodotti</a>
-  <a href="">Gestione Ordine</a>
-  <a href="">Gestione Offerte</a>	
+  
   </body>
+   
 </html>

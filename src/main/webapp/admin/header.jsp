@@ -4,24 +4,43 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="../CSS/header.css" rel="stylesheet">
+
+
+<style>
+        .form-inline {
+            display: inline-block;
+            
+        }
+        .forms{
+        display: flex;
+  		gap: 15%;
+        }
+    </style>
 </head>
 <body>
-<div class="principale">
-    <a href="">Home</a>
-    <div class="ricerca">
-    <input type="text" name="cerca" placeholder="Proteine">
-    <input type="button" name="cercaButton" value="Cerca"> 
-    </div>
-    <%
-    Boolean isLogged=true; //Controllo per verificare se l'utente è registrato, dovrà essere rimpiazzato!!
-    if(!isLogged){ %>
-    <a href="">Login</a>
-    <a href="">Register</a>
-    <%}if(isLogged){%>
-    <a href="">Account</a>
-    <%} %>
-    <a href="">Carrello</a>
-</div>
+	<div class="forms">
+    <form class="form-inline" action="GestioneProdotti" method="post">
+        <input type="submit" value="Prodotti">
+    </form>
+
+    <form class="form-inline" action="GestioneOrdine" method="post">
+        <input type="hidden" value="1" name="OrdType">
+        <input type="submit" value="Ordini">
+    </form>
+
+    <form class="form-inline" action="GestionePromozioni" method="post">
+        <input type="submit" value="Promozioni">
+    </form>
+
+    <form class="form-inline" action="GestioneOrdine" method="post">
+        <input type="hidden" value="0" name="OrdType">
+        <input type="submit" value="Storico">
+    </form>
+
+    <form class="form-inline" action="/FitLife/Logout" method="get">
+        <input type="submit" value="Logout">
+    </form>
+  </div>
+
 </body>
 </html>
