@@ -26,7 +26,7 @@ display:none;
 table {
 	border-collapse: collapse;
 	position: absolute;
-  	top: 30%;
+  	
   	
 }
 
@@ -86,7 +86,7 @@ th, td {
 
 
 <div style="padding-bottom:30px;">
-<%@ include file="/admin/header.jsp" %>
+<%@ include file="/admin/header.html" %>
 </div>
 <% 
 List<String> errors = (List<String>) request.getAttribute("errors");

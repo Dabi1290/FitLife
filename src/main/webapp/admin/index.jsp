@@ -14,7 +14,7 @@
 </head>
 <body>
     
-  <%@ include file="/admin/header.jsp" %>
+  <%@ include file="/admin/header.html" %>
   
   Admin<br>
   
