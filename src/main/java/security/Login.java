@@ -81,7 +81,7 @@ public class Login extends HttpServlet {
 		            	return;
 					}
 				} catch (SQLException e) {
-					//error pages
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 				
 			} 

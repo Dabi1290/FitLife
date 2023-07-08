@@ -28,7 +28,7 @@ function getCoord(e) {
 	var pFromC = Math.round((caretPos / screenCenter) * 100) / 100;
 	if(pFromC > 1) {
 		pFromC -= 2;
-		pFromC = Math.abs(pFromC);
+		
 	}
 
 	eyeDistH = -dFromC * .05;

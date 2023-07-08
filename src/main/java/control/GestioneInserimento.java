@@ -22,9 +22,6 @@ import model.ProductDao;
 import model.PromozioniBean;
 import model.PromozioniDao;
 
-/**
- * Servlet implementation class GestioneInserimento
- */
 @WebServlet("/admin/Insert")
 @MultipartConfig(
 	    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -35,25 +32,18 @@ public class GestioneInserimento extends HttpServlet {
 	private static final String IMAGE_ERROR = "Manca L'immagine!!";
 	private static final String ERROR="errors";
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public GestioneInserimento() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String type=request.getParameter("tipo");
@@ -147,7 +137,7 @@ public class GestioneInserimento extends HttpServlet {
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			
@@ -192,7 +182,7 @@ public class GestioneInserimento extends HttpServlet {
 				}
 				
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
 			
@@ -220,7 +210,7 @@ public class GestioneInserimento extends HttpServlet {
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			break;

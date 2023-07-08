@@ -25,9 +25,6 @@ import model.ProductDao;
 import model.PromozioniBean;
 import model.PromozioniDao;
 
-/**
- * Servlet implementation class GestioneUpdate
- */
 @WebServlet("/admin/GestioneUpdate")
 @MultipartConfig(
 	    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -37,18 +34,13 @@ import model.PromozioniDao;
 public class GestioneUpdate extends HttpServlet {
 	private static final String UPDT_BTN="updateBtn";
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+     
     public GestioneUpdate() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
@@ -119,7 +111,7 @@ public class GestioneUpdate extends HttpServlet {
 					
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}
@@ -169,7 +161,7 @@ public class GestioneUpdate extends HttpServlet {
 					
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}

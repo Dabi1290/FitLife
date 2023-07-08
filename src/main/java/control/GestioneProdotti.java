@@ -17,24 +17,16 @@ import model.ProductBean;
 import model.ProductDao;
 
 
-/**
- * Servlet implementation class GestioneClienti
- */
 @WebServlet("/admin/GestioneProdotti")
 public class GestioneProdotti extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+      
     public GestioneProdotti() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 		}
@@ -46,7 +38,7 @@ public class GestioneProdotti extends HttpServlet {
 			product= (List<ProductBean>) dao.doRetrieveAll();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		if(product.isEmpty()) {
