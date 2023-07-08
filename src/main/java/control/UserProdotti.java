@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.ProductBean;
 import model.ProductDao;
 
-@WebServlet("/UserProdotti")
+@WebServlet("/Prodotti")
 public class UserProdotti extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -41,13 +41,13 @@ public class UserProdotti extends HttpServlet {
 		}
 		if(product.isEmpty()) {
 			
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/products.jsp");
 			dispatcher.forward(request, response);
 		}
 		else {
 			
-		  request.setAttribute("prodotti", product);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/gestione.jsp");
+		 request.setAttribute("prodotti", product);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/products.jsp");
 		dispatcher.forward(request, response);
 	}
 	}
