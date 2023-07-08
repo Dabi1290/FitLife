@@ -156,3 +156,49 @@ body {
 /*--------------------------------------------------------------------- Fine Header ---------------------------------------------------------------------*/
 
 
+.boxes{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	margin: 0% 5%;
+	margin-top:5%;
+}
+
+
+.box{
+	height:300px;
+	width:280px;
+	padding:1%;
+	border-color:black;
+	border:solid;
+	margin-bottom:5%;
+	margin-right:5px;
+	display:flex;
+	flex-direction: column;
+}
+
+.box-image {
+	display:flex;
+	width:100%;
+	height:70%;
+	margin-bottom: 10%;
+	justify-content: center;
+	
+}
+.box-image img{
+	max-width:100%;
+	max-height:100%;
+}
+.box-text{
+	display:block;
+	
+}
+.STitle{
+	display: flex;
+    justify-content: center;
+    height: 100px;
+    align-items: center;
+    font-size: 300%;
+    margin-top: 5%;
+}
+

@@ -4,35 +4,44 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Arrays"%>
 <%@ page import="java.lang.reflect.*"%>
+<%@ page import="java.sql.Blob"%>
+<%@ page import="java.io.InputStream"%>
+<%@ page import="java.sql.SQLException"%>
+<%@ page import="java.util.Base64" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>Gestione</title>
 <style>
-#cliente{
-display:none;
+#cliente {
+	display: none;
 }
-#data{
-display:none;
+
+#data {
+	display: none;
 }
+
 #container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      margin-right: 20px;
-    }
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-right: 20px;
+}
 
 table {
 	border-collapse: collapse;
 	position: absolute;
-  	
-  	
 }
 
 th, td {
 	border: 1px solid black;
 	padding: 8px;
+}
+td img{
+	width:64px;
+	height:64px;
 }
 </style>
 <script>
@@ -85,40 +94,33 @@ th, td {
 <body>
 
 
-<div style="padding-bottom:30px;">
-<%@ include file="/admin/header.html" %>
-</div>
-<% 
+	<div style="padding-bottom: 30px;">
+		<%@ include file="/admin/header.html"%>
+	</div>
+	<% 
 List<String> errors = (List<String>) request.getAttribute("errors");
 if (errors != null){
 	for (String error: errors){ %>
-		<%=error %> <br>		
+	<%=error %>
+	<br>
 	<%
 	}
 }
-%>	
+%>
 	<div id="container">
-    <span>
-    <input type="radio" name="option"  id="option1" onchange="mostra()">
-    <label for="option1">Data</label>
-    </span>
-    <br>
-    <span>
-    <input type="radio" name="option"  id="option2" onchange="mostra()">
-    <label for="option2">Cliente</label>
-    </span>
-    <br>
-    <span id="cliente">
-    <input type="text" id="text" name="text">
-    <button onclick="handleRadioChange()">Filtra</button>
-    </span>
-    <span id="data">
-    da: <input type="date" id="text1" name="text">
-    a: <input type="date" id="text2" name="text">
-    <button onclick="handleRadioChange()">Filtra</button>
-    </span>
-  	</div>
-	
+		<span> <input type="radio" name="option" id="option1"
+			onchange="mostra()"> <label for="option1">Data</label>
+		</span> <br> <span> <input type="radio" name="option"
+			id="option2" onchange="mostra()"> <label for="option2">Cliente</label>
+		</span> <br> <span id="cliente"> <input type="text" id="text"
+			name="text">
+			<button onclick="handleRadioChange()">Filtra</button>
+		</span> <span id="data"> da: <input type="date" id="text1" name="text">
+			a: <input type="date" id="text2" name="text">
+			<button onclick="handleRadioChange()">Filtra</button>
+		</span>
+	</div>
+
 	<table>
 		<thead>
 			<tr>
@@ -153,9 +155,9 @@ if (errors != null){
       	      	
       	      	
       	      %>
-    	      	
-    	      	<script>Filtering();</script>
-    	      	<%
+
+				<script>Filtering();</script>
+				<%
       	      	
       	      	
       	      	
@@ -165,9 +167,9 @@ if (errors != null){
             	else {lowerbound=1;readonly="";
             	
             	 %>
-     	      	
-     	      	<script>Filtering();</script>
-     	      	<%
+
+				<script>Filtering();</script>
+				<%
             	
             	} //altrimenti non lo mostro
             	
@@ -182,7 +184,11 @@ if (errors != null){
         		for (Field field : clazz1.getDeclaredFields()) { //Stampa gli header finisce a riga 76
         			if(i>lowerbound){
         				field.setAccessible(true);
-        	
+        				if(field.getName().equals("Immagine")){
+        					%>
+        					<th><%=field.getName() %></th>
+        					<%
+        				}
         		
       			%>
 				<th><%=field.getName() %></th>
@@ -193,16 +199,16 @@ if (errors != null){
       %>
 			</tr>
 		</thead>
-		
-		
-		
+
+
+
 		<tbody>
 			<%
     			int j=1;
         		for (Object elements:a) {  // stampa gli elementi dell'array a nella tabella finisce a riga 131
       %>
 			<tr>
-				<form action="GestioneUpdate" method="post">
+				<form action="GestioneUpdate" method="post" enctype="multipart/form-data">
 					<%
         			i=0;
         			clazz = elements.getClass();
@@ -221,11 +227,35 @@ if (errors != null){
         					field.setAccessible(true);
         					try {
                					Object value = field.get(elements);
-      %>
+     							if(field.getName().equals("Immagine")){
+     								Blob blob=(Blob)value;
+     								try (InputStream inputStream = blob.getBinaryStream()) {
+     					                // Read the Blob data into a byte array
+     					                byte[] imageData = new byte[(int) blob.length()];
+     					                inputStream.read(imageData);
+     					                String encodedImage = Base64.getEncoder().encodeToString(imageData);
+     					               out.print("<td><img src=\"data:image/jpeg;base64," + encodedImage + "\" /></td>");
+     					                
+     					            } catch (SQLException e) {
+     					                e.printStackTrace();
+     					            }
+     								
+     								
+     								
+     								
+     								%><td><input type="file"
+     										name="<%=field.getName()+String.valueOf(m.invoke(elements))%>"
+     										value="<%=value%>" <%=readonly %>></td>
+     							
+     							<%
+     							}
+     							else{
+               					
+               					%>
 					<td><input type="text"
 						name="<%=field.getName()+String.valueOf(m.invoke(elements))%>"
 						value="<%=value%>" <%=readonly %>></td>
-					<%        
+					<%     }   
         					}catch (IllegalAccessException e) {
                 				e.printStackTrace();
             				}
@@ -239,7 +269,7 @@ if (errors != null){
 					<%if(lowerbound!=0 && ord){ %>
 					<td><button type="submit" name="updateBtn"
 							value="0<%=m.invoke(elements)%>"><%=btn1 %></button></td>
-							<%} %>
+					<%} %>
 					<td><button type="submit" name="updateBtn"
 							value="1<%=m.invoke(elements)%>"><%=btn2 %></button></td>
 				</form>
@@ -269,22 +299,36 @@ if (errors != null){
       }//Fine costruzione Header
       %>
 			</tr>
-			<form action="Insert" method="post">
+			<form action="Insert" method="post" enctype="multipart/form-data">
 				<%
       i=0;
 	  for(Field field : clazz.getDeclaredFields() ){
 			if(i>lowerbound){
+				
+				
+				if(field.getName().equals("Immagine")){
+					%>
+					
+					
+				
+				
+							
+				<td><input type="file" name="<%=field.getName()%>" value=""></td>
+				<%
+				
+				}
+				else{
       %>
 				<td><input type="text" name="<%=field.getName()%>" value=""></td>
 				<%
-			}
+			}}
 			i++;
       }
       %>
 				<input type="hidden" name="tipo" value="<%=clazz.getSimpleName()%>">
 				<td><button type="submit" name="Inserisci" value="0">Inserisci</button></td>
 			</form>
-	<%
+			<%
 	}%>
 
 		</tbody>

@@ -1,6 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Blob;
+
+
 
 public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -8,14 +11,39 @@ public class ProductBean implements Serializable{
 	String nome;
 	String categoria;
 	Double prezzo;
-	int Admin;
+	Blob Immagine;
+	String Descrizione;
+	int quantità;
+	
+	
 	public ProductBean() {
 		this.codice = -1;
 		this.nome = "";
 		this.categoria = "";
 		this.prezzo = -1.0;
-		this.Admin = -1;
+		this.Immagine=null;
+		this.Descrizione="";
+		this.quantità=-1;
 	}
+	public Blob getImmagine() {
+		return Immagine;
+	}
+	public void setImmagine( Blob blob) {
+		Immagine = blob;
+	}
+	public String getDescrizione() {
+		return Descrizione;
+	}
+	public void setDescrizione(String descrizione) {
+		Descrizione = descrizione;
+	}
+	public int getQuantità() {
+		return quantità;
+	}
+	public void setQuantità(int quantità) {
+		this.quantità = quantità;
+	}
+	
 	public int getCodice() {
 		return codice;
 	}
@@ -41,12 +69,8 @@ public class ProductBean implements Serializable{
 	public void setPrezzo(Double prezzo) {
 		this.prezzo = prezzo;
 	}
-	public int getAdmin() {
-		return Admin;
-	}
-	public void setAdmin(int admin) {
-		Admin = admin;
-	}
+	
+	
 	
 	
 	

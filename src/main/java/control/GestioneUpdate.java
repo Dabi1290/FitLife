@@ -1,16 +1,22 @@
 package control;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import model.OrdineBean;
 import model.OrdineDao;
@@ -23,6 +29,11 @@ import model.PromozioniDao;
  * Servlet implementation class GestioneUpdate
  */
 @WebServlet("/admin/GestioneUpdate")
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+	    maxFileSize = 1024 * 1024 * 10, // 10MB
+	    maxRequestSize = 1024 * 1024 * 50 // 50MB
+	)
 public class GestioneUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -57,18 +68,39 @@ public class GestioneUpdate extends HttpServlet {
 			ProductDao dao=new ProductDao();
 			dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestioneProdotti");
 			if(operazione.charAt(0)=='0') { // operazione di salvataggio
+				
 				String codice=request.getParameter("codice"+riga);
 				String nome=request.getParameter("nome"+riga);
 				String categoria=request.getParameter("categoria"+riga);
 				String prezzo=request.getParameter("prezzo"+riga);
-				String admin=request.getParameter("Admin"+riga);
-				if(codice == null || codice.trim().isEmpty() || nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty() || admin == null || admin.trim().isEmpty()) {
+				Part filePart = request.getPart("Immagine"+riga);
+				
+				String descrizione=request.getParameter("Descrizione"+riga);
+				String quantità=request.getParameter("quantità"+riga);
+				Blob blob = null;
+				if(codice == null || codice.trim().isEmpty() || nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty() ) {
 					errors.add("Non lasciare i campi vuoti!!!");
 					request.setAttribute("errors", errors);
 					dispatcherToLoginPage.forward(request, response);
 	            	return;
 				}
 				
+				InputStream inputStream = filePart.getInputStream();
+		        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		        byte[] buffer = new byte[4096];
+		        int bytesRead;
+		        while ((bytesRead = inputStream.read(buffer)) != -1) {
+		            outputStream.write(buffer, 0, bytesRead);
+		        }
+		        byte[] fileData = outputStream.toByteArray();
+
+		        
+		        try {
+		            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+
 				
 				
 				
@@ -76,7 +108,10 @@ public class GestioneUpdate extends HttpServlet {
 				prodotto.setNome(nome);
 				prodotto.setCategoria(categoria);
 				prodotto.setPrezzo(Double.parseDouble(prezzo));
-				prodotto.setAdmin(Integer.parseInt(admin));
+				prodotto.setImmagine(blob);
+				prodotto.setDescrizione(descrizione);
+				prodotto.setQuantità(Integer.parseInt(quantità));
+				
 				
 				try {
 					dao.doUpdate(prodotto);
@@ -148,6 +183,17 @@ public class GestioneUpdate extends HttpServlet {
 			}
 			break;
 		}
+	}
+	private String extractFileName(Part part) {
+		// content-disposition: form-data; name="file"; filename="file.txt"
+		String contentDisp = part.getHeader("content-disposition");
+		String[] items = contentDisp.split(";");
+		for (String s : items) {
+			if (s.trim().startsWith("filename")) {
+				return s.substring(s.indexOf("=") + 2, s.length() - 1);
+			}
+		}
+		return "";
 	}
 
 }
