@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -15,7 +16,7 @@ import javax.sql.DataSource;
 public class OrdineDao implements BaseDao<OrdineBean> {
 
 	private static DataSource ds;
-
+	private static final Logger logger = Logger.getLogger(OrdineDao.class.getName());
 	static {
 		try {
 			Context initCtx = new InitialContext();
@@ -24,7 +25,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.err.println("Error:" + e.getMessage());
+			logger.severe("Error:" + e.getMessage());
 		}
 	}
 

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,7 +14,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class SelledProductDao implements BaseDao<SelledProductBean> {
-
+	private static final Logger logger = Logger.getLogger(SelledProductDao.class.getName());
 	private static DataSource ds;
 
 	static {
@@ -24,7 +25,7 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.err.println("Error:" + e.getMessage());
+			logger.severe("Error:" + e.getMessage());
 		}
 	}
 

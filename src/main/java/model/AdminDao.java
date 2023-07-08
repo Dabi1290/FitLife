@@ -12,11 +12,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletResponse;
 
 public class AdminDao implements BaseDao<AdminBean> {
 	
-
+	private static final Logger logger = Logger.getLogger(AdminDao.class.getName());
 	private static DataSource ds;
 
 	static {
@@ -27,7 +29,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			
+			logger.severe("Error:" + e.getMessage());
 		}
 	}
 

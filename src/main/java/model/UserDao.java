@@ -12,10 +12,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.LinkedList;
-
+import java.util.logging.Logger;
 
 public class UserDao implements BaseDao<UserBean> {
 	private static DataSource ds;
+	 private static final Logger logger = Logger.getLogger(UserDao.class.getName());
 
 	static {
 		try {
@@ -25,7 +26,7 @@ public class UserDao implements BaseDao<UserBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.err.println("Error:" + e.getMessage());
+			logger.severe("Error:" + e.getMessage());
 		}
 	}
 
