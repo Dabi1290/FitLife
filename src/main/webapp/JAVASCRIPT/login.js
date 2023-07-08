@@ -1,8 +1,8 @@
-var email = document.querySelector('#email'), password = document.querySelector('#password'), mySVG = document.querySelector('.svgContainer'), armL = document.querySelector('.armL'), armR = document.querySelector('.armR'), eyeL = document.querySelector('.eyeL'), eyeR = document.querySelector('.eyeR'), nose = document.querySelector('.nose'), mouth = document.querySelector('.mouth'), mouthBG = document.querySelector('.mouthBG'), mouthSmallBG = document.querySelector('.mouthSmallBG'), mouthMediumBG = document.querySelector('.mouthMediumBG'), mouthLargeBG = document.querySelector('.mouthLargeBG'), mouthMaskPath = document.querySelector('#mouthMaskPath'), mouthOutline = document.querySelector('.mouthOutline'), tooth = document.querySelector('.tooth'), tongue = document.querySelector('.tongue'), chin = document.querySelector('.chin'), face = document.querySelector('.face'), eyebrow = document.querySelector('.eyebrow'), outerEarL = document.querySelector('.earL .outerEar'), outerEarR = document.querySelector('.earR .outerEar'), earHairL = document.querySelector('.earL .earHair'), earHairR = document.querySelector('.earR .earHair'), hair = document.querySelector('.hair');
-var caretPos, curEmailIndex, screenCenter, svgCoords, eyeMaxHorizD = 20, eyeMaxVertD = 10, noseMaxHorizD = 23, noseMaxVertD = 10, dFromC, eyeDistH, eyeLDistV, eyeRDistV, eyeDistR, mouthStatus = "small";
+let email = document.querySelector('#email'), password = document.querySelector('#password'), mySVG = document.querySelector('.svgContainer'), armL = document.querySelector('.armL'), armR = document.querySelector('.armR'), eyeL = document.querySelector('.eyeL'), eyeR = document.querySelector('.eyeR'), nose = document.querySelector('.nose'), mouth = document.querySelector('.mouth'), mouthBG = document.querySelector('.mouthBG'), mouthSmallBG = document.querySelector('.mouthSmallBG'), mouthMediumBG = document.querySelector('.mouthMediumBG'), mouthLargeBG = document.querySelector('.mouthLargeBG'), mouthMaskPath = document.querySelector('#mouthMaskPath'), mouthOutline = document.querySelector('.mouthOutline'), tooth = document.querySelector('.tooth'), tongue = document.querySelector('.tongue'), chin = document.querySelector('.chin'), face = document.querySelector('.face'), eyebrow = document.querySelector('.eyebrow'), outerEarL = document.querySelector('.earL .outerEar'), outerEarR = document.querySelector('.earR .outerEar'), earHairL = document.querySelector('.earL .earHair'), earHairR = document.querySelector('.earR .earHair'), hair = document.querySelector('.hair');
+let caretPos, curEmailIndex, screenCenter, svgCoords, eyeMaxHorizD = 20, eyeMaxVertD = 10, noseMaxHorizD = 23, noseMaxVertD = 10, dFromC, eyeDistH, eyeLDistV, eyeRDistV, eyeDistR, mouthStatus = "small";
 
 function getCoord(e) {
-	var 	carPos = email.selectionEnd,
+	let 	carPos = email.selectionEnd,
 		div = document.createElement('div'),
 		span = document.createElement('span'),
 		copyStyle = getComputedStyle(email),
@@ -25,7 +25,7 @@ function getCoord(e) {
 	caretPos = caretCoords.x + emailCoords.x;					
 	
 	dFromC = screenCenter - caretPos; 							
-	var pFromC = Math.round((caretPos / screenCenter) * 100) / 100;
+	let pFromC = Math.round((caretPos / screenCenter) * 100) / 100;
 	if(pFromC > 1) {
 		pFromC -= 2;
 		
@@ -38,35 +38,35 @@ function getCoord(e) {
 		eyeDistH = -eyeMaxHorizD;
 	}
 	
-	var eyeLCoords = {x: svgCoords.x + 84, y: svgCoords.y + 76};
-	var eyeRCoords = {x: svgCoords.x + 113, y: svgCoords.y + 76};
-	var noseCoords = {x: svgCoords.x + 97, y: svgCoords.y + 81};
-	var mouthCoords = {x: svgCoords.x + 100, y: svgCoords.y + 100};
-	var eyeLAngle = getAngle(eyeLCoords.x, eyeLCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
-	var eyeLX = Math.cos(eyeLAngle) * eyeMaxHorizD;
-	var eyeLY = Math.sin(eyeLAngle) * eyeMaxVertD;
-	var eyeRAngle = getAngle(eyeRCoords.x, eyeRCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
-	var eyeRX = Math.cos(eyeRAngle) * eyeMaxHorizD;
-	var eyeRY = Math.sin(eyeRAngle) * eyeMaxVertD;
-	var noseAngle = getAngle(noseCoords.x, noseCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
-	var noseX = Math.cos(noseAngle) * noseMaxHorizD;
-	var noseY = Math.sin(noseAngle) * noseMaxVertD;
-	var mouthAngle = getAngle(mouthCoords.x, mouthCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
-	var mouthX = Math.cos(mouthAngle) * noseMaxHorizD;
-	var mouthY = Math.sin(mouthAngle) * noseMaxVertD;
-	var mouthR = Math.cos(mouthAngle) * 6;
-	var chinX = mouthX * .8;
-	var chinY = mouthY * .5;
-	var chinS = 1 - ((dFromC * .15) / 100);
+	let eyeLCoords = {x: svgCoords.x + 84, y: svgCoords.y + 76};
+	let eyeRCoords = {x: svgCoords.x + 113, y: svgCoords.y + 76};
+	let noseCoords = {x: svgCoords.x + 97, y: svgCoords.y + 81};
+	let mouthCoords = {x: svgCoords.x + 100, y: svgCoords.y + 100};
+	let eyeLAngle = getAngle(eyeLCoords.x, eyeLCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
+	let eyeLX = Math.cos(eyeLAngle) * eyeMaxHorizD;
+	let eyeLY = Math.sin(eyeLAngle) * eyeMaxVertD;
+	let eyeRAngle = getAngle(eyeRCoords.x, eyeRCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
+	let eyeRX = Math.cos(eyeRAngle) * eyeMaxHorizD;
+	let eyeRY = Math.sin(eyeRAngle) * eyeMaxVertD;
+	let noseAngle = getAngle(noseCoords.x, noseCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
+	let noseX = Math.cos(noseAngle) * noseMaxHorizD;
+	let noseY = Math.sin(noseAngle) * noseMaxVertD;
+	let mouthAngle = getAngle(mouthCoords.x, mouthCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
+	let mouthX = Math.cos(mouthAngle) * noseMaxHorizD;
+	let mouthY = Math.sin(mouthAngle) * noseMaxVertD;
+	let mouthR = Math.cos(mouthAngle) * 6;
+	let chinX = mouthX * .8;
+	let chinY = mouthY * .5;
+	let chinS = 1 - ((dFromC * .15) / 100);
 	if(chinS > 1) {chinS = 1 - (chinS - 1);}
-	var faceX = mouthX * .3;
-	var faceY = mouthY * .4;
-	var faceSkew = Math.cos(mouthAngle) * 5;
-	var eyebrowSkew = Math.cos(mouthAngle) * 25;
-	var outerEarX = Math.cos(mouthAngle) * 4;
-	var outerEarY = Math.cos(mouthAngle) * 5;
-	var hairX = Math.cos(mouthAngle) * 6;
-	var hairS = 1.2;
+	let faceX = mouthX * .3;
+	let faceY = mouthY * .4;
+	let faceSkew = Math.cos(mouthAngle) * 5;
+	let eyebrowSkew = Math.cos(mouthAngle) * 25;
+	let outerEarX = Math.cos(mouthAngle) * 4;
+	let outerEarY = Math.cos(mouthAngle) * 5;
+	let hairX = Math.cos(mouthAngle) * 6;
+	let hairS = 1.2;
 	
 	TweenMax.to(eyeL, 1, {x: -eyeLX , y: -eyeLY, ease: Expo.easeOut});
 	TweenMax.to(eyeR, 1, {x: -eyeRX , y: -eyeRY, ease: Expo.easeOut});
@@ -86,7 +86,7 @@ function getCoord(e) {
 
 function onEmailInput(e) {
 	getCoord(e);
-	var value = e.target.value;
+	let value = e.target.value;
 	curEmailIndex = value.length;
 	
 	// very crude email validation for now to trigger effects
@@ -162,19 +162,19 @@ function resetFace() {
 }
 
 function getAngle(x1, y1, x2, y2) {
-	var angle = Math.atan2(y1 - y2, x1 - x2);
+	let angle = Math.atan2(y1 - y2, x1 - x2);
 	return angle;
 }
 
 function getPosition(el) {
-	var xPos = 0;
-	var yPos = 0;
+	let xPos = 0;
+	let yPos = 0;
 
 	while (el) {
 		if (el.tagName == "BODY") {
 			// deal with browser quirks with body/window/document and page scroll
-			var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
-			var yScroll = el.scrollTop || document.documentElement.scrollTop;
+			let xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+			let yScroll = el.scrollTop || document.documentElement.scrollTop;
 
 			xPos += (el.offsetLeft - xScroll + el.clientLeft);
 			yPos += (el.offsetTop - yScroll + el.clientTop);

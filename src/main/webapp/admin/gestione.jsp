@@ -122,6 +122,7 @@ if (errors != null){
 	</div>
 
 	<table>
+		<caption>Tabella di Gestione</caption>
 		<thead>
 			<tr>
 
@@ -185,7 +186,7 @@ if (errors != null){
         		for (Field field : clazz1.getDeclaredFields()) { //Stampa gli header 
         			if(i>lowerbound){
         				field.setAccessible(true);
-        				if(field.getName().equals("Immagine") && !isPromoz){
+        				if(field.getName().equals("immagine") && !isPromoz){
         					%>
         					<th><%=field.getName() %></th>
         					<%
@@ -228,7 +229,7 @@ if (errors != null){
         					field.setAccessible(true);
         					try {
                					Object value = field.get(elements);
-     							if(field.getName().equals("Immagine")){
+     							if(field.getName().equals("immagine")){
      								Blob blob=(Blob)value;
      								try (InputStream inputStream = blob.getBinaryStream()) {
      					                // Read the Blob data into a byte array
@@ -238,7 +239,7 @@ if (errors != null){
      					               out.print("<td><img src=\"data:image/jpeg;base64," + encodedImage + "\" /></td>");
      					                
      					            } catch (Exception e) {
-     					            	%><td><img src="../images/wallpaper.jpg"></td><%
+     					            	%><td><img src="../images/wallpaper.jpg" alt="#"></td><%
      					            }
      								
      								
@@ -307,7 +308,7 @@ if (errors != null){
 			if(i>lowerbound){
 				
 				
-				if(field.getName().equals("Immagine")){
+				if(field.getName().equals("immagine")){
 					%>
 					
 					

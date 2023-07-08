@@ -12,7 +12,7 @@ public class ProductBean implements Serializable{
 	String categoria;
 	Double prezzo;
 	Blob immagine;
-	String Descrizione;
+	String descrizione;
 	int quantita;
 	
 	
@@ -22,7 +22,7 @@ public class ProductBean implements Serializable{
 		this.categoria = "";
 		this.prezzo = -1.0;
 		this.immagine=null;
-		this.Descrizione="";
+		this.descrizione="";
 		this.quantita=-1;
 	}
 	public Blob getImmagine() {
@@ -32,16 +32,16 @@ public class ProductBean implements Serializable{
 		immagine = blob;
 	}
 	public String getDescrizione() {
-		return Descrizione;
+		return descrizione;
 	}
 	public void setDescrizione(String descrizione) {
-		Descrizione = descrizione;
+		this.descrizione = descrizione;
 	}
 	public int getQuantita() {
 		return quantita;
 	}
-	public void setQuantita(int quantità) {
-		this.quantita = quantità;
+	public void setQuantita(int quantita) {
+		this.quantita = quantita;
 	}
 	
 	public int getCodice() {

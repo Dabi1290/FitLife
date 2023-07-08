@@ -8,14 +8,14 @@ public class PromozioniBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	String codice;
 	String categoria;
-	Boolean IsCategoria;
-	Blob Immagine;
+	Boolean isCategoria;
+	Blob immagine;
 	public PromozioniBean() {
 		super();
 		this.codice = "";
 		this.categoria = "";
-		this.IsCategoria=false;
-		this.Immagine=null;
+		this.isCategoria=false;
+		this.immagine=null;
 	}
 	public String getCodice() {
 		return codice;
@@ -30,16 +30,16 @@ public class PromozioniBean implements Serializable{
 		this.categoria = categoria;
 	}
 	public Boolean getIsCategoria() {
-		return IsCategoria;
+		return isCategoria;
 	}
 	public void setIsCategoria(Boolean isCategoria) {
-		IsCategoria = isCategoria;
+		this.isCategoria = isCategoria;
 	}
 	public Blob getImmagine() {
-		return Immagine;
+		return immagine;
 	}
 	public void setImmagine(Blob immagine) {
-		Immagine = immagine;
+		this.immagine = immagine;
 	}
 	
 	

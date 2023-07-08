@@ -48,7 +48,7 @@ public class Login extends HttpServlet {
 				AdminDao admindao= new AdminDao();
 				try {
 					admin=admindao.doRetrieveByEmail(username);
-					if(admin.getPassword().equals(password)==true) {
+					if(admin.getPassword().equals(password)) {
 					
 						request.getSession().setAttribute("isAdmin", Boolean.TRUE);
 						response.sendRedirect("admin/index.jsp");
@@ -57,10 +57,10 @@ public class Login extends HttpServlet {
 						errors.add("Username o password non validi!");
 						request.setAttribute("errors", errors);
 		            	dispatcherToLoginPage.forward(request, response);
-		            	return;
+		            	
 					}
 				} catch (SQLException e) {
-					// Da implementare error pages
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 				
 				
@@ -69,7 +69,7 @@ public class Login extends HttpServlet {
 				UserDao userdao = new UserDao();
 				try {
 					user=userdao.doRetrieveByEmail(username);
-					if(user.getPassword().equals(password)==true) {
+					if(user.getPassword().equals(password)) {
 						
 						request.getSession().setAttribute("isAdmin", Boolean.FALSE);
 						response.sendRedirect("common/index.jsp");
@@ -78,7 +78,7 @@ public class Login extends HttpServlet {
 						errors.add("Username o password non validi!");
 						request.setAttribute("errors", errors);
 		            	dispatcherToLoginPage.forward(request, response);
-		            	return;
+		            	
 					}
 				} catch (SQLException e) {
 					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
