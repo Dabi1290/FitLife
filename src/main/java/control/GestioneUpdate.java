@@ -91,7 +91,7 @@ public class GestioneUpdate extends HttpServlet {
 		        try {
 		            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
 		        } catch (Exception e) {
-		            e.printStackTrace();
+		        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		        }
 
 				
@@ -112,7 +112,7 @@ public class GestioneUpdate extends HttpServlet {
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
-					e.printStackTrace();
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 			}
 			else { //operazione di eliminazione
@@ -123,7 +123,7 @@ public class GestioneUpdate extends HttpServlet {
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
-					e.printStackTrace();
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 			}
 			break;
@@ -141,7 +141,7 @@ public class GestioneUpdate extends HttpServlet {
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
-					e.printStackTrace();
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 			
 			break;
@@ -162,7 +162,7 @@ public class GestioneUpdate extends HttpServlet {
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
-					e.printStackTrace();
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 			}
 			else { //operazione di eliminazione
@@ -173,7 +173,7 @@ public class GestioneUpdate extends HttpServlet {
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
-					e.printStackTrace();
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 			}
 			break;

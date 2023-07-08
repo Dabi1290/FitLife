@@ -87,7 +87,7 @@ public class GestioneOrdine extends HttpServlet {
 			
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		if(ordtypeReq==null && ordtypeSes==null) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");

@@ -121,7 +121,7 @@ public class GestioneInserimento extends HttpServlet {
 	        try {
 	            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+	        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	        }
 			
 			
@@ -138,7 +138,7 @@ public class GestioneInserimento extends HttpServlet {
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
-					e.printStackTrace();
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 			
 			
@@ -183,7 +183,7 @@ public class GestioneInserimento extends HttpServlet {
 				
 			} catch (SQLException e1) {
 				
-				e1.printStackTrace();
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 			
 			inputStream = filePart.getInputStream();
@@ -199,7 +199,7 @@ public class GestioneInserimento extends HttpServlet {
 	        try {
 	            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+	        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	        }
 				promoz.setCodice(codice);
 				promoz.setCategoria(cat);
@@ -211,7 +211,7 @@ public class GestioneInserimento extends HttpServlet {
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
-					e.printStackTrace();
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 			break;
 		

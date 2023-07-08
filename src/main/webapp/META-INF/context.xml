@@ -5,7 +5,7 @@
         auth="Container"
         driverClassName="com.mysql.cj.jdbc.Driver"
         type="javax.sql.DataSource"
-        username="root"
+        username="fitlife"
         password="ciaociao"
-		url="jdbc:mysql://localhost:3306/storage?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+		url="jdbc:mysql://www.db4free.net:3306/storagetsw"/>
 </Context>
