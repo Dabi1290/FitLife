@@ -61,7 +61,7 @@ public class GestioneInserimento extends HttpServlet {
 			String prezzo=request.getParameter("prezzo");
 			
 			try {
-				filePart = request.getPart("Immagine");
+				filePart = request.getPart("immagine");
 			} catch (IOException e3) {
 				errors.add(GestioneInserimento.IMAGE_ERROR);
 				request.setAttribute(GestioneInserimento.ERROR, errors);
@@ -74,8 +74,8 @@ public class GestioneInserimento extends HttpServlet {
             	return;
 			}
 
-			String descrizione=request.getParameter("Descrizione");
-			String quantita=request.getParameter("quantità");
+			String descrizione=request.getParameter("descrizione");
+			String quantita=request.getParameter("quantita");
 			
 			Double newp;
 			int newq;
@@ -149,10 +149,10 @@ public class GestioneInserimento extends HttpServlet {
 			PromozioniDao daopromoz=new PromozioniDao();
 			String codice=request.getParameter("codice");
 			String cat=request.getParameter("categoria");
-			Boolean isCategoria=Boolean.parseBoolean(request.getParameter("IsCategoria"));
+			Boolean isCategoria=Boolean.parseBoolean(request.getParameter("isCategoria"));
 			
 			try {
-				filePart = request.getPart("Immagine");
+				filePart = request.getPart("immagine");
 			} catch (IOException e3) {
 				errors.add(GestioneInserimento.IMAGE_ERROR);
 				request.setAttribute(GestioneInserimento.ERROR, errors);

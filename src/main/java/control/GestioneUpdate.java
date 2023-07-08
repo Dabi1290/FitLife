@@ -66,10 +66,10 @@ public class GestioneUpdate extends HttpServlet {
 				String nome=request.getParameter("nome"+riga);
 				String categoria=request.getParameter("categoria"+riga);
 				String prezzo=request.getParameter("prezzo"+riga);
-				Part filePart = request.getPart("Immagine"+riga);
+				Part filePart = request.getPart("immagine"+riga);
 				
-				String descrizione=request.getParameter("Descrizione"+riga);
-				String quantita=request.getParameter("quantità"+riga);
+				String descrizione=request.getParameter("descrizione"+riga);
+				String quantita=request.getParameter("quantita"+riga);
 				Blob blob = null;
 				if(codice == null || codice.trim().isEmpty() || nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty() ) {
 					errors.add("Non lasciare i campi vuoti!!!");
