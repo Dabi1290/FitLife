@@ -32,6 +32,8 @@ import model.PromozioniDao;
 	    maxRequestSize = 1024 * 1024 * 50 // 50MB
 	)
 public class GestioneInserimento extends HttpServlet {
+	private static final String IMAGE_ERROR = "Manca L'immagine!!";
+	private static final String ERROR="errors";
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -71,13 +73,13 @@ public class GestioneInserimento extends HttpServlet {
 			try {
 				filePart = request.getPart("Immagine");
 			} catch (IOException e3) {
-				errors.add("Manca l'immagine");
-				request.setAttribute("errors", errors);
+				errors.add(GestioneInserimento.IMAGE_ERROR);
+				request.setAttribute(GestioneInserimento.ERROR, errors);
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			} catch (ServletException e3) {
-				errors.add("Manca l'immagine");
-				request.setAttribute("errors", errors);
+				errors.add(GestioneInserimento.IMAGE_ERROR);
+				request.setAttribute(GestioneInserimento.ERROR, errors);
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			}
@@ -89,7 +91,7 @@ public class GestioneInserimento extends HttpServlet {
 			int newq;
 			if(nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty()) {
 				errors.add("Non puoi inserire campi vuoti!!!");
-				request.setAttribute("errors", errors);
+				request.setAttribute(GestioneInserimento.ERROR, errors);
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			}
@@ -98,7 +100,7 @@ public class GestioneInserimento extends HttpServlet {
 				newp=Double.parseDouble(prezzo);
 			} catch (NumberFormatException e1) {
 				errors.add("Prezzo Errato!!!");
-				request.setAttribute("errors", errors);
+				request.setAttribute(GestioneInserimento.ERROR, errors);
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			}
@@ -109,7 +111,7 @@ public class GestioneInserimento extends HttpServlet {
 				if(newq<0)throw new NumberFormatException();
 			} catch (NumberFormatException e2) {
 				errors.add("Problema con la quantità");
-				request.setAttribute("errors", errors);
+				request.setAttribute(GestioneInserimento.ERROR, errors);
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			}
@@ -162,20 +164,20 @@ public class GestioneInserimento extends HttpServlet {
 			try {
 				filePart = request.getPart("Immagine");
 			} catch (IOException e3) {
-				errors.add("Manca l'immagine");
-				request.setAttribute("errors", errors);
+				errors.add(GestioneInserimento.IMAGE_ERROR);
+				request.setAttribute(GestioneInserimento.ERROR, errors);
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			} catch (ServletException e3) {
-				errors.add("Manca l'immagine");
-				request.setAttribute("errors", errors);
+				errors.add(GestioneInserimento.IMAGE_ERROR);
+				request.setAttribute(GestioneInserimento.ERROR, errors);
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			}
 			
 			if(codice == null || codice.trim().isEmpty() || cat == null || cat.trim().isEmpty()) {
 				errors.add("Non puoi inserire campi vuoti!!!");
-				request.setAttribute("errors", errors);
+				request.setAttribute(GestioneInserimento.ERROR, errors);
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			}
@@ -184,7 +186,7 @@ public class GestioneInserimento extends HttpServlet {
 				promoz=daopromoz.doRetrieveByKey(codice);
 				if(promoz.getCodice().isEmpty()==false) {
 					errors.add("Promozione già esistente!!!");
-					request.setAttribute("errors", errors);
+					request.setAttribute(GestioneInserimento.ERROR, errors);
 					dispatcherToLoginPage.forward(request, response);
 	            	return;
 				}
@@ -223,6 +225,9 @@ public class GestioneInserimento extends HttpServlet {
 				}
 			break;
 		
+			
+			default:
+				break;
 		}
 	}
 

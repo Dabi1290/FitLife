@@ -26,6 +26,7 @@ import model.OrdineDao;
  */
 @WebServlet("/admin/GestioneOrdine")
 public class GestioneOrdine extends HttpServlet {
+	private static final String OTYPE="ordType";
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -51,7 +52,7 @@ public class GestioneOrdine extends HttpServlet {
 		List<OrdineBean> product= new ArrayList<>();
 		OrdineDao dao = new OrdineDao();
 		String ordtypeReq=(String) request.getParameter("OrdType");
-		String ordtypeSes=(String) request.getSession().getAttribute("ordType");
+		String ordtypeSes=(String) request.getSession().getAttribute(GestioneOrdine.OTYPE);
 		String predicate=(String) request.getParameter("predicate");
 		String text=(String) request.getParameter("testo");
 		String text1=(String) request.getParameter("testo1");
@@ -104,11 +105,11 @@ public class GestioneOrdine extends HttpServlet {
 		if(ordtypeReq!=null) {
 			if(ordtypeReq.equals("1")==true){
 				
-				request.getSession().setAttribute("ordType", "1");
+				request.getSession().setAttribute(GestioneOrdine.OTYPE, "1");
 				product=product.stream().filter(a->a.getIsProcessed()==false).filter(filter).toList();
 			}
 			else {product=product.stream().filter(a->a.getIsProcessed()==true).filter(filter).toList();
-			request.getSession().setAttribute("ordType", "0");
+			request.getSession().setAttribute(GestioneOrdine.OTYPE, "0");
 			
 			}
 		}

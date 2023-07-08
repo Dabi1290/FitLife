@@ -35,6 +35,7 @@ import model.PromozioniDao;
 	    maxRequestSize = 1024 * 1024 * 50 // 50MB
 	)
 public class GestioneUpdate extends HttpServlet {
+	private static final String UPDT_BTN="updateBtn";
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -61,8 +62,8 @@ public class GestioneUpdate extends HttpServlet {
 		RequestDispatcher dispatcherToLoginPage ;
 		switch(type) {
 		case "ProductBean":
-			
-			operazione= request.getParameter("updateBtn");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
+			operazione= request.getParameter(GestioneUpdate.UPDT_BTN);
 			riga=String.valueOf(Integer.parseInt(operazione.substring(1, operazione.length())));
 			ProductBean prodotto=new ProductBean();
 			ProductDao dao=new ProductDao();
@@ -115,7 +116,7 @@ public class GestioneUpdate extends HttpServlet {
 				
 				try {
 					dao.doUpdate(prodotto);
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
+					
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -126,7 +127,7 @@ public class GestioneUpdate extends HttpServlet {
 				try {
 					
 					dao.doDelete(Integer.parseInt(riga));
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
+					
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
@@ -135,7 +136,8 @@ public class GestioneUpdate extends HttpServlet {
 			}
 			break;
 		case "PromozioniBean": //posso Solo eliminarle
-			operazione= request.getParameter("updateBtn");
+			dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
+			operazione= request.getParameter(GestioneUpdate.UPDT_BTN);
 			riga=operazione.substring(1, operazione.length());
 			
 			PromozioniDao daopromoz=new PromozioniDao();
@@ -143,7 +145,7 @@ public class GestioneUpdate extends HttpServlet {
 				try {
 					
 					daopromoz.doDelete(riga);
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
+					
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
@@ -152,7 +154,8 @@ public class GestioneUpdate extends HttpServlet {
 			
 			break;
 		case "OrdineBean":
-			operazione= request.getParameter("updateBtn");
+			dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneOrdine");
+			operazione= request.getParameter(GestioneUpdate.UPDT_BTN);
 			riga=String.valueOf(Integer.parseInt(operazione.substring(1, operazione.length())));
 			
 			OrdineDao daoOrdine=new OrdineDao();
@@ -163,7 +166,7 @@ public class GestioneUpdate extends HttpServlet {
 			
 				try {
 					daoOrdine.doUpdate(codice);
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneOrdine");
+					
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -174,7 +177,7 @@ public class GestioneUpdate extends HttpServlet {
 				try {
 					
 					daoOrdine.doDelete(Integer.parseInt(riga));
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneOrdine");
+					
 					dispatcher.forward(request, response);
 				} catch (SQLException e) {
 					
@@ -182,6 +185,10 @@ public class GestioneUpdate extends HttpServlet {
 				}
 			}
 			break;
+			
+			
+			default:
+				break;
 		}
 	}
 	
