@@ -129,7 +129,7 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<SelledProductBean> products = new LinkedList<SelledProductBean>();
+		Collection<SelledProductBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + SelledProductDao.TABLE_NAME;
 

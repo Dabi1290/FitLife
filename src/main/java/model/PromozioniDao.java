@@ -128,7 +128,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<PromozioniBean> products = new LinkedList<PromozioniBean>();
+		Collection<PromozioniBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + PromozioniDao.TABLE_NAME;
 

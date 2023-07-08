@@ -167,7 +167,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<AdminBean> products = new LinkedList<AdminBean>();
+		Collection<AdminBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME;
 

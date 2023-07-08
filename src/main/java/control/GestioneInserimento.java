@@ -75,7 +75,7 @@ public class GestioneInserimento extends HttpServlet {
 			}
 
 			String descrizione=request.getParameter("Descrizione");
-			String quantità=request.getParameter("quantità");
+			String quantita=request.getParameter("quantità");
 			
 			Double newp;
 			int newq;
@@ -97,7 +97,7 @@ public class GestioneInserimento extends HttpServlet {
 			
 			
 			try {
-				newq=Integer.parseInt(quantità);
+				newq=Integer.parseInt(quantita);
 				if(newq<0)throw new NumberFormatException();
 			} catch (NumberFormatException e2) {
 				errors.add("Problema con la quantità");
@@ -130,7 +130,7 @@ public class GestioneInserimento extends HttpServlet {
 				prodotto.setPrezzo(newp);
 				prodotto.setImmagine(blob);
 				prodotto.setDescrizione(descrizione);
-				prodotto.setQuantità(newq);
+				prodotto.setQuantita(newq);
 				
 				try {
 					dao.doSave(prodotto);
@@ -149,7 +149,7 @@ public class GestioneInserimento extends HttpServlet {
 			PromozioniDao daopromoz=new PromozioniDao();
 			String codice=request.getParameter("codice");
 			String cat=request.getParameter("categoria");
-			Boolean IsCategoria=Boolean.parseBoolean(request.getParameter("IsCategoria"));
+			Boolean isCategoria=Boolean.parseBoolean(request.getParameter("IsCategoria"));
 			
 			try {
 				filePart = request.getPart("Immagine");
@@ -174,7 +174,7 @@ public class GestioneInserimento extends HttpServlet {
 			
 			try {
 				promoz=daopromoz.doRetrieveByKey(codice);
-				if(promoz.getCodice().isEmpty()==false) {
+				if(!promoz.getCodice().isEmpty()) {
 					errors.add("Promozione già esistente!!!");
 					request.setAttribute(GestioneInserimento.ERROR, errors);
 					dispatcherToLoginPage.forward(request, response);
@@ -203,7 +203,7 @@ public class GestioneInserimento extends HttpServlet {
 	        }
 				promoz.setCodice(codice);
 				promoz.setCategoria(cat);
-				promoz.setIsCategoria(IsCategoria);
+				promoz.setIsCategoria(isCategoria);
 				promoz.setImmagine(blob);
 				try {
 					daopromoz.doSave(promoz);

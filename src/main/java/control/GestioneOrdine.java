@@ -94,22 +94,22 @@ public class GestioneOrdine extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		if(ordtypeReq!=null) {
-			if(ordtypeReq.equals("1")==true){
+			if(ordtypeReq.equals("1")){
 				
 				request.getSession().setAttribute(GestioneOrdine.OTYPE, "1");
-				product=product.stream().filter(a->a.getIsProcessed()==false).filter(filter).toList();
+				product=product.stream().filter(a->!a.getIsProcessed()).filter(filter).toList();
 			}
-			else {product=product.stream().filter(a->a.getIsProcessed()==true).filter(filter).toList();
+			else {product=product.stream().filter(a->a.getIsProcessed()).filter(filter).toList();
 			request.getSession().setAttribute(GestioneOrdine.OTYPE, "0");
 			
 			}
 		}
 		else {
-			if(ordtypeSes.equals("1")==true){
-				product=product.stream().filter(a->a.getIsProcessed()==false).filter(filter).toList();
+			if(ordtypeSes.equals("1")){
+				product=product.stream().filter(a->!a.getIsProcessed()).filter(filter).toList();
 				
 			}
-			else { product=product.stream().filter(a->a.getIsProcessed()==true).filter(filter).toList();
+			else { product=product.stream().filter(a->a.getIsProcessed()).filter(filter).toList();
 			
 			}
 		}

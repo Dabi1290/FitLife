@@ -131,7 +131,7 @@ public class GuestDao implements BaseDao<GuestBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<GuestBean> products = new LinkedList<GuestBean>();
+		Collection<GuestBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + GuestDao.TABLE_NAME;
 

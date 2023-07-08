@@ -45,7 +45,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 			preparedStatement.setDouble(3, product.getPrezzo());
 			preparedStatement.setBlob(4, product.getImmagine());
 			preparedStatement.setString(5, product.getDescrizione());
-			preparedStatement.setInt(6, product.getQuantità());
+			preparedStatement.setInt(6, product.getQuantita());
 			
 
 			preparedStatement.executeUpdate();
@@ -79,7 +79,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 			preparedStatement.setDouble(3, product.getPrezzo());
 			preparedStatement.setBlob(4, product.getImmagine());
 			preparedStatement.setString(5, product.getDescrizione());
-			preparedStatement.setInt(6, product.getQuantità());
+			preparedStatement.setInt(6, product.getQuantita());
 			preparedStatement.setInt(7,product.getCodice());
 
 			preparedStatement.executeUpdate();
@@ -147,7 +147,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setImmagine(rs.getBlob("Immagine"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setQuantità(rs.getInt("quantità"));
+				bean.setQuantita(rs.getInt("quantità"));
 				
 			}
 
@@ -169,7 +169,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		Collection<ProductBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME;
 
@@ -190,7 +190,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setImmagine(rs.getBlob("Immagine"));
 				bean.setDescrizione(rs.getString("descrizione"));
-				bean.setQuantità(rs.getInt("quantità"));
+				bean.setQuantita(rs.getInt("quantità"));
 				products.add(bean);
 			}
 

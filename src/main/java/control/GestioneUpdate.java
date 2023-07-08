@@ -69,7 +69,7 @@ public class GestioneUpdate extends HttpServlet {
 				Part filePart = request.getPart("Immagine"+riga);
 				
 				String descrizione=request.getParameter("Descrizione"+riga);
-				String quantità=request.getParameter("quantità"+riga);
+				String quantita=request.getParameter("quantità"+riga);
 				Blob blob = null;
 				if(codice == null || codice.trim().isEmpty() || nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty() ) {
 					errors.add("Non lasciare i campi vuoti!!!");
@@ -103,7 +103,7 @@ public class GestioneUpdate extends HttpServlet {
 				prodotto.setPrezzo(Double.parseDouble(prezzo));
 				prodotto.setImmagine(blob);
 				prodotto.setDescrizione(descrizione);
-				prodotto.setQuantità(Integer.parseInt(quantità));
+				prodotto.setQuantita(Integer.parseInt(quantita));
 				
 				
 				try {

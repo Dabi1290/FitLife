@@ -152,7 +152,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<OrdineBean> products = new LinkedList<OrdineBean>();
+		Collection<OrdineBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + OrdineDao.TABLE_NAME;
 

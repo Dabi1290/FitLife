@@ -18,7 +18,7 @@
 		<div class="box">
 
 			<div class="box-image">
-				<img src="images/prodotti/prodotto.jpg">
+				<img src="images/prodotti/prodotto.jpg" alt="#">
 
 			</div>
 			<div class="box-text">
@@ -35,7 +35,7 @@
 		<div class="box">
 
 			<div class="box-image">
-				<img src="images/prodotti/prodotto.jpg">
+				<img src="images/prodotti/prodotto.jpg" alt="#">
 
 			</div>
 			<div class="box-text">
@@ -52,7 +52,7 @@
 		<div class="box">
 
 			<div class="box-image">
-				<img src="images/prodotti/prodotto.jpg">
+				<img src="images/prodotti/prodotto.jpg" alt="#">
 
 			</div>
 			<div class="box-text">
@@ -69,7 +69,7 @@
 		<div class="box">
 
 			<div class="box-image">
-				<img src="images/prodotti/prodotto.jpg">
+				<img src="images/prodotti/prodotto.jpg" alt="#">
 
 			</div>
 			<div class="box-text">
@@ -86,7 +86,7 @@
 		<div class="box">
 
 			<div class="box-image">
-				<img src="images/prodotti/prodotto.jpg">
+				<img src="images/prodotti/prodotto.jpg" alt="#">
 
 			</div>
 			<div class="box-text">
@@ -103,7 +103,7 @@
 		<div class="box">
 
 			<div class="box-image">
-				<img src="images/prodotti/prodotto.jpg">
+				<img src="images/prodotti/prodotto.jpg" alt="#">
 
 			</div>
 			<div class="box-text">
@@ -120,7 +120,7 @@
 		<div class="box">
 
 			<div class="box-image">
-				<img src="images/prodotti/prodotto.jpg">
+				<img src="images/prodotti/prodotto.jpg" alt="#">
 
 			</div>
 			<div class="box-text">
@@ -137,7 +137,7 @@
 		<div class="box">
 
 			<div class="box-image">
-				<img src="images/prodotti/prodotto.jpg">
+				<img src="images/prodotti/prodotto.jpg" alt="#">
 
 			</div>
 			<div class="box-text">
