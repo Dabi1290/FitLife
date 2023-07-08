@@ -60,7 +60,7 @@ public class GestioneOrdine extends HttpServlet {
 		Date date2;
 		
 		Predicate<OrdineBean> filter;
-		if(predicate==null || text==null || text.trim().isEmpty() || text1==null || text.trim().isEmpty()) {
+		if(predicate==null || text==null || text.trim().isEmpty() || text1==null || text1.trim().isEmpty()) {
 			
 			filter = order -> true;
 		}

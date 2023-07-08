@@ -24,13 +24,13 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			System.err.println("Error:" + e.getMessage());
 		}
 	}
 
 	private static final String TABLE_NAME = "ordini";
 	
-	public void doSave(OrdineBean product,AdminBean admin, UserBean user,GuestBean guest) throws SQLException {
+	public void doSave(AdminBean admin, UserBean user,GuestBean guest) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -39,7 +39,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			//preparedStatement.set(1, product.getNome());
+			
 			preparedStatement.setInt(2,admin.getCodice());
 			preparedStatement.setInt(3, user.getCodice());
 			preparedStatement.setInt(4, guest.getCodice());

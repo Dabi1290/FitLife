@@ -154,7 +154,7 @@ public class GestioneUpdate extends HttpServlet {
 		case "OrdineBean":
 			operazione= request.getParameter("updateBtn");
 			riga=String.valueOf(Integer.parseInt(operazione.substring(1, operazione.length())));
-			OrdineBean ordine=new OrdineBean();
+			
 			OrdineDao daoOrdine=new OrdineDao();
 			if(operazione.charAt(0)=='0') { // operazione di salvataggio
 				
@@ -184,16 +184,6 @@ public class GestioneUpdate extends HttpServlet {
 			break;
 		}
 	}
-	private String extractFileName(Part part) {
-		// content-disposition: form-data; name="file"; filename="file.txt"
-		String contentDisp = part.getHeader("content-disposition");
-		String[] items = contentDisp.split(";");
-		for (String s : items) {
-			if (s.trim().startsWith("filename")) {
-				return s.substring(s.indexOf("=") + 2, s.length() - 1);
-			}
-		}
-		return "";
-	}
+	
 
 }
