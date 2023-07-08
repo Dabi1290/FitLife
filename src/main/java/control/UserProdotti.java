@@ -44,7 +44,7 @@ public class UserProdotti extends HttpServlet {
 		List<ProductBean> product= new ArrayList<>();
 		ProductDao dao = new ProductDao();
 		try {
-			product= (List<ProductBean>) dao.doRetrieveAll("");
+			product= (List<ProductBean>) dao.doRetrieveAll();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

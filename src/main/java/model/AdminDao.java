@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.util.logging.LogRecord;
+
 
 public class AdminDao implements BaseDao<AdminBean> {
 	
@@ -25,7 +27,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.err.println("Error:" + e.getMessage());
+			
 		}
 	}
 
@@ -158,7 +160,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 	}
 
 	@Override
-	public synchronized Collection<AdminBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<AdminBean> doRetrieveAll() throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -167,9 +169,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 
 		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+		
 
 		try {
 			connection = ds.getConnection();

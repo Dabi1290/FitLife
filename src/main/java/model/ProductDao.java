@@ -163,7 +163,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 	}
 
 	@Override
-	public synchronized Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<ProductBean> doRetrieveAll() throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -172,9 +172,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+		
 
 		try {
 			connection = ds.getConnection();

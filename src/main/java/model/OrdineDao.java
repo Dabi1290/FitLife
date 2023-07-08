@@ -147,7 +147,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 	}
 
 	@Override
-	public Collection<OrdineBean> doRetrieveAll(String order) throws SQLException {
+	public Collection<OrdineBean> doRetrieveAll() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -155,9 +155,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 
 		String selectSQL = "SELECT * FROM " + OrdineDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+		
 
 		try {
 			connection = ds.getConnection();

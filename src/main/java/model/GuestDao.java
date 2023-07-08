@@ -125,7 +125,7 @@ public class GuestDao implements BaseDao<GuestBean> {
 	}
 
 	@Override
-	public Collection<GuestBean> doRetrieveAll(String order) throws SQLException {
+	public Collection<GuestBean> doRetrieveAll() throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -134,10 +134,7 @@ public class GuestDao implements BaseDao<GuestBean> {
 
 		String selectSQL = "SELECT * FROM " + GuestDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
-
+		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);

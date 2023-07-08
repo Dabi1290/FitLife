@@ -48,7 +48,7 @@ public class GestionePromozioni extends HttpServlet {
 		List<PromozioniBean> product= new ArrayList<>();
 		PromozioniDao dao = new PromozioniDao();
 		try {
-			product= (List<PromozioniBean>) dao.doRetrieveAll("");
+			product= (List<PromozioniBean>) dao.doRetrieveAll();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

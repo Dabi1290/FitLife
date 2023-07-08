@@ -91,7 +91,7 @@ public class GestioneOrdine extends HttpServlet {
 		}
 		
 		try {
-			product= (List<OrdineBean>) dao.doRetrieveAll("");
+			product= (List<OrdineBean>) dao.doRetrieveAll();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
