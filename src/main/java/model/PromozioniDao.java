@@ -34,13 +34,15 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + PromozioniDao.TABLE_NAME
-				+ " (codicePromozione, categoria, codiceAdministrator) VALUES (?, ?, ?)";
+				+ " (codicePromozione, categoria, isCategoria, Immagine) VALUES (?, ?, ?, ?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getCodice());
 			preparedStatement.setString(2, product.getCategoria());
-			preparedStatement.setInt(3, product.getCodiceAdmin());
+			preparedStatement.setBoolean(3, product.getIsCategoria());
+			preparedStatement.setBlob(4,product.getImmagine());
+			
 
 			preparedStatement.executeUpdate();
 			connection.setAutoCommit(false); 
@@ -56,37 +58,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 			}
 		}
 	}
-	public synchronized void doUpdate(PromozioniBean product,String oldCode) throws SQLException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		
-
-		String insertSQL = "UPDATE " + PromozioniDao.TABLE_NAME
-				+ " SET codicePromozione=?, categoria=?, codiceAdministrator=? WHERE codicePromozione= ?";
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, product.getCodice());
-			preparedStatement.setString(2, product.getCategoria());
-			preparedStatement.setInt(3, product.getCodiceAdmin());
-			preparedStatement.setString(4,oldCode);
-
-			preparedStatement.executeUpdate();
-			connection.setAutoCommit(false); 
-			connection.commit();
-			
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		
-	}
+	
 	
 	public boolean doDelete(String code) throws SQLException {
 		Connection connection = null;
@@ -133,7 +105,8 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 			while (rs.next()) {
 				bean.setCodice(rs.getString("codicePromozione"));
 				bean.setCategoria(rs.getString("categoria"));
-				bean.setCodiceAdmin(rs.getInt("codiceAdministrator"));
+				bean.setIsCategoria(rs.getBoolean("isCategoria"));
+				bean.setImmagine(rs.getBlob("Immagine"));
 
 			}
 
@@ -173,7 +146,8 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 
 				bean.setCodice(rs.getString("codicePromozione"));
 				bean.setCategoria(rs.getString("categoria"));
-				bean.setCodiceAdmin(rs.getInt("codiceAdministrator"));
+				bean.setIsCategoria(rs.getBoolean("isCategoria"));
+				bean.setImmagine(rs.getBlob("Immagine"));
 				products.add(bean);
 			}
 

@@ -139,6 +139,7 @@ if (errors != null){
       			Class<?> clazz=null;
       			Object element=request.getAttribute("tipo");
       	      	clazz = element.getClass();
+      	      	Boolean isPromoz=false;
 				
       	     	
       	      	
@@ -152,7 +153,7 @@ if (errors != null){
       	      	} 
       	      	
       	      	else if(clazz.getSimpleName().equals("PromozioniBean")==true) {lowerbound=0;
-      	      	
+      	      			isPromoz=true;
       	      	
       	      %>
 
@@ -175,16 +176,16 @@ if (errors != null){
             	
             	
             	 
-      			if(!isvoid){     //se NON è vuoto allora stampo i prodotti con i relativi header Finisce a riga 94
+      			if(!isvoid){     //se NON è vuoto allora stampo i prodotti con i relativi header
       				
       			List<?> a= (List<?>)request.getAttribute("prodotti");
         		
         		Class<?> clazz1 = a.get(0).getClass();
         		
-        		for (Field field : clazz1.getDeclaredFields()) { //Stampa gli header finisce a riga 76
+        		for (Field field : clazz1.getDeclaredFields()) { //Stampa gli header 
         			if(i>lowerbound){
         				field.setAccessible(true);
-        				if(field.getName().equals("Immagine")){
+        				if(field.getName().equals("Immagine") && !isPromoz){
         					%>
         					<th><%=field.getName() %></th>
         					<%
@@ -198,7 +199,7 @@ if (errors != null){
         		}
       %>
 			</tr>
-		</thead>
+		</thead> <!-- fine stampa header -->
 
 
 
@@ -236,19 +237,19 @@ if (errors != null){
      					                String encodedImage = Base64.getEncoder().encodeToString(imageData);
      					               out.print("<td><img src=\"data:image/jpeg;base64," + encodedImage + "\" /></td>");
      					                
-     					            } catch (SQLException e) {
-     					                e.printStackTrace();
+     					            } catch (Exception e) {
+     					            	%><td><img src="../images/wallpaper.jpg"></td><%
      					            }
      								
      								
      								
-     								
+     								if(!isPromoz){
      								%><td><input type="file"
      										name="<%=field.getName()+String.valueOf(m.invoke(elements))%>"
      										value="<%=value%>" <%=readonly %>></td>
      							
      							<%
-     							}
+     							}}
      							else{
                					
                					%>

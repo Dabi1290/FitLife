@@ -1,18 +1,21 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 public class PromozioniBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	String codice;
 	String categoria;
-	int codiceAdmin;
+	Boolean IsCategoria;
+	Blob Immagine;
 	public PromozioniBean() {
 		super();
 		this.codice = "";
 		this.categoria = "";
-		this.codiceAdmin = -1;
+		this.IsCategoria=false;
+		this.Immagine=null;
 	}
 	public String getCodice() {
 		return codice;
@@ -26,12 +29,19 @@ public class PromozioniBean implements Serializable{
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-	public int getCodiceAdmin() {
-		return codiceAdmin;
+	public Boolean getIsCategoria() {
+		return IsCategoria;
 	}
-	public void setCodiceAdmin(int codiceAdmin) {
-		this.codiceAdmin = codiceAdmin;
+	public void setIsCategoria(Boolean isCategoria) {
+		IsCategoria = isCategoria;
 	}
+	public Blob getImmagine() {
+		return Immagine;
+	}
+	public void setImmagine(Blob immagine) {
+		Immagine = immagine;
+	}
+	
 	
 	
 	

@@ -57,6 +57,8 @@ public class GestioneInserimento extends HttpServlet {
 		String type=request.getParameter("tipo");
 		List<String> errors = new ArrayList<>();
 		RequestDispatcher dispatcherToLoginPage ;
+		Part filePart;
+		Blob blob = null;
 		switch(type) {
 		case "ProductBean":
 			dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestioneProdotti");
@@ -65,7 +67,7 @@ public class GestioneInserimento extends HttpServlet {
 			String nome=request.getParameter("nome");
 			String categoria=request.getParameter("categoria");
 			String prezzo=request.getParameter("prezzo");
-			Part filePart;
+			
 			try {
 				filePart = request.getPart("Immagine");
 			} catch (IOException e3) {
@@ -82,7 +84,7 @@ public class GestioneInserimento extends HttpServlet {
 
 			String descrizione=request.getParameter("Descrizione");
 			String quantità=request.getParameter("quantità");
-			Blob blob = null;
+			
 			Double newp;
 			int newq;
 			if(nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty()) {
@@ -155,22 +157,29 @@ public class GestioneInserimento extends HttpServlet {
 			PromozioniDao daopromoz=new PromozioniDao();
 			String codice=request.getParameter("codice");
 			String cat=request.getParameter("categoria");
-			String adm=request.getParameter("codiceAdmin");
-			int newadm;
-			if(codice == null || codice.trim().isEmpty() || cat == null || cat.trim().isEmpty() || adm == null || adm.trim().isEmpty()) {
+			Boolean IsCategoria=Boolean.parseBoolean(request.getParameter("IsCategoria"));
+			
+			try {
+				filePart = request.getPart("Immagine");
+			} catch (IOException e3) {
+				errors.add("Manca l'immagine");
+				request.setAttribute("errors", errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			} catch (ServletException e3) {
+				errors.add("Manca l'immagine");
+				request.setAttribute("errors", errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			}
+			
+			if(codice == null || codice.trim().isEmpty() || cat == null || cat.trim().isEmpty()) {
 				errors.add("Non puoi inserire campi vuoti!!!");
 				request.setAttribute("errors", errors);
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			}
-			try {
-				newadm=Integer.parseInt(adm);
-			} catch (NumberFormatException e1) {
-				errors.add("Inserisci admin corretto!!!");
-				request.setAttribute("errors", errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			}
+			
 			try {
 				promoz=daopromoz.doRetrieveByKey(codice);
 				if(promoz.getCodice().isEmpty()==false) {
@@ -184,9 +193,26 @@ public class GestioneInserimento extends HttpServlet {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
+			inputStream = filePart.getInputStream();
+			outputStream = new ByteArrayOutputStream();
+	        buffer = new byte[4096];
+	        
+	        while ((bytesRead = inputStream.read(buffer)) != -1) {
+	            outputStream.write(buffer, 0, bytesRead);
+	        }
+	        fileData = outputStream.toByteArray();
+
+	        
+	        try {
+	            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 				promoz.setCodice(codice);
 				promoz.setCategoria(cat);
-				promoz.setCodiceAdmin(newadm); 
+				promoz.setIsCategoria(IsCategoria);
+				promoz.setImmagine(blob);
 				try {
 					daopromoz.doSave(promoz);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
