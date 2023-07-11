@@ -11,6 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <title>FitLife</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.css" />
+
+
 </head>
 <body>
 
@@ -66,7 +70,31 @@ for(ProductBean product: prodotti){
 
 
 </div>
-<div class="filtri"></div>
+
+
+
+<div class="filtri">
+
+
+<div class="price-range">
+<div id="price-range-slider"></div>
+<span id="price-range"></span>
+</div>
+  <div class="categories-filter">
+  
+  <ul>
+  <li>
+    <input type="radio" id="f-option" name="categoria">
+    <label for="f-option">Pizza</label>
+    
+    <div class="check"></div>
+  </li>
+  </ul>
+  
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.js"></script>
+  <script src="JAVASCRIPT/slider.js"></script>
+</div>
 
 </div>
 
