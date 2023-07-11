@@ -78,6 +78,9 @@ public class GestioneUpdate extends HttpServlet {
 	            	return;
 				}
 				
+				int newc=Integer.parseInt(categoria);
+		
+				
 				InputStream inputStream = filePart.getInputStream();
 		        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		        byte[] buffer = new byte[4096];
@@ -99,7 +102,7 @@ public class GestioneUpdate extends HttpServlet {
 				
 				prodotto.setCodice(Integer.parseInt(codice));
 				prodotto.setNome(nome);
-				prodotto.setCategoria(categoria);
+				prodotto.setCategoria(newc);
 				prodotto.setPrezzo(Double.parseDouble(prezzo));
 				prodotto.setImmagine(blob);
 				prodotto.setDescrizione(descrizione);

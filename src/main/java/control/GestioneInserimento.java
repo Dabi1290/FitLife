@@ -61,7 +61,7 @@ public class GestioneInserimento extends HttpServlet {
 			String prezzo=request.getParameter("prezzo");
 			
 			try {
-				filePart = request.getPart("Immagine");
+				filePart = request.getPart("immagine");
 			} catch (IOException e3) {
 				errors.add(GestioneInserimento.IMAGE_ERROR);
 				request.setAttribute(GestioneInserimento.ERROR, errors);
@@ -74,10 +74,11 @@ public class GestioneInserimento extends HttpServlet {
             	return;
 			}
 
-			String descrizione=request.getParameter("Descrizione");
-			String quantita=request.getParameter("quantità");
+			String descrizione=request.getParameter("descrizione");
+			String quantita=request.getParameter("quantita");
 			
 			Double newp;
+			int newc;
 			int newq;
 			if(nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty()) {
 				errors.add("Non puoi inserire campi vuoti!!!");
@@ -105,6 +106,16 @@ public class GestioneInserimento extends HttpServlet {
 				dispatcherToLoginPage.forward(request, response);
             	return;
 			}
+
+			try {
+				newc=Integer.parseInt(categoria);
+				if(newc<0)throw new NumberFormatException();
+			} catch (NumberFormatException e2) {
+				errors.add("Problema con la categoria");
+				request.setAttribute(GestioneInserimento.ERROR, errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			}
 			
 			
 			
@@ -126,7 +137,7 @@ public class GestioneInserimento extends HttpServlet {
 			
 			
 				prodotto.setNome(nome);
-				prodotto.setCategoria(categoria);
+				prodotto.setCategoria(newc);
 				prodotto.setPrezzo(newp);
 				prodotto.setImmagine(blob);
 				prodotto.setDescrizione(descrizione);

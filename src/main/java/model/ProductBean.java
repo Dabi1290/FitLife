@@ -9,7 +9,7 @@ public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	int codice;
 	String nome;
-	String categoria;
+	int categoria;
 	Double prezzo;
 	Blob immagine;
 	String descrizione;
@@ -19,7 +19,7 @@ public class ProductBean implements Serializable{
 	public ProductBean() {
 		this.codice = -1;
 		this.nome = "";
-		this.categoria = "";
+		this.categoria = -1;
 		this.prezzo = -1.0;
 		this.immagine=null;
 		this.descrizione="";
@@ -56,10 +56,10 @@ public class ProductBean implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getCategoria() {
+	public int getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(String categoria) {
+	public void setCategoria(int categoria) {
 		this.categoria = categoria;
 	}
 	
