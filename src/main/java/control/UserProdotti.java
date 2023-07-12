@@ -15,40 +15,29 @@ import javax.servlet.http.HttpServletResponse;
 import model.ProductBean;
 import model.ProductDao;
 
-/**
- * Servlet implementation class UserProdotti
- */
 @WebServlet("/UserProdotti")
 public class UserProdotti extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public UserProdotti() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<ProductBean> product= new ArrayList<>();
 		ProductDao dao = new ProductDao();
 		try {
-			product= (List<ProductBean>) dao.doRetrieveAll("");
+			product= (List<ProductBean>) dao.doRetrieveAll();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		if(product.isEmpty()) {
 			

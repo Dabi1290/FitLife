@@ -1,0 +1,204 @@
+/*--------------------------------------------------------------------- File Name: style.css ---------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------- import Fonts ---------------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Righteous&display=swap&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,700i,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,800i&display=swap');
+
+/*****---------------------------------------- 1) font-family: 'Rajdhani', sans-serif;
+ 2) font-family: 'Poppins', sans-serif;
+ ----------------------------------------*****/
+
+
+/*--------------------------------------------------------------------- import Files ---------------------------------------------------------------------*/
+
+
+ 
+ /*--------------------------------------------------------------------- Parte Logo ---------------------------------------------------------------------*/
+  
+  * {
+  padding:0;
+  margin:0;
+  
+  }
+  .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Adjust the height as needed */
+}
+
+.logo {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+.right-side{
+	position:absolute;
+	right: 0;
+	margin-right:3%;
+	height: 60px;
+	width:10%;
+	display:flex;
+	
+}
+.icon{
+	padding:10%;
+	text-align:center;
+}
+.icon img{
+	height:100%;
+	width:auto;
+}
+
+
+/*--------------------------------------------------------------------- Fine Parte Logo ---------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------- Header ---------------------------------------------------------------------*/
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.navbar {
+  background-color: 	#1a2653;
+  overflow: hidden;
+  
+  display:flex;
+  align-items:center;
+  
+  justify-content: space-between;
+  
+ 
+  
+}
+
+
+
+.prov{
+	 
+  
+  display:flex;
+  align-items:inherit;
+  width:100%;
+  
+
+}
+.provAdm{
+	 
+  
+  display:flex;
+  
+  width:100%;
+      justify-content: center;
+  
+  align-items: center;
+
+}
+.navbar a {
+	
+ 
+  color: white;
+  text-align: center;
+  padding:2%;
+  text-decoration: none;
+  font-size: 17px;
+  transition: background-color 0.5s;
+ 
+  
+}
+
+
+.navbar .row>a:hover {
+  background-color: 	#006bce;
+  
+  
+}
+.navbar  a:hover {
+  background-color: 	#006bce;
+  
+  
+}
+
+.search-box {
+	
+  display:flex;
+  margin-right: 20px;
+  height:100%
+}
+.navbar .Logout {
+  
+  padding:2%;
+  text-decoration: none;
+  transition: background-color 0.5s;
+  font-size: 17px;
+  
+}
+.navbar .Logout:hover {
+  background-color: 	red;
+  
+  
+}
+.Logout a:hover{
+	background-color:none;
+	
+}
+.search-box input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 20px;
+  width: 300px; /* Increase the width as per your preference */
+}
+
+
+/*--------------------------------------------------------------------- Fine Header ---------------------------------------------------------------------*/
+
+
+.boxes{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	margin: 0% 5%;
+	margin-top:5%;
+}
+
+
+.box{
+	height:300px;
+	width:280px;
+	padding:1%;
+	border-color:black;
+	border:solid;
+	margin-bottom:5%;
+	margin-right:5px;
+	display:flex;
+	flex-direction: column;
+}
+
+.box-image {
+	display:flex;
+	width:100%;
+	height:70%;
+	margin-bottom: 10%;
+	justify-content: center;
+	
+}
+.box-image img{
+	max-width:100%;
+	max-height:100%;
+}
+.box-text{
+	display:block;
+	
+}
+.STitle{
+	display: flex;
+    justify-content: center;
+    height: 100px;
+    align-items: center;
+    font-size: 300%;
+    margin-top: 5%;
+}
+

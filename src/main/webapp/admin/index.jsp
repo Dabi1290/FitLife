@@ -7,14 +7,14 @@
  %>
     
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>FitLife</title>
 </head>
 <body>
     
-  <%@ include file="/admin/header.jsp" %>
+  <%@ include file="/admin/header.html" %>
   
   Admin<br>
   

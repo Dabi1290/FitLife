@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="./CSS/products.css">
+<link rel="stylesheet" href="style/products.css">
 <title>Product Page</title>
 </head>
 <body>
@@ -53,10 +53,10 @@
      					                byte[] imageData = new byte[(int) blob.length()];
      					                inputStream.read(imageData);
      					                String encodedImage = Base64.getEncoder().encodeToString(imageData);
-     					               out.print("<img class=\"active\" src=\"data:image/jpeg;base64," + encodedImage + "\" />");
+     					               out.print("<img src=\"data:image/jpeg;base64," + encodedImage + "\" />");
      					                
      					            } catch (Exception e) {
-     					            	%><img class="active" src="../images/wallpaper.jpg" alt="#"><%
+     					            	%><img class="active" src="images/wallpaper.jpg" alt="#"><%
      					            }
      								%>
           </div>
@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="column-xs-12 column-md-5">
-        <h1>Bonsai</h1>
+        <h1><%=product.getNome() %></h1>
         <h2>$19.99</h2>
         <div class="description">
           <p>The purposes of bonsai are primarily contemplation for the viewer, and the pleasant exercise of effort and ingenuity for the grower.</p>

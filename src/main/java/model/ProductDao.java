@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -15,7 +16,7 @@ import javax.sql.DataSource;
 public class ProductDao implements BaseDao<ProductBean> {
 
 	private static DataSource ds;
-
+	private static final Logger logger = Logger.getLogger(ProductDao.class.getName());
 	static {
 		try {
 			Context initCtx = new InitialContext();
@@ -24,7 +25,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			logger.severe("Error:" + e.getMessage());
 		}
 	}
 
@@ -35,14 +36,17 @@ public class ProductDao implements BaseDao<ProductBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String insertSQL = "INSERT INTO " + ProductDao.TABLE_NAME
-				+ " (nome, categoria, prezzo, codiceAmministratore) VALUES (?, ?, ?, ?)";
+				+ " (nome, categoria, prezzo, Immagine,descrizione,quantità) VALUES (?, ?, ?, ?,?,?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getNome());
-			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setInt(2, product.getCategoria());
 			preparedStatement.setDouble(3, product.getPrezzo());
-			preparedStatement.setInt(4, product.getAdmin());
+			preparedStatement.setBlob(4, product.getImmagine());
+			preparedStatement.setString(5, product.getDescrizione());
+			preparedStatement.setInt(6, product.getQuantita());
+			
 
 			preparedStatement.executeUpdate();
 			connection.setAutoCommit(false); 
@@ -66,15 +70,17 @@ public class ProductDao implements BaseDao<ProductBean> {
 		
 
 		String insertSQL = "UPDATE " + ProductDao.TABLE_NAME
-				+ " SET nome=?, categoria=?, prezzo=?, codiceAmministratore=? WHERE codiceProdotto= ?";
+				+ " SET nome=?, categoria=?, prezzo=?, Immagine=?, descrizione=?, quantità=? WHERE codiceProdotto= ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getNome());
-			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setInt(2, product.getCategoria());
 			preparedStatement.setDouble(3, product.getPrezzo());
-			preparedStatement.setInt(4, product.getAdmin());
-			preparedStatement.setInt(5,product.getCodice());
+			preparedStatement.setBlob(4, product.getImmagine());
+			preparedStatement.setString(5, product.getDescrizione());
+			preparedStatement.setInt(6, product.getQuantita());
+			preparedStatement.setInt(7,product.getCodice());
 
 			preparedStatement.executeUpdate();
 			connection.setAutoCommit(false); 
@@ -125,7 +131,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 		ProductBean bean = new ProductBean();
 
-		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE codiceProdotto = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -137,9 +143,12 @@ public class ProductDao implements BaseDao<ProductBean> {
 			while (rs.next()) {
 				bean.setCodice(rs.getInt("codiceProdotto"));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setAdmin(rs.getInt("codiceAmministratore"));
+				bean.setImmagine(rs.getBlob("Immagine"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setQuantita(rs.getInt("quantità"));
+				
 			}
 
 		} finally {
@@ -155,18 +164,16 @@ public class ProductDao implements BaseDao<ProductBean> {
 	}
 
 	@Override
-	public synchronized Collection<ProductBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<ProductBean> doRetrieveAll() throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<ProductBean> products = new LinkedList<ProductBean>();
+		Collection<ProductBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+		
 
 		try {
 			connection = ds.getConnection();
@@ -179,9 +186,11 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 				bean.setCodice(rs.getInt("codiceProdotto"));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setAdmin(rs.getInt("codiceAmministratore"));
+				bean.setImmagine(rs.getBlob("Immagine"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setQuantita(rs.getInt("quantità"));
 				products.add(bean);
 			}
 

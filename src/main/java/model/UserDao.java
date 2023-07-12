@@ -12,10 +12,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.LinkedList;
-
+import java.util.logging.Logger;
 
 public class UserDao implements BaseDao<UserBean> {
 	private static DataSource ds;
+	 private static final Logger logger = Logger.getLogger(UserDao.class.getName());
 
 	static {
 		try {
@@ -25,7 +26,7 @@ public class UserDao implements BaseDao<UserBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			logger.severe("Error:" + e.getMessage());
 		}
 	}
 
@@ -165,18 +166,16 @@ public class UserDao implements BaseDao<UserBean> {
 		return bean;
 	}
 	@Override
-	public Collection<UserBean> doRetrieveAll(String order) throws SQLException {
+	public Collection<UserBean> doRetrieveAll() throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<UserBean> products = new LinkedList<UserBean>();
+		Collection<UserBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+		
 
 		try {
 			connection = ds.getConnection();

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -15,7 +16,7 @@ import javax.sql.DataSource;
 public class GuestDao implements BaseDao<GuestBean> {
 
 	private static DataSource ds;
-
+	private static final Logger logger = Logger.getLogger(GuestDao.class.getName());
 	static {
 		try {
 			Context initCtx = new InitialContext();
@@ -24,7 +25,7 @@ public class GuestDao implements BaseDao<GuestBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			logger.severe("Error:" + e.getMessage());
 		}
 	}
 
@@ -125,19 +126,16 @@ public class GuestDao implements BaseDao<GuestBean> {
 	}
 
 	@Override
-	public Collection<GuestBean> doRetrieveAll(String order) throws SQLException {
+	public Collection<GuestBean> doRetrieveAll() throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<GuestBean> products = new LinkedList<GuestBean>();
+		Collection<GuestBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + GuestDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
-
+		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);

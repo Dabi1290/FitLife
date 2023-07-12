@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -15,7 +16,7 @@ import javax.sql.DataSource;
 public class OrdineDao implements BaseDao<OrdineBean> {
 
 	private static DataSource ds;
-
+	private static final Logger logger = Logger.getLogger(OrdineDao.class.getName());
 	static {
 		try {
 			Context initCtx = new InitialContext();
@@ -24,13 +25,13 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			logger.severe("Error:" + e.getMessage());
 		}
 	}
 
 	private static final String TABLE_NAME = "ordini";
 	
-	public void doSave(OrdineBean product,AdminBean admin, UserBean user,GuestBean guest) throws SQLException {
+	public void doSave(AdminBean admin, UserBean user,GuestBean guest) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -39,7 +40,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			//preparedStatement.set(1, product.getNome());
+			
 			preparedStatement.setInt(2,admin.getCodice());
 			preparedStatement.setInt(3, user.getCodice());
 			preparedStatement.setInt(4, guest.getCodice());
@@ -147,17 +148,15 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 	}
 
 	@Override
-	public Collection<OrdineBean> doRetrieveAll(String order) throws SQLException {
+	public Collection<OrdineBean> doRetrieveAll() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<OrdineBean> products = new LinkedList<OrdineBean>();
+		Collection<OrdineBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + OrdineDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+		
 
 		try {
 			connection = ds.getConnection();
