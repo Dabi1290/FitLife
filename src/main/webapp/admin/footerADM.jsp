@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <title>Footer page</title>
-<link href="../CSS/footer.css" rel="stylesheet">
+<link href="../style/footer.css" rel="stylesheet">
 <meta charset="UTF-8">
 </head>
 <body>
