@@ -4,7 +4,7 @@
 <%@ page import="java.sql.SQLException"%>
 <%@ page import="java.util.Base64" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style/products.css">
@@ -12,24 +12,7 @@
 </head>
 <body>
 <% ProductBean product = (ProductBean)request.getAttribute("prodotto");%>
-<nav class="flex-nav">
-  <div class="container">
-    <div class="grid menu">
-      <div class="column-xs-8 column-md-6">
-        <p id="highlight">ShopShop</p>
-      </div>
-      <div class="column-xs-4 column-md-6">
-        <a href="#" class="toggle-nav">Menu <i class="ion-navicon-round"></i></a>
-        <ul>
-          <li class="nav-item"><a href="#">Products</a></li>
-          <li class="nav-item"><a href="#">About</a></li>
-          <li class="nav-item"><a href="#">My Account</a></li>
-          <li class="nav-item"><a href="#">Cart (0)</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</nav>
+<%@ include file="header.html" %>
 <main>
   <div class="container">
     <div class="grid second-nav">

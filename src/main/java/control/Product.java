@@ -31,7 +31,7 @@ public class Product extends HttpServlet {
 		try {
 			bean= dao.doRetrieveByKey(/*(int)request.getAttribute("codice")*/18);	
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		request.setAttribute("prodotto", bean);
 		RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("/product.jsp");

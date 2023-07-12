@@ -105,7 +105,7 @@ for(ProductBean product: prodotti){
 
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.js"></script>
+  <script src="scripts/nouislider.min.js"></script>
   <script src="scripts/slider.js"></script>
 </div>
 </form>  
