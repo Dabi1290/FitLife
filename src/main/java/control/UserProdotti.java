@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.CategoriaBean;
+import model.CategorieDao;
 import model.ProductBean;
 import model.ProductDao;
 
-@WebServlet("/UserProdotti")
+@WebServlet("/Prodotti")
 public class UserProdotti extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
