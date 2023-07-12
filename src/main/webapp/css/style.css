@@ -169,12 +169,12 @@ body {
 	height:300px;
 	width:280px;
 	padding:1%;
-	border-color:black;
-	border:solid;
 	margin-bottom:5%;
 	margin-right:5px;
 	display:flex;
 	flex-direction: column;
+	background-color:	#DAE7FD;
+	
 }
 
 .box-image {
@@ -219,8 +219,7 @@ body {
 }
 .filtri{
 	
-	border:solid;
-	border-color:black;
+	
 	width:22%;
 	
 	margin: 0% 2%;
@@ -254,6 +253,7 @@ body {
     /* Custom color for the slider buttons */
     #price-range-slider .noUi-handle {
       background-color: #b4cffa;
+      cursor:pointer;
     }
 
 
@@ -270,86 +270,9 @@ body {
   padding: 20px;
 }
 
-.categories-filter ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow: auto;
+.categories-filter .radios{
+	cursor:pointer;
 }
 
-ul li{
-  color: #1a2653;
-  display: block;
-  position: relative;
-  float: left;
-  width: 100%;
-  height: 100px;
-	border-bottom: 1px solid #333;
-}
-
-ul li input[type=radio]{
-  position: absolute;
-  visibility: hidden;
-}
-
-ul li label{
-  display: block;
-  position: relative;
-  font-weight: 300;
-  font-size: 1.35em;
-  padding: 25px 25px 25px 80px;
-  margin: 10px auto;
-  height: 30px;
-  z-index: 9;
-  cursor: pointer;
-  -webkit-transition: all 0.25s linear;
-}
-
-ul li:hover label{
-	color:#006bce;
-}
-
-ul li .check{
-  display: block;
-  position: absolute;
-  border: 5px solid 	#b4cffa;
-  border-radius: 100%;
-  height: 25px;
-  width: 25px;
-  top: 30px;
-  left: 20px;
-	z-index: 5;
-	transition: border .25s linear;
-	-webkit-transition: border .25s linear;
-}
-
-ul li:hover .check {
-  border: 5px solid #006bce;
-}
-
-ul li .check::before {
-  display: block;
-  position: absolute;
-	content: '';
-  border-radius: 100%;
-  height: 15px;
-  width: 15px;
-  top: 5px;
-	left: 5px;
-  margin: auto;
-	transition: background 0.25s linear;
-	-webkit-transition: background 0.25s linear;
-}
-
-input[type=radio]:checked ~ .check {
-  border: 5px solid #006bce;
-}
-
-input[type=radio]:checked ~ .check::before{
-  background: #006bce;
-}
-
-input[type=radio]:checked ~ label{
-  color: #006bce;
-}
+/*--------------------------------------------------------------------- Fine Prodotti general ---------------------------------------------------------------------*/
 

@@ -26,7 +26,8 @@
 
 <%
 List<ProductBean> prodotti= (List<ProductBean>)request.getAttribute("prodotti");
-
+List<CategoriaBean> categorie= (List<CategoriaBean>)request.getAttribute("categorie");
+if(prodotti!=null){
 for(ProductBean product: prodotti){
 	%>
 	
@@ -62,7 +63,7 @@ for(ProductBean product: prodotti){
 		<%
 	
 }
-
+}
 
 %>
 
@@ -73,28 +74,42 @@ for(ProductBean product: prodotti){
 
 
 
-<div class="filtri">
 
 
+  <form class="filtri" action="Prodotti" method="get" id="filterForm">
 <div class="price-range">
 <div id="price-range-slider"></div>
 <span id="price-range"></span>
 </div>
   <div class="categories-filter">
+
   
-  <ul>
-  <li>
-    <input type="radio" id="f-option" name="categoria">
-    <label for="f-option">Pizza</label>
-    
-    <div class="check"></div>
-  </li>
-  </ul>
+  <%
+  if(categorie!=null){
+  	for(CategoriaBean categoria : categorie){
+  		%>
+  	
+    <input type="radio"  class="radios"id="<%=categoria.getIdCategoria()%>-option" value="<%=categoria.getIdCategoria()%>" name="categoria">
+    <label for="<%=categoria.getIdCategoria()%>-option"><%=categoria.getNomeCategoria() %></label>
+
+  	 <div class="check"></div>
+  	
+  	<%
+  	}
+  }
   
-  </div>
+  
+  %>
+
+	<input type="submit" value="Filtra" class="radios" onclick="filterFormSubmit()">
+
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.js"></script>
   <script src="JAVASCRIPT/slider.js"></script>
 </div>
+</form>  
+
 
 </div>
 

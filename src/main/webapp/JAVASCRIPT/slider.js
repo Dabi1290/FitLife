@@ -21,11 +21,35 @@
 
     // Get the price range elements
     const priceRange = document.getElementById('price-range');
-
+	let minValue = minPrice;
+	let maxValue = maxPrice;
     // Update the selected price range when the slider values change
     slider.noUiSlider.on('update', function (values) {
-      const minValue = parseInt(values[0]);
-      const maxValue = parseInt(values[1]);
+      minValue = parseInt(values[0]);
+      maxValue = parseInt(values[1]);
 
       priceRange.textContent = `$${minValue} - $${maxValue}`;
     });
+    
+    
+ function filterFormSubmit() {
+ 
+  var form = document.getElementById("filterForm");
+
+  // Set the variables as form parameters
+  var input1 = document.createElement("input");
+  input1.type = "hidden";
+  input1.name = "min";
+  input1.value = minValue;
+  form.appendChild(input1);
+
+  var input2 = document.createElement("input");
+  input2.type = "hidden";
+  input2.name = "max";
+  input2.value = maxValue;
+  form.appendChild(input2);
+  
+   // Submit the form
+  form.submit();
+}
+    
