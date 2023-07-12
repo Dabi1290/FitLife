@@ -155,7 +155,7 @@ body {
 
 /*--------------------------------------------------------------------- Fine Header ---------------------------------------------------------------------*/
 
-
+/*--------------------------------------------------------------------- Prodotti più venduti ---------------------------------------------------------------------*/
 .boxes{
 	display:flex;
 	flex-wrap:wrap;
@@ -169,12 +169,12 @@ body {
 	height:300px;
 	width:280px;
 	padding:1%;
-	border-color:black;
-	border:solid;
 	margin-bottom:5%;
 	margin-right:5px;
 	display:flex;
 	flex-direction: column;
+	background-color:	#DAE7FD;
+	
 }
 
 .box-image {
@@ -201,4 +201,78 @@ body {
     font-size: 300%;
     margin-top: 5%;
 }
+
+
+/*--------------------------------------------------------------------- Fine Prodotti più venduti ---------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------- Prodotti general ---------------------------------------------------------------------*/
+
+.boxes-3{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content: space-evenly;
+	margin: 0% 2%;
+	width:70%;
+	margin-top:5%;
+	
+	
+}
+.filtri{
+	
+	
+	width:22%;
+	
+	margin: 0% 2%;
+	margin-top:5%;
+	
+	
+	
+}
+.container-products{
+	display:flex;
+}
+
+
+.price-range{
+	margin-top:20%;
+	display:flex;
+	justify-content: space-between;
+	
+}
+
+#price-range-slider {
+      width: 200px;
+      margin-bottom: 20px;
+      margin-top:5px;
+      
+    }
+      /* Custom color for the slider strip */
+      #price-range-slider .noUi-connect {
+      background-color: #1a2653;
+    }
+    /* Custom color for the slider buttons */
+    #price-range-slider .noUi-handle {
+      background-color: #b4cffa;
+      cursor:pointer;
+    }
+
+
+
+
+
+
+.categories-filter{
+  display: block;
+  position: relative;
+  margin: 40px auto;
+  height: auto;
+  max-width:100%;
+  padding: 20px;
+}
+
+.categories-filter .radios{
+	cursor:pointer;
+}
+
+/*--------------------------------------------------------------------- Fine Prodotti general ---------------------------------------------------------------------*/
 
