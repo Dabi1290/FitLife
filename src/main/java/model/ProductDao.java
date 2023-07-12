@@ -41,7 +41,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getNome());
-			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setInt(2, product.getCategoria());
 			preparedStatement.setDouble(3, product.getPrezzo());
 			preparedStatement.setBlob(4, product.getImmagine());
 			preparedStatement.setString(5, product.getDescrizione());
@@ -82,7 +82,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getNome());
-			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setInt(2, product.getCategoria());
 			preparedStatement.setDouble(3, product.getPrezzo());
 			preparedStatement.setString(4, product.getDescrizione());
 			preparedStatement.setInt(5, product.getQuantita());
@@ -156,7 +156,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 			while (rs.next()) {
 				bean.setCodice(rs.getInt("codiceProdotto"));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setImmagine(rs.getBlob("Immagine"));
 				bean.setDescrizione(rs.getString("descrizione"));
@@ -199,7 +199,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 				bean.setCodice(rs.getInt("codiceProdotto"));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setImmagine(rs.getBlob("Immagine"));
 				bean.setDescrizione(rs.getString("descrizione"));
