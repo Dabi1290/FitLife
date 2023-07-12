@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/products.css">
+<link rel="stylesheet" href="style/products.css">
 <title>Product Page</title>
 </head>
 <body>
