@@ -32,6 +32,7 @@ public class UserProdotti extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<ProductBean> product= new ArrayList<>();
 		ProductDao dao = new ProductDao();
+		
 		try {
 			product= (List<ProductBean>) dao.doRetrieveAll();
 			
