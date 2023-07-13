@@ -38,7 +38,7 @@
           <ol class="breadcrumb-list">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Household Plants</a></li>
-            <li class="breadcrumb-item active">Bonsai</li>
+            <li class="breadcrumb-item active"><%product.getNome(); %></li>
           </ol>
         </nav>
       </div>
@@ -47,8 +47,8 @@
       <div class="column-xs-12 column-md-7">
         <div class="product-gallery">
           <div class="product-image">
-          <% Blob blob=product.getImmagine();
-     								try (InputStream inputStream = blob.getBinaryStream()) {
+          <%							Blob blob=product.getImmagine(); 
+          								try (InputStream inputStream = blob.getBinaryStream()) {
      					                // Read the Blob data into a byte array
      					                byte[] imageData = new byte[(int) blob.length()];
      					                inputStream.read(imageData);

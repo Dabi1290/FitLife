@@ -14,8 +14,8 @@
 <html lang="en">
 <head>
 <title>Gestione</title>
-<link rel="stylesheet" href="style/gestione.css">
-<script type="text/javascript" src="scripts/gestione.js"></script>
+<link rel="stylesheet" href="../style/gestione.css">
+<script type="text/javascript" src="../scripts/gestione.js"></script>
 </head>
 <body>
 
