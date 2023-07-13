@@ -144,7 +144,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 		ProductBean bean = new ProductBean();
 
-		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE codiceProdotto = ?";
 
 		try {
 			connection = ds.getConnection();

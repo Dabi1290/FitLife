@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Pagina di Login</title>
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet"><link rel="stylesheet" href="css/login.css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet"><link rel="stylesheet" href="style/login.css">
 
 
 </head>
@@ -127,8 +127,8 @@ if (errors != null){
 	</div>	
 </form>
 <!-- partial -->
-  <script src='./JAVASCRIPT/TweenMax.min.js'></script>
-<script  src="./JAVASCRIPT/login.js"></script>
+  <script src='./scripts/TweenMax.min.js'></script>
+<script  src="./scripts/login.js"></script>
 
 </body>
 </html>
