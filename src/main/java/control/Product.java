@@ -29,7 +29,7 @@ public class Product extends HttpServlet {
 		ProductDao dao = new ProductDao();
 		ProductBean bean = new ProductBean();
 		try {
-			bean= dao.doRetrieveByKey(/*(int)request.getAttribute("codice")*/18);	
+			bean= dao.doRetrieveByKey(/*(int)request.getAttribute("codice")*/20);	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
