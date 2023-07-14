@@ -21,37 +21,29 @@ import model.OrdineBean;
 import model.OrdineDao;
 
 
-/**
- * Servlet implementation class GestioneOrdine
- */
 @WebServlet("/admin/GestioneOrdine")
 public class GestioneOrdine extends HttpServlet {
+	private static final String OTYPE="ordType";
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+   
+	
     public GestioneOrdine() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doPost(request,response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<OrdineBean> product= new ArrayList<>();
 		OrdineDao dao = new OrdineDao();
 		String ordtypeReq=(String) request.getParameter("OrdType");
-		String ordtypeSes=(String) request.getSession().getAttribute("ordType");
+		String ordtypeSes=(String) request.getSession().getAttribute(GestioneOrdine.OTYPE);
 		String predicate=(String) request.getParameter("predicate");
 		String text=(String) request.getParameter("testo");
 		String text1=(String) request.getParameter("testo1");
@@ -60,7 +52,7 @@ public class GestioneOrdine extends HttpServlet {
 		Date date2;
 		
 		Predicate<OrdineBean> filter;
-		if(predicate==null || text==null || text.trim().isEmpty() || text1==null || text.trim().isEmpty()) {
+		if(predicate==null || text==null || text.trim().isEmpty() || text1==null || text1.trim().isEmpty()) {
 			
 			filter = order -> true;
 		}
@@ -91,33 +83,33 @@ public class GestioneOrdine extends HttpServlet {
 		}
 		
 		try {
-			product= (List<OrdineBean>) dao.doRetrieveAll("");
+			product= (List<OrdineBean>) dao.doRetrieveAll();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		if(ordtypeReq==null && ordtypeSes==null) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");
 			dispatcher.forward(request, response);
 		}
 		if(ordtypeReq!=null) {
-			if(ordtypeReq.equals("1")==true){
+			if(ordtypeReq.equals("1")){
 				
-				request.getSession().setAttribute("ordType", "1");
-				product=product.stream().filter(a->a.getIsProcessed()==false).filter(filter).toList();
+				request.getSession().setAttribute(GestioneOrdine.OTYPE, "1");
+				product=product.stream().filter(a->!a.getIsProcessed()).filter(filter).toList();
 			}
-			else {product=product.stream().filter(a->a.getIsProcessed()==true).filter(filter).toList();
-			request.getSession().setAttribute("ordType", "0");
+			else {product=product.stream().filter(a->a.getIsProcessed()).filter(filter).toList();
+			request.getSession().setAttribute(GestioneOrdine.OTYPE, "0");
 			
 			}
 		}
 		else {
-			if(ordtypeSes.equals("1")==true){
-				product=product.stream().filter(a->a.getIsProcessed()==false).filter(filter).toList();
+			if(ordtypeSes.equals("1")){
+				product=product.stream().filter(a->!a.getIsProcessed()).filter(filter).toList();
 				
 			}
-			else { product=product.stream().filter(a->a.getIsProcessed()==true).filter(filter).toList();
+			else { product=product.stream().filter(a->a.getIsProcessed()).filter(filter).toList();
 			
 			}
 		}

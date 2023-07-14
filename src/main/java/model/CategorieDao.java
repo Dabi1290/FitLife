@@ -13,9 +13,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class PromozioniDao implements BaseDao<PromozioniBean> {
+public class CategorieDao implements BaseDao<CategoriaBean> {
+
+	private static final Logger logger = Logger.getLogger(AdminDao.class.getName());
 	private static DataSource ds;
-	private static final Logger logger = Logger.getLogger(PromozioniDao.class.getName());
+
 	static {
 		try {
 			Context initCtx = new InitialContext();
@@ -28,25 +30,22 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		}
 	}
 
-	private static final String TABLE_NAME = "Promozione";
+	private static final String TABLE_NAME = "categorie";
 	@Override
-	public void doSave(PromozioniBean product) throws SQLException {
+	public void doSave(CategoriaBean product) throws SQLException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO " + PromozioniDao.TABLE_NAME
-				+ " (codicePromozione, categoria, isCategoria, Immagine) VALUES (?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO " + CategorieDao.TABLE_NAME
+				+ " (nomeCategoria) VALUES (?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, product.getCodice());
-			preparedStatement.setString(2, product.getCategoria());
-			preparedStatement.setBoolean(3, product.getIsCategoria());
-			preparedStatement.setBlob(4,product.getImmagine());
-			
+			preparedStatement.setString(1, product.getNomeCategoria());
 
 			preparedStatement.executeUpdate();
-			connection.setAutoCommit(false); 
+
 			connection.commit();
 			
 		} finally {
@@ -58,20 +57,21 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 					connection.close();
 			}
 		}
+
 	}
-	
-	
-	public boolean doDelete(String code) throws SQLException {
+
+	@Override
+	public boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
-		String deleteSQL = "DELETE FROM " + PromozioniDao.TABLE_NAME + " WHERE codicePromozione = ?";
+		String deleteSQL = "DELETE FROM " + CategorieDao.TABLE_NAME + " WHERE idcategorie = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, code);
+			preparedStatement.setInt(1, code);
 
 			result = preparedStatement.executeUpdate();
 
@@ -87,28 +87,25 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		return (result != 0);
 	}
 
-	
-	public PromozioniBean doRetrieveByKey(String code) throws SQLException {
+	@Override
+	public CategoriaBean doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		PromozioniBean bean = new PromozioniBean();
+		CategoriaBean bean = new CategoriaBean();
 
-		String selectSQL = "SELECT * FROM " + PromozioniDao.TABLE_NAME + " WHERE codicePromozione = ?";
+		String selectSQL = "SELECT * FROM " + CategorieDao.TABLE_NAME + " WHERE idcategorie = ?";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, code);
+			preparedStatement.setInt(1, code);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getString("codicePromozione"));
-				bean.setCategoria(rs.getString("categoria"));
-				bean.setIsCategoria(rs.getBoolean("isCategoria"));
-				bean.setImmagine(rs.getBlob("Immagine"));
-
+				bean.setIdCategoria(rs.getInt("idcategorie"));
+				bean.setNomeCategoria(rs.getString("nomeCategoria"));
 			}
 
 		} finally {
@@ -124,13 +121,14 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 	}
 
 	@Override
-	public Collection<PromozioniBean> doRetrieveAll() throws SQLException {
+	public Collection<CategoriaBean> doRetrieveAll() throws SQLException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<PromozioniBean> products = new LinkedList<>();
+		Collection<CategoriaBean> products = new LinkedList<>();
 
-		String selectSQL = "SELECT * FROM " + PromozioniDao.TABLE_NAME;
+		String selectSQL = "SELECT * FROM " + CategorieDao.TABLE_NAME;
 
 		
 
@@ -141,12 +139,10 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				PromozioniBean bean = new PromozioniBean();
+				CategoriaBean bean = new CategoriaBean();
 
-				bean.setCodice(rs.getString("codicePromozione"));
-				bean.setCategoria(rs.getString("categoria"));
-				bean.setIsCategoria(rs.getBoolean("isCategoria"));
-				bean.setImmagine(rs.getBlob("Immagine"));
+				bean.setIdCategoria(rs.getInt("idcategorie"));
+				bean.setNomeCategoria(rs.getString("nomeCategoria"));
 				products.add(bean);
 			}
 
@@ -160,18 +156,6 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 			}
 		}
 		return products;
-	}
-
-	
-	@Override
-	public boolean doDelete(int code) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public PromozioniBean doRetrieveByKey(int code) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
