@@ -14,20 +14,20 @@
 <form action="Register" method="post">
 	<div class="inputGroup inputGroup1">
 		<label for="email1">Nome</label>
-		<input type="text" id="email" name="username"class="email" maxlength="256" placeholder="email@dominio.com"/>
+		<input type="text" id="email" name="username"class="email" maxlength="256" placeholder="Nome"/>
 		<span class="indicator"></span>
 	</div>
-	<div class="inputGroup inputGroup2">
+	<div class="inputGroup inputGroup2" >
 		<label for="password">Cognome</label>
-		<input type="password" id="password" name="password"class="password" />
+		<input type="password" id="password" name="password"class="password" placeholder="Cognome" />
 	</div>
 	<div class="inputGroup inputGroup3">
 		<label for="password">E-Mail</label>
-		<input type="password" id="password" name="password"class="password" />
+		<input type="password" id="password" name="password"class="password" placeholder="nome@server.dominio"/>
 	</div>
 	<div class="inputGroup inputGroup4">
 		<label for="password">Password</label>
-		<input type="password" id="password" name="password"class="password" />
+		<input type="password" id="password" name="password"class="password" placeholder="Password"/>
 	</div>
 
 	<div class="inputGroup inputGroup3">
