@@ -10,12 +10,12 @@ function searchProducts() {
                 alert("Request failed.");
             });
   } else {
-    $("#searchResults").empty();
+    $("#suggestions").empty();
   }
 }
 
 function displayResults(products) {
-  $("#searchResults").empty();
+  $("#suggestions").empty();
 
   if (products.length > 0) {
 	  
@@ -23,11 +23,12 @@ function displayResults(products) {
 		
 		
 		
-		$("#searchResults").append(prodotto.nome + " </br>");
+		$("#suggestions").append($('<li />', {html: '<b>' + prodotto.nome + '</b>'}));
 		// And then for every band add a list of their albums.
 		
 		});
   } else {
-	   $("#searchResults").append("No results found.");
+	   $("#suggestions").append("No results found.");
   }
 }
+
