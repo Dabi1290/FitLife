@@ -175,6 +175,54 @@ public class ProductDao implements BaseDao<ProductBean> {
 		}
 		return bean;
 	}
+	
+
+	
+
+
+	public synchronized Collection<ProductBean> doRetrieveByQuery(String query) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<ProductBean> products = new LinkedList<>();
+		query=query+"%";
+
+		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE nome LIKE ?";
+		
+		
+		
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, query);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+
+				bean.setCodice(rs.getInt("codiceProdotto"));
+				bean.setNome(rs.getString("nome"));
+				bean.setCategoria(rs.getInt("categoria"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setImmagine(rs.getBlob("Immagine"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setQuantita(rs.getInt("quantità"));
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
 
 	@Override
 	public synchronized Collection<ProductBean> doRetrieveAll() throws SQLException {

@@ -52,6 +52,7 @@ public class UserProdotti extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		
+		
 		try {
 		strcategoria=(String) request.getParameter("categoria");
 		strmin= (String) request.getParameter("min");
