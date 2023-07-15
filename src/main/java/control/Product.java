@@ -28,8 +28,16 @@ public class Product extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductDao dao = new ProductDao();
 		ProductBean bean = new ProductBean();
+		int codProd=-1;
 		try {
-			bean= dao.doRetrieveByKey(/*(int)request.getAttribute("codice")*/18);	
+			codProd=Integer.parseInt(request.getParameter("codProd"));
+		}
+		catch(Exception e){
+			//erorre 404
+		}
+		
+		try {
+			bean= dao.doRetrieveByKey(codProd);	
 		} catch (SQLException e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}

@@ -23,7 +23,7 @@ function displayResults(products) {
 		
 		
 		
-		$("#suggestions").append($('<li />', {html: '<b>' + prodotto.nome + '</b>'}));
+		$("#suggestions").append($('<li />', {html: '<a href="Product?codProd='+prodotto.codice+'"><b>' + prodotto.nome + '</b></a>'}));
 		// And then for every band add a list of their albums.
 		
 		});
