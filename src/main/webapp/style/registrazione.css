@@ -125,3 +125,10 @@ form .inputGroup1.focusWithText .helper {
 .icon img{
 	height: 64px;
 }
+
+p.errore{
+  font-size: 1.0em;
+  color: red !important;
+  font-weight: 700;
+  font-family: inherit;
+}

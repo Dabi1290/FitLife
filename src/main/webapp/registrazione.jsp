@@ -7,6 +7,7 @@
   <title>Pagina di Registrazione</title>
   <link href="" rel="stylesheet"><link rel="stylesheet" href="style/registrazione.css">
   <link rel="stylesheet" href="style/style.css">
+  <script  src="./scripts/registrazione.js"></script>
 </head>
 <body>
 <div class="principale">
@@ -14,24 +15,28 @@
 <form action="Register" method="post">
 	<div class="inputGroup inputGroup1">
 		<label for="email1">Nome</label>
-		<input type="text" id="email" name="username"class="email" maxlength="256" placeholder="Nome"/>
+		<input type="text" id="nome" name="username"class="email" maxlength="256" placeholder="Nome" onchange="rightName()">
+			<p class="errore" id="errore1"></p>
 		<span class="indicator"></span>
 	</div>
 	<div class="inputGroup inputGroup2" >
 		<label for="password">Cognome</label>
-		<input type="password" id="password" name="password"class="password" placeholder="Cognome" />
+		<input type="text" id="cognome" name="password"class="password" placeholder="Cognome" onchange="rightSurname()"/>
+			<p class="errore" id="errore2"></p>
 	</div>
 	<div class="inputGroup inputGroup3">
 		<label for="password">E-Mail</label>
-		<input type="password" id="password" name="password"class="password" placeholder="nome@server.dominio"/>
+		<input type="text" id="email" name="password"class="password" placeholder="nome@server.dominio" onchange="rightEmail()"/>
+			<p class="errore" id="errore3"></p>
 	</div>
 	<div class="inputGroup inputGroup4">
 		<label for="password">Password</label>
-		<input type="password" id="password" name="password"class="password" placeholder="Password"/>
+		<input type="password" id="password" name="password"class="password" placeholder="Password" onchange="rightPassword()"/>
+			<p class="errore" id="errore4"></p>
 	</div>
 
 	<div class="inputGroup inputGroup3">
-		<button id="login">Login</button>
+		<button id="login">Register</button>
 	</div>	
 </form>
 </div>
