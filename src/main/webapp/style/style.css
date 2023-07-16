@@ -190,7 +190,6 @@ body {
     width: 316px;
     margin-right: 20px;
     border-radius: 25px;
-    z-index:10;
     
 }
 #suggestions.active {
@@ -433,6 +432,7 @@ body {
 .container a{
 	text-decoration: none;
 }
+
 
 
 
