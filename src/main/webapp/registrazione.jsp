@@ -11,8 +11,8 @@
 </head>
 <body>
 <div class="principale">
-<div class="row"><div class="left-side"><div class="icon"><a href="index.jsp"><img alt="#" src="images/arrow.png"></a></div></div><img class="logo" alt="#" src="images/logo.png"></div> 
-<form action="Register" method="post">
+<div class="row"><div class="left-side"><div class="icon"><a href="index.jsp"><img alt="#" src="images/arrow.png" class="arrow"></a></div></div><img class="logo" alt="#" src="images/logo.png"></div> 
+<form action="Register" method="post" class="registrazioneForm">
 	<div class="inputGroup inputGroup1">
 		<label for="email1">Nome</label>
 		<input type="text" id="nome" name="username"class="email" maxlength="256" placeholder="Nome" onchange="rightName()">

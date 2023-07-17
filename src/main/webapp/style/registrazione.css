@@ -132,3 +132,12 @@ p.errore{
   font-weight: 700;
   font-family: inherit;
 }
+
+@media screen and (max-width: 999px) {
+      form.registrazioneForm{
+      	width: 90%;
+      	margin-top: 110px;
+      }
+      
+}
+    
