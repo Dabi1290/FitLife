@@ -70,9 +70,9 @@ public class Login extends HttpServlet {
 				try {
 					user=userdao.doRetrieveByEmail(username);
 					if(user.getPassword().equals(password)) {
-						
+						request.getSession().setAttribute("isUser", Boolean.TRUE);
 						request.getSession().setAttribute("isAdmin", Boolean.FALSE);
-						response.sendRedirect("common/index.jsp");
+						response.sendRedirect("index.jsp");
 					}
 					else {
 						errors.add("Username o password non validi!");

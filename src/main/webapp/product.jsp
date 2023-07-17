@@ -12,7 +12,7 @@
 </head>
 <body>
 <% ProductBean product = (ProductBean)request.getAttribute("prodotto");%>
-<%@ include file="header.html" %>
+<%@ include file="header.jsp" %>
 <main>
   <div class="container">
     <div class="grid second-nav">

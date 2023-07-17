@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<%@ include file="header.html" %>
+<%@ include file="header.jsp" %>
 
 <div class="container">
 	<% List<CategoriaBean> categorie= (List<CategoriaBean>)request.getAttribute("categorie");
