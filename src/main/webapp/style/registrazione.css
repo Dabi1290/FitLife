@@ -70,7 +70,7 @@ form input[type=email]:focus, form input[type=text]:focus, form input[type=passw
 form input[type=email], form input[type=text] {
   padding: 14px 1em 0px;
 }
-form button {
+form input[type=button] {
   display: block;
   margin: 0;
   padding: 0.65em 1em 1em;
@@ -87,7 +87,7 @@ form button {
   font-family: inherit;
   transition: background-color 0.2s ease-out;
 }
-form button:hover, form button:active {
+form input[type=button]:hover, form input[type=button]:active {
   background-color: #217093;
 }
 form .inputGroup1 .helper {
