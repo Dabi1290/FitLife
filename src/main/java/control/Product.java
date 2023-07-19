@@ -30,7 +30,7 @@ public class Product extends HttpServlet {
 		ProductBean bean = new ProductBean();
 		int codProd=-1;
 		try {
-			codProd=Integer.parseInt(request.getParameter("codProd"));
+			codProd=/*Integer.parseInt(request.getParameter("codProd"))*/19;
 		}
 		catch(Exception e){
 			//erorre 404
