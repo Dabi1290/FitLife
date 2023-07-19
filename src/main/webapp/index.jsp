@@ -7,12 +7,15 @@
 <title>FitLife Home</title>
 </head>
 <body>
-	<%@ include file="header.html"%>
+	<%@ include file="header.jsp"%>
 	
 	
 	<div class="STitle">
 		<h2>Più Venduti</h2> <!-- pippo -->
 	 </div>
+	 
+	 
+	 
 	<div class="boxes">
 
 		<div class="box">

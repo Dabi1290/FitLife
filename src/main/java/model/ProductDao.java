@@ -69,19 +69,32 @@ public class ProductDao implements BaseDao<ProductBean> {
 		PreparedStatement preparedStatement = null;
 		
 
-		String insertSQL = "UPDATE " + ProductDao.TABLE_NAME
-				+ " SET nome=?, categoria=?, prezzo=?, Immagine=?, descrizione=?, quantità=? WHERE codiceProdotto= ?";
+		String insertSQL = "UPDATE " + ProductDao.TABLE_NAME;
+		if(product.getImmagine()==null || product.getImmagine().length()==0) {
+			
+			insertSQL= insertSQL+" SET nome=?, categoria=?, prezzo=?,descrizione=?, quantità=? WHERE codiceProdotto= ?";
+		}
+		else {
+			insertSQL= insertSQL	+ " SET nome=?, categoria=?, prezzo=?, descrizione=?, quantità=?,Immagine=? WHERE codiceProdotto= ?";
+		}
+		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getNome());
 			preparedStatement.setInt(2, product.getCategoria());
 			preparedStatement.setDouble(3, product.getPrezzo());
-			preparedStatement.setBlob(4, product.getImmagine());
-			preparedStatement.setString(5, product.getDescrizione());
-			preparedStatement.setInt(6, product.getQuantita());
-			preparedStatement.setInt(7,product.getCodice());
-
+			preparedStatement.setString(4, product.getDescrizione());
+			preparedStatement.setInt(5, product.getQuantita());
+			
+			if (product.getImmagine()==null || product.getImmagine().length()==0) {
+			
+			preparedStatement.setInt(6,product.getCodice());
+			}
+			else {
+				preparedStatement.setBlob(6, product.getImmagine());
+				preparedStatement.setInt(7,product.getCodice());
+			}
 			preparedStatement.executeUpdate();
 			connection.setAutoCommit(false); 
 			connection.commit();
@@ -161,6 +174,54 @@ public class ProductDao implements BaseDao<ProductBean> {
 			}
 		}
 		return bean;
+	}
+	
+
+	
+
+
+	public synchronized Collection<ProductBean> doRetrieveByQuery(String query) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<ProductBean> products = new LinkedList<>();
+		query=query+"%";
+
+		String selectSQL = "SELECT * FROM " + ProductDao.TABLE_NAME + " WHERE nome LIKE ?";
+		
+		
+		
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, query);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				ProductBean bean = new ProductBean();
+
+				bean.setCodice(rs.getInt("codiceProdotto"));
+				bean.setNome(rs.getString("nome"));
+				bean.setCategoria(rs.getInt("categoria"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setImmagine(rs.getBlob("Immagine"));
+				bean.setDescrizione(rs.getString("descrizione"));
+				bean.setQuantita(rs.getInt("quantità"));
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
 	}
 
 	@Override

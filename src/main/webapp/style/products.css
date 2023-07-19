@@ -13,8 +13,8 @@
 
 .grid {
   display: flex;
-  flex-direction: column;
   flex-flow: row wrap;
+  flex-direction: column;
 }
 .grid > [class*=column-] {
   display: block;
@@ -615,50 +615,6 @@ img {
      object-fit: cover;
 }
 
-nav {
-  display: block;
-}
-nav li {
-  font-size: 1.125rem;
-  margin: 0;
-}
-
-.flex-nav ul {
-  position: absolute;
-  z-index: 1;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  display: none;
-  width: 100%;
-  left: 0;
-  padding: 1rem;
-  background: #fff;
-  text-align: center;
-}
-.flex-nav ul.active {
-  display: flex;
-}
-.flex-nav ul li {
-  margin: 0.5rem 0;
-}
-
-.toggle-nav {
-  display: flex;
-  justify-content: flex-end;
-  font-size: 1.125rem;
-  line-height: 1.7;
-  margin: 1rem 0;
-}
-.toggle-nav i {
-  font-size: 1.5rem;
-  line-height: 1.4;
-  margin: 0 0 0 0.5rem;
-}
-
 #highlight {
   color: #333;
   font-size: 1.125rem;
@@ -804,30 +760,6 @@ footer {
     opacity: 0.7;
   }
 
-  nav ul {
-    justify-content: flex-end;
-  }
-
-  .toggle-nav {
-    display: none;
-  }
-
-  .flex-nav {
-    display: block;
-  }
-  .flex-nav ul {
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    justify-content: flex-end;
-  }
-  .flex-nav ul li {
-    font-size: 1.125rem;
-    margin: 0 1.5rem 0 0;
-  }
-  .flex-nav ul li:nth-child(4) {
-    margin: 0;
-  }
 }
 @-webkit-keyframes fadeImg {
   from {

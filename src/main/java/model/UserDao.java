@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,6 +66,67 @@ public class UserDao implements BaseDao<UserBean> {
 		
 	}
 
+
+	public synchronized void doUpdate(UserBean user) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "UPDATE " + UserDao.TABLE_NAME
+				+ " SET nome=?, cognome=?, telefono=?, indirizzo=?, email=? WHERE codiceCliente=?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, user.getNome());
+			preparedStatement.setString(2, user.getCognome());
+			preparedStatement.setString(3, user.getTelefono());
+			preparedStatement.setString(4, user.getIndirizzo());
+			preparedStatement.setString(5, user.getEmail());
+			preparedStatement.setInt(6, user.getCodice());
+
+			preparedStatement.executeUpdate();
+			connection.setAutoCommit(false); 
+			connection.commit();
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
+public synchronized void doPass(String pass,int code) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String insertSQL = "UPDATE " + UserDao.TABLE_NAME
+				+ " SET password=? WHERE codiceCliente=?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, toHash(pass));
+			preparedStatement.setInt(2,code);
+			preparedStatement.executeUpdate();
+			connection.setAutoCommit(false); 
+			connection.commit();
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
+	
+	
 	@Override
 	public synchronized boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
@@ -208,5 +270,20 @@ public class UserDao implements BaseDao<UserBean> {
 		return products;
 	}
 	
-
+	private String toHash(String password) {
+        String hashString = null;
+        try {
+            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            hashString = "";
+            for (int i = 0; i < hash.length; i++) {
+                hashString += Integer.toHexString( 
+                                  (hash[i] & 0xFF) | 0x100 
+                              ).toLowerCase().substring(1,3);
+            }
+        } catch (java.security.NoSuchAlgorithmException e) {
+            System.out.println(e);
+        }
+        return hashString;
+    }
 }

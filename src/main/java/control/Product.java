@@ -28,10 +28,18 @@ public class Product extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductDao dao = new ProductDao();
 		ProductBean bean = new ProductBean();
+		int codProd=-1;
 		try {
-			bean= dao.doRetrieveByKey(/*(int)request.getAttribute("codice")*/20);	
+			codProd=Integer.parseInt(request.getParameter("codProd"));
+		}
+		catch(Exception e){
+			//erorre 404
+		}
+		
+		try {
+			bean= dao.doRetrieveByKey(codProd);	
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		request.setAttribute("prodotto", bean);
 		RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("/product.jsp");

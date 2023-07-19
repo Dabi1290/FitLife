@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +25,19 @@
   <img src="images/logo.png" alt="Logo" class="logo">
   <div class="right-side">
   <a href="#" class="icon"><img src="images/cart.png" alt="#"></a>
+  
+  <%Boolean isUser= (Boolean)request.getSession().getAttribute("isUser");
+  if(isUser==null || !isUser){
+  
+  %>
   <a href="login.jsp" class="icon"><img src="images/user.png" alt="#"></a>
+  <%}
+  else{
+  
+  %>
+  <a href="userArea" class="icon"><img src="images/user.png" alt="#"></a>
+  <%} %>
+  
   </div>
 </div>
 	<nav>

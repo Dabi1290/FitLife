@@ -44,6 +44,7 @@
 	height: 60px;
 	width:10%;
 	display:flex;
+	
 }
 
 .left-side{
@@ -80,7 +81,7 @@ body {
   align-items:center;
   
   justify-content: space-between;
-  
+  position:relative;
  
   
 }
@@ -136,7 +137,12 @@ body {
 	
   display:flex;
   margin-right: 20px;
-  height:100%
+  height:100%;
+  flex-direction:column;
+  position: absolute;
+  justify-content:center;
+      right: 0;
+  
 }
 .navbar .Logout {
   
@@ -159,13 +165,69 @@ body {
   padding: 8px;
   border: none;
   border-radius: 20px;
-  width: 300px; /* Increase the width as per your preference */
+  width: 300px;
+  position:static; /* Increase the width as per your preference */
+}
+
+.frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  margin-top: -200px;
+  margin-left: -200px;
+  border-radius: 2px;
+  box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: #5CA4EA;
+  color: #333;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#suggestions{
+    background: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    list-style: none;
+    color: #6E6E6E;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 170px;
+    width: 316px;
+    margin-right: 20px;
+    border-radius: 25px;
+    z-index:10;
+    
+}
+#suggestions.active {
+  border-top: 1px solid #5CA4EA;
+}
+#suggestions li {
+  margin: 18px 0;
+  padding: 0;
+  cursor: pointer;
+}
+#suggestions li :hover {
+  color: #4D8DCB;
+}
+#suggestions li b {
+  font-weight: 600;
+  padding-left: 20px;
+}
+#suggestions a{
+	    color: #6E6E6E;
+    text-decoration:none;
 }
 
 
 /*--------------------------------------------------------------------- Fine Header ---------------------------------------------------------------------*/
 
-
+/*--------------------------------------------------------------------- Prodotti più venduti ---------------------------------------------------------------------*/
 .boxes{
 	display:flex;
 	flex-wrap:wrap;
@@ -179,12 +241,12 @@ body {
 	height:300px;
 	width:280px;
 	padding:1%;
-	border-color:black;
-	border:solid;
 	margin-bottom:5%;
 	margin-right:5px;
 	display:flex;
 	flex-direction: column;
+	background-color:	#DAE7FD;
+	
 }
 
 .box-image {
@@ -211,4 +273,179 @@ body {
     font-size: 300%;
     margin-top: 5%;
 }
+
+
+/*--------------------------------------------------------------------- Fine Prodotti più venduti ---------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------- Prodotti general ---------------------------------------------------------------------*/
+
+.boxes-3{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content: space-evenly;
+	margin: 0% 2%;
+	width:70%;
+	margin-top:5%;
+	
+	
+}
+.filtri{
+	
+	
+	width:22%;
+	
+	margin: 0% 2%;
+	margin-top:5%;
+	
+	
+	
+}
+.container-products{
+	display:flex;
+}
+
+
+.price-range{
+	margin-top:20%;
+	display:flex;
+	justify-content: space-between;
+	
+}
+
+#price-range-slider {
+      width: 200px;
+      margin-bottom: 20px;
+      margin-top:5px;
+      
+    }
+      /* Custom color for the slider strip */
+      #price-range-slider .noUi-connect {
+      background-color: #1a2653;
+    }
+    /* Custom color for the slider buttons */
+    #price-range-slider .noUi-handle {
+      background-color: #b4cffa;
+      cursor:pointer;
+    }
+
+
+
+
+
+
+.categories-filter{
+  display: block;
+  position: relative;
+  margin: 40px auto;
+  height: auto;
+  max-width:100%;
+  padding: 20px;
+}
+
+.categories-filter .radios{
+	cursor:pointer;
+}
+
+/*--------------------------------------------------------------------- Fine Prodotti general ---------------------------------------------------------------------*/
+/*--------------------------------------------------------------------- Categorie  ---------------------------------------------------------------------*/
+
+
+.container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 3rem;
+  padding: 2rem 4rem 4rem;
+}
+.container .wrapper {
+  transform: skew(-10deg);
+  transition: 0.25s;
+}
+.container .wrapper:before {
+  content: '';
+  left: 0;
+  top: 0;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+  border-radius: 40px;
+  opacity: 0;
+  border: 2px solid #ece9e6;
+  position: absolute;
+  z-index: -1;
+  transition: 0.5s 0.05s;
+}
+.container .wrapper:hover:before {
+  opacity: 1;
+  transform: translateY(1.5rem) translateX(1.5rem);
+}
+.container .wrapper .card:after {
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  
+  background-blend-mode: screen;
+  transform: skew(10deg) scale(1.2);
+  transition: 0.25s;
+}
+
+.container .wrapper:hover {
+  transform: translateX(-1rem) translateY(-1rem) skew(-10deg);
+}
+.container .wrapper:hover .card {
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.1);
+}
+.container .wrapper:hover .card:after {
+  background-blend-mode: normal;
+}
+.container .wrapper:hover .card .fal {
+  bottom: 4rem;
+  background-color: rgba(255,255,255,0.8);
+}
+.container .card {
+  
+  border-radius: 40px;
+  height: 15rem;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  display:flex;
+  justify-content: center;
+  background-color: 	#1a2653;
+}
+
+.card h1{
+	    display: flex;
+    flex-direction: column;
+        justify-content: center;
+        color:	#006bce;
+}
+.container .card:after {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.container .card .fal {
+  position: absolute;
+  bottom: -1rem;
+  right: 3rem;
+  border-radius: 100%;
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: #373f51;
+  z-index: 1;
+  transform: skew(10deg) translateY(50%);
+  text-align: center;
+  transition: 0.25s;
+}
+
+.container a{
+	text-decoration: none;
+}
+
+/*--------------------------------------------------------------------- Fine Categorie  ---------------------------------------------------------------------*/
+
+
 
