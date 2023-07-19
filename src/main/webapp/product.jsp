@@ -19,9 +19,7 @@
       <div class="column-xs-12">
         <nav>
           <ol class="breadcrumb-list">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Household Plants</a></li>
-            <li class="breadcrumb-item active">Bonsai</li>
+            <li class="breadcrumb-item active"><%=product.getNome() %></li>
           </ol>
         </nav>
       </div>
@@ -49,10 +47,9 @@
       </div>
       <div class="column-xs-12 column-md-5">
         <h1><%=product.getNome() %></h1>
-        <h2>$19.99</h2>
+        <h2><%=product.getPrezzo()+"$" %></h2>
         <div class="description">
-          <p>The purposes of bonsai are primarily contemplation for the viewer, and the pleasant exercise of effort and ingenuity for the grower.</p>
-          <p>By contrast with other plant cultivation practices, bonsai is not intended for production of food or for medicine. Instead, bonsai practice focuses on long-term cultivation and shaping of one or more small trees growing in a container.</p>
+          <p><%=product.getDescrizione() %></p>
         </div>
         <button class="add-to-cart">Add To Cart</button>
       </div>

@@ -46,6 +46,16 @@
 	display:flex;
 	
 }
+
+.left-side{
+	position:absolute;
+	left: 0;
+	margin-left:3%;
+	height: 60px;
+	width:10%;
+	display:flex;
+}
+
 .icon{
 	padding:10%;
 	text-align:center;
@@ -53,6 +63,7 @@
 .icon img{
 	height:100%;
 	width:auto;
+	cursor:pointer;
 }
 
 
