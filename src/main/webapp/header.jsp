@@ -35,7 +35,7 @@
   else{
   
   %>
-  <a href="areaUtente.jsp" class="icon"><img src="images/user.png" alt="#"></a>
+  <a href="userArea" class="icon"><img src="images/user.png" alt="#"></a>
   <%} %>
   
   </div>
