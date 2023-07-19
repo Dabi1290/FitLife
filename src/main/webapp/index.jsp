@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FitLife Home</title>
 </head>
 <body>
 	<%@ include file="header.html"%>

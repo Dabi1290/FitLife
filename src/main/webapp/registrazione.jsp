@@ -15,18 +15,18 @@
 <form action="Register" method="post" class="registrazioneForm">
 	<div class="inputGroup inputGroup1">
 		<label for="email1">Nome</label>
-		<input type="text" id="nome" name="username"class="email" maxlength="256" placeholder="Nome" onchange="rightName()">
+		<input type="text" id="nome" name="nome"class="email" maxlength="256" placeholder="Nome" onchange="rightName()">
 			<p class="errore" id="errore1"></p>
 		<span class="indicator"></span>
 	</div>
 	<div class="inputGroup inputGroup2" >
 		<label for="password">Cognome</label>
-		<input type="text" id="cognome" name="password"class="password" placeholder="Cognome" onchange="rightSurname()"/>
+		<input type="text" id="cognome" name="cognome"class="password" placeholder="Cognome" onchange="rightSurname()"/>
 			<p class="errore" id="errore2"></p>
 	</div>
 	<div class="inputGroup inputGroup3">
 		<label for="password">E-Mail</label>
-		<input type="text" id="email" name="password"class="password" placeholder="nome@server.dominio" onchange="rightEmail()"/>
+		<input type="text" id="email" name="email"class="password" placeholder="nome@server.dominio" onchange="rightEmail()"/>
 			<p class="errore" id="errore3"></p>
 	</div>
 	<div class="inputGroup inputGroup4">

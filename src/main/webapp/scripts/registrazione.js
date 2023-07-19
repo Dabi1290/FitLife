@@ -30,7 +30,7 @@ function rightPassword(){
 	let nome=" ";
 	nome=document.getElementById("password").value;
 	if(nome.trim().length<6)
-		document.getElementById("errore4").innerHTML = "La password non può essere inferiore a 6 caratteri";
+		document.getElementById("errore4").innerHTML = "La password non può essere inferiore a 7 caratteri";
 	else 
 		document.getElementById("errore4").innerHTML = "";
 }
