@@ -10,7 +10,9 @@ function FreeFields(){
 		$('#ciao').val('1')*/
 		document.querySelector("form").submit();
 	}
-	
+}
 
+function ResetPasswd(){
 	
+	document.querySelectorAll("form")[1].submit();
 }

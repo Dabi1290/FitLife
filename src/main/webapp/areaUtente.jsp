@@ -21,7 +21,9 @@
 UserBean bean= (UserBean) request.getAttribute("utente");
 
 %>
-<form action="UpdateUser" method="post">
+<div class="main">
+
+<form action="UpdateUser" method="post" >
 	<div class="inputGroup">
 		<label for="email1">Nome</label>
 		<input type="text" id="email" name="Nome"class="camp" value="<%=bean.getNome() %>"  readonly/>
@@ -61,11 +63,29 @@ if (errors != null){
 		<input type="button" id="modifica" onclick="FreeFields()" value="Modifica" >
 		<input type="hidden" id="ciao" value="1">
 	</div>	
+	
+	
+	
 </form>
 
+<form action="PassReset" class="reset">
+<div class="inputGroup">
+		<label for="password">Password</label>
+		<input type="text" id="password" name="Password" />
+		<span class="indicator"></span>
+	</div>
+<div class="inputGroup">
+		<input type="button" id="modifica" onclick="ResetPasswd()" value="Reset Password" >
+		
+	</div>	
 
-
+</form>
 
 </div>
+
+
+
+
+
 </body>
 </html>
