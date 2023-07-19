@@ -31,7 +31,7 @@ public class Register extends HttpServlet {
 		String cognome=request.getParameter("cognome");
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
-		if(nome.length()<3 || cognome.length()<3 || password.length()<6) {
+		if(nome.trim().length()<3 || cognome.trim().length()<3 || password.trim().length()<6) {
 			RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("/registrazione.jsp");
 			dispatcherToLoginPage.forward(request, response);
 		}

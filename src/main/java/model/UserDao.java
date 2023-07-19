@@ -48,10 +48,10 @@ public class UserDao implements BaseDao<UserBean> {
 			preparedStatement.setString(3, user.getTelefono());
 			preparedStatement.setString(4, user.getIndirizzo());
 			preparedStatement.setString(5, user.getEmail());
-			preparedStatement.setString(6, user.getPassword());
+			preparedStatement.setString(6, toHash(user.getPassword()));
 
 			preparedStatement.executeUpdate();
-
+			connection.setAutoCommit(false); 
 			connection.commit();
 			
 		} finally {
