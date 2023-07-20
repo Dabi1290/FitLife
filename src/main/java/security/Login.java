@@ -1,6 +1,7 @@
 package security;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,22 @@ public class Login extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	private String toHash(String password) {
+        String hashString = null;
+        try {
+            java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            hashString = "";
+            for (int i = 0; i < hash.length; i++) {
+                hashString += Integer.toHexString( 
+                                  (hash[i] & 0xFF) | 0x100 
+                              ).toLowerCase().substring(1,3);
+            }
+        } catch (java.security.NoSuchAlgorithmException e) {
+            System.out.println(e);
+        }
+        return hashString;
+    }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -48,7 +65,7 @@ public class Login extends HttpServlet {
 				AdminDao admindao= new AdminDao();
 				try {
 					admin=admindao.doRetrieveByEmail(username);
-					if(admin.getPassword().equals(password)==true) {
+					if(admin.getPassword().equals(toHash(password))) {
 					
 						request.getSession().setAttribute("isAdmin", Boolean.TRUE);
 						response.sendRedirect("admin/index.jsp");
@@ -57,10 +74,10 @@ public class Login extends HttpServlet {
 						errors.add("Username o password non validi!");
 						request.setAttribute("errors", errors);
 		            	dispatcherToLoginPage.forward(request, response);
-		            	return;
+		            	
 					}
 				} catch (SQLException e) {
-					// Da implementare error pages
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 				
 				
@@ -69,19 +86,20 @@ public class Login extends HttpServlet {
 				UserDao userdao = new UserDao();
 				try {
 					user=userdao.doRetrieveByEmail(username);
-					if(user.getPassword().equals(password)==true) {
-						
+					if(user.getPassword().equals(toHash(password))) {
+						request.getSession().setAttribute("isUser", Boolean.TRUE);
 						request.getSession().setAttribute("isAdmin", Boolean.FALSE);
-						response.sendRedirect("common/index.jsp");
+						request.getSession().setAttribute("userCode", user.getCodice());
+						response.sendRedirect("index.jsp");
 					}
 					else {
 						errors.add("Username o password non validi!");
 						request.setAttribute("errors", errors);
 		            	dispatcherToLoginPage.forward(request, response);
-		            	return;
+		            	
 					}
 				} catch (SQLException e) {
-					//error pages
+					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				}
 				
 			} 

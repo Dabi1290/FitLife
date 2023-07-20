@@ -8,13 +8,13 @@ public class SelledProductBean implements Serializable{
 	String nome;
 	String categoria;
 	Double prezzo;
-	int Ordine;
+	int ordine;
 	public SelledProductBean() {
 		this.codice = -1;
 		this.nome = "";
 		this.categoria = "";
 		this.prezzo = -1.0;
-		this.Ordine = -1;
+		this.ordine = -1;
 	}
 	public int getCodice() {
 		return codice;
@@ -42,10 +42,10 @@ public class SelledProductBean implements Serializable{
 		this.prezzo = prezzo;
 	}
 	public int getOrdine() {
-		return Ordine;
+		return ordine;
 	}
 	public void setOrdine(int ordine) {
-		Ordine = ordine;
+		this.ordine = ordine;
 	}
 	
 }

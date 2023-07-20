@@ -5,12 +5,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Pagina di Login</title>
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet"><link rel="stylesheet" href="css/login.css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet"><link rel="stylesheet" href="style/login.css">
 
 
 </head>
 <body>
+<div class="go-back">
+<a href="index.jsp"><img src="images/cart.png"></a>
 
+
+</div>
 <form action="Login" method="post">
 	<div class="svgContainer">
 		<div>
@@ -127,8 +131,8 @@ if (errors != null){
 	</div>	
 </form>
 <!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js'></script>
-<script  src="./JAVASCRIPT/login.js"></script>
+  <script src='./scripts/TweenMax.min.js'></script>
+<script  src="./scripts/login.js"></script>
 
 </body>
 </html>

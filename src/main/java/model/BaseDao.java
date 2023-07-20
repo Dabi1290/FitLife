@@ -12,7 +12,7 @@ public interface BaseDao<T> {
 
 	public T doRetrieveByKey(int code) throws SQLException;
 	
-	public Collection<T> doRetrieveAll(String order) throws SQLException;
+	public Collection<T> doRetrieveAll() throws SQLException;
 
 
 }

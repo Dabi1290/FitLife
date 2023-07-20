@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Footer page</title>
-<link href="../CSS/footer.css" rel="stylesheet">
+<link href="../style/footer.css" rel="stylesheet">
 <meta charset="UTF-8">
 </head>
 <body>

@@ -11,10 +11,14 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletResponse;
 
 public class AdminDao implements BaseDao<AdminBean> {
 	
-
+	private static final Logger logger = Logger.getLogger(AdminDao.class.getName());
 	private static DataSource ds;
 
 	static {
@@ -25,7 +29,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 			ds = (DataSource) envCtx.lookup("jdbc/storage");
 
 		} catch (NamingException e) {
-			System.out.println("Error:" + e.getMessage());
+			logger.severe("Error:" + e.getMessage());
 		}
 	}
 
@@ -158,18 +162,16 @@ public class AdminDao implements BaseDao<AdminBean> {
 	}
 
 	@Override
-	public synchronized Collection<AdminBean> doRetrieveAll(String order) throws SQLException {
+	public synchronized Collection<AdminBean> doRetrieveAll() throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		Collection<AdminBean> products = new LinkedList<AdminBean>();
+		Collection<AdminBean> products = new LinkedList<>();
 
 		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
-			selectSQL += " ORDER BY " + order;
-		}
+		
 
 		try {
 			connection = ds.getConnection();
