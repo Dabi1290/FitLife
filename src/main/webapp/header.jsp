@@ -17,15 +17,28 @@
 <link rel="stylesheet" href="style/style.css">
 <script src="scripts/searchBox.js"></script>
 <script type="text/javascript" src="scripts/jquery-3.7.0.min.js"></script>
-
+<script type="text/javascript" src="scripts/cart.js"></script>
 
 </head>
 <body>
 	<div class="row">
   <img src="images/logo.png" alt="Logo" class="logo">
   <div class="right-side">
-  <a href="#" class="icon"><img src="images/cart.png" alt="#"></a>
+  <%
+  Integer userCode; 
+  Boolean isCart;
+  try{
+  userCode= (int) session.getAttribute("userCode");
+  isCart=true;
+  }
+  catch(Exception e){
+	userCode=-1; 
+	isCart=false;
+  }
   
+  %>
+  <a href="#" class="icon"><img src="images/cart.png" alt="#" onclick="searchCart(<%=userCode%>,<%=isCart%>)"></a>
+ 
   <%Boolean isUser= (Boolean)request.getSession().getAttribute("isUser");
   if(isUser==null || !isUser){
   
@@ -57,6 +70,7 @@
 			
 			
 		</div>
+		<ul id="cart"></ul>
 		<ul id="suggestions"></ul>
 	</nav>
 
