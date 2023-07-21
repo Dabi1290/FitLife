@@ -46,7 +46,6 @@
 	margin-right:3px;
 	display:flex;
 	flex-direction: column;
-	text-align: center;
 	
 }
 
@@ -58,5 +57,71 @@
   img {
     width:170px;
 	height:300px;
-	justify-content: center;
+	
   }
+  
+ .name1{
+ 
+ 	display: flex;
+  	justify-content: center;
+  	align-items: center;
+ }
+
+.image1{
+	
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+}
+
+.description-team-member1{
+	
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+}
+
+.name2{
+ 
+ 	display: flex;
+  	justify-content: center;
+  	align-items: center;
+ }
+
+.image2{
+	
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+}
+
+.description-team-member2{
+	
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+}
+
+.name3{
+ 
+ 	display: flex;
+  	justify-content: center;
+  	align-items: center;
+ }
+
+.image3{
+	
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+}
+
+.description-team-member3{
+	
+	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+}

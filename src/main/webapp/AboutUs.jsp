@@ -68,39 +68,51 @@
   		</p>
   	</div>
   	
-  	<div class="teamTitle">
-  	<h2>Il Nostro Team</h2>
- 	</div>
- 	
- 	<div class="team-member1">
- 		<h3>Antonio Landi</h3>
-    	<img src="images/antonio.jpeg" alt="Foto Persona 1">
+  	<div class="team">
+  		<div class="teamTitle">
+  			<h2>Il Nostro Team</h2>
+ 		</div>
+ 		
+ 		<div class="name1">
+ 			<h3>Antonio Landi</h3>
+ 		</div>
+ 		<div class="image1">
+    		<img src="images/antonio.jpeg" alt="Foto Persona 1">
+    	</div>
 		<div class="description-team-member1">
     		<p>
-    			Breve descrizione della persona 1 e del suo ruolo nell'azienda. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    			CEO and developer
     		</p>
     	</div>
-  </div>
+  
 
-	<div class="team-member2">
-    	<h3>Giuseppe Farina</h3>
-    	<img src="images/giuseppe.jpeg" alt="Foto Persona 2">
+		<div class="name2">
+    		<h3>Giuseppe Farina</h3>
+    	</div>
+    	<div class="image2">
+    		<img src="images/giuseppe.jpeg" alt="Foto Persona 2">
+    	</div>
     	<div class="description-team-member2">
 			<p>
     			Breve descrizione della persona 2 e del suo ruolo nell'azienda. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
     		</p>
     	</div>
-  </div>
+  
 	
-	<div class="team-member3">
-		<h3>Davide Amoruso</h3>
-    	<img src="persona3.jpg" alt="Foto Persona 3">
+		<div class="name3">
+			<h3>Davide Amoruso</h3>
+		</div>
+		<div class="image3">
+    		<img src="persona3.jpg" alt="Foto Persona 3">
+    	</div>
     	<div class="description-team-member3">
     		<p>
     			Breve descrizione della persona 3 e del suo ruolo nell'azienda. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
      		</p>
     	</div>
-  </div>
+    	
+    
+ 	</div>
   </div>
 </body>
 </html>
