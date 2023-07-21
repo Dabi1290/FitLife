@@ -31,22 +31,24 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 
 	private static final String TABLE_NAME = "prodottiVenduti";
 	
-	public synchronized void doSave(SelledProductBean product,OrdineBean order) throws SQLException {
+	@Override
+	public synchronized void doSave(SelledProductBean product) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String insertSQL = "INSERT INTO " + SelledProductDao.TABLE_NAME
-				+ " (nome, categoria, prezzo, codiceOrdine) VALUES (?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO " + SelledProductDao.TABLE_NAME+ " (nome, categoria, prezzo, codiceOrdine, quantità) VALUES (?, ?, ?, ?,?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getNome());
-			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setInt(2, product.getCategoria());
 			preparedStatement.setDouble(3, product.getPrezzo());
-			preparedStatement.setInt(4, order.getCodice());
-
+			preparedStatement.setInt(4, product.getOrdine());
+			preparedStatement.setInt(5, product.getQuantita());
+			
 			preparedStatement.executeUpdate();
-
+			System.out.println("Ciao");
+			connection.setAutoCommit(false); 
 			connection.commit();
 			
 		} finally {
@@ -107,7 +109,7 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 			while (rs.next()) {
 				bean.setCodice(rs.getInt("codiceProdotto"));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setOrdine(rs.getInt("codiceOrdine"));
 			}
@@ -146,7 +148,7 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 
 				bean.setCodice(rs.getInt("codiceProdotto"));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setPrezzo(rs.getDouble("prezzo"));
 				bean.setOrdine(rs.getInt("codiceOrdine"));
 				products.add(bean);
@@ -164,10 +166,6 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 		return products;
 	}
 
-	@Override
-	public void doSave(SelledProductBean product) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }
