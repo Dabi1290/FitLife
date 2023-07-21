@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style/products.css">
+<script type="text/javascript" src="scripts/GoProd.js"></script>
 <title>Product Page</title>
 </head>
 <body>
@@ -51,7 +52,7 @@
         <div class="description">
           <p><%=product.getDescrizione() %></p>
         </div>
-        <button class="add-to-cart">Add To Cart</button>
+        <button class="add-to-cart" onclick="AddToCart(<%=product.getCodice() %>)">Add To Cart</button>
       </div>
     </div>
   </div>

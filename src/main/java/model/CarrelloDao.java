@@ -108,6 +108,72 @@ public synchronized boolean doDelete(int code,int user) throws SQLException {
 }
 
 
+
+public synchronized Boolean doSave(CarrelloBean bean) throws SQLException {
+
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+
+	String insertSQL = "INSERT INTO " + CarrelloDao.TABLE_NAME+ " (codiceCliente, codiceProd, Quantità) VALUES (?, ?, ?)";
+	int result = 0;
+	try {
+		connection = ds.getConnection();
+		preparedStatement = connection.prepareStatement(insertSQL);
+		preparedStatement.setInt(1, bean.getCodiceCliente());
+		preparedStatement.setInt(2, bean.getCodiceProdotto());
+		preparedStatement.setInt(3, 1/*bean.getQuantita()*/);
+
+		result=preparedStatement.executeUpdate();
+
+		connection.commit();
+		
+	} finally {
+		try {
+			if (preparedStatement != null)
+				preparedStatement.close();
+		} finally {
+			if (connection != null)
+				connection.close();
+		}
+	}
+	
+	return (result != 0);
+	
+}
+
+
+
+public synchronized Boolean doUpdate(CarrelloBean bean) throws SQLException {
+
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+
+	String insertSQL = "UPDATE  " + CarrelloDao.TABLE_NAME+ " SET Quantità = Quantità + 1 WHERE codiceCliente=? AND codiceProd=?";
+	int result = 0;
+	try {
+		connection = ds.getConnection();
+		preparedStatement = connection.prepareStatement(insertSQL);
+		preparedStatement.setInt(1, bean.getCodiceCliente());
+		preparedStatement.setInt(2, bean.getCodiceProdotto());
+
+		result=preparedStatement.executeUpdate();
+
+		connection.commit();
+		
+	} finally {
+		try {
+			if (preparedStatement != null)
+				preparedStatement.close();
+		} finally {
+			if (connection != null)
+				connection.close();
+		}
+	}
+	
+	return (result != 0);
+	
+}
+
 }
 
 
