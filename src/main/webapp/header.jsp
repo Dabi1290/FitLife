@@ -53,6 +53,7 @@
   
   %>
   <a href="userArea" class="icon"><img src="images/user.png" alt="#"></a>
+  <a href="Logout" class="icon"><img alt="#" src="images/logout.png"></a>
   <%} %>
   
   </div>

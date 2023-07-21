@@ -72,13 +72,13 @@ function showCart(products) {
   $("#cart").empty();
 	var totale=0;
   if (products.length > 0) {
-	  
+	  var i=0;
 	  $.each(products, function(i,prodotto) {
 		
 		
 		totale+=prodotto.prezzo*prodotto.quantita;
-		$("#cart").append($('<li />', {html: '<a href="Product?codProd='+prodotto.codice+'"><span class="cd-qty">'+prodotto.quantita+'x</span>'+prodotto.nome+'<div class="cd-price">'+prodotto.prezzo+'€</div></a><a href="#0" class="cd-item-remove cd-img-replace">Remove</a>'}));
-		
+		$("#cart").append($('<li />', { id: 'row' + i,html: '<a href="Product?codProd='+prodotto.codice+'"><span class="cd-qty">'+prodotto.quantita+'x</span>'+prodotto.nome+'<div class="cd-price">'+prodotto.prezzo+'€</div></a><div class="cd-item-remove cd-img-replace" onclick="DeleteFromCart('+i+','+prodotto.codice+')">Remove</div>'}));
+		i+=0;
 		
 		});
   }
@@ -94,7 +94,22 @@ function showCart(products) {
 
 
 
-
+function DeleteFromCart(index,codice){
+	
+    $.get('RimuoviProdotto', {"query": codice},
+            function(resp) { // on sucess
+    			if(resp){
+					 $('#row'+index).remove();
+				}
+				
+            })
+            .fail(function() { // on failure
+                alert("Request failed.");
+            });
+    
+      
+  
+}
 
 
 
