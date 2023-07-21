@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style/products.css">
-<title>Product Page</title>
+<title>FitLife</title>
 </head>
 <body>
 <% ProductBean product = (ProductBean)request.getAttribute("prodotto");%>
