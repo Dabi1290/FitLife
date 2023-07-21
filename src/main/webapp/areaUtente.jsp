@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="go-back">
-<a href="index.jsp"><img src="images/cart.png"></a>
+<a href="index.jsp"><img src="images/arrow.png"></a>
 
 
 </div>
@@ -22,6 +22,12 @@ UserBean bean= (UserBean) request.getAttribute("utente");
 
 %>
 <div class="main">
+
+<div class="inputGroup ordini" onclick="MyOrder()">
+		<input type="button" id="ordini"  value="I miei Ordini" >
+		
+	</div>	
+
 
 <form action="UpdateUser" method="post" >
 	<div class="inputGroup">

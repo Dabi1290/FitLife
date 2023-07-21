@@ -7,13 +7,11 @@ public class OrdineBean implements Serializable{
 	int codice;
 	Boolean isProcessed;
 	String data;
-	int codAdmin;
 	int codCliente;
 	int codGuest;
 	public OrdineBean() {
 		this.codice = -1;
 		this.data = "";
-		this.codAdmin=-1;
 		this.codCliente=-1;
 		this.codGuest=-1;
 		this.isProcessed=false;
@@ -35,12 +33,6 @@ public class OrdineBean implements Serializable{
 	}
 	public void setData(String data) {
 		this.data = data;
-	}
-	public int getCodAdmin() {
-		return codAdmin;
-	}
-	public void setCodAdmin(int codAdmin) {
-		this.codAdmin = codAdmin;
 	}
 	public int getCodCliente() {
 		return codCliente;

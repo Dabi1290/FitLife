@@ -154,7 +154,6 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 				bean.setIsProcessed(rs.getBoolean("isProcessed"));
 				
 				bean.setData(rs.getString("data"));
-				bean.setCodAdmin(rs.getInt("codiceAdmin"));
 				bean.setCodCliente(rs.getInt("codiceClienti"));
 				bean.setCodGuest(rs.getInt("codiceGuests"));
 			}
@@ -194,7 +193,46 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 				bean.setCodice(rs.getInt("codiceOrdine"));
 				bean.setIsProcessed(rs.getBoolean("isProcessed"));
 				bean.setData(rs.getString("data"));
-				bean.setCodAdmin(rs.getInt("codiceAdmin"));
+				bean.setCodCliente(rs.getInt("codiceClienti"));
+				bean.setCodGuest(rs.getInt("codiceGuests"));
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
+	
+	
+	public Collection<OrdineBean> doRetrievebyUser(int code) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<OrdineBean> products = new LinkedList<>();
+
+		String selectSQL = "SELECT * FROM " + OrdineDao.TABLE_NAME +" WHERE codiceClienti=?";
+
+		
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, code);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				OrdineBean bean = new OrdineBean();
+
+				bean.setCodice(rs.getInt("codiceOrdine"));
+				bean.setIsProcessed(rs.getBoolean("isProcessed"));
+				bean.setData(rs.getString("data"));
 				bean.setCodCliente(rs.getInt("codiceClienti"));
 				bean.setCodGuest(rs.getInt("codiceGuests"));
 				products.add(bean);
