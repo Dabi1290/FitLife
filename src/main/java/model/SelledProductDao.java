@@ -165,6 +165,46 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 		}
 		return products;
 	}
+	
+	public Collection<SelledProductBean> doRetrieveByOrder(int code) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		Collection<SelledProductBean> products = new LinkedList<>();
+
+		String selectSQL = "SELECT * FROM " + SelledProductDao.TABLE_NAME +" WHERE codiceOrdine=?";
+
+		
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, code);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				SelledProductBean bean = new SelledProductBean();
+
+				bean.setCodice(rs.getInt("codiceProdotto"));
+				bean.setNome(rs.getString("nome"));
+				bean.setCategoria(rs.getInt("categoria"));
+				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setOrdine(rs.getInt("codiceOrdine"));
+				bean.setQuantita(rs.getInt("quantità"));
+				products.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return products;
+	}
 
 	
 	

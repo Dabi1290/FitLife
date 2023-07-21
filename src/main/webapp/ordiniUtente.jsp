@@ -44,7 +44,7 @@
                     <td><%= ordine.getCodice() %></td>
                     <td><%= ordine.getData()%></td>
                     <td><%= ordine.getIsProcessed()%></td>
-                    <td>Fattura</td>
+                    <td><a href="Fattura?ordcode=<%=ordine.getCodice()%>">Fattura</a></td>
                 </tr>
                 
                 
