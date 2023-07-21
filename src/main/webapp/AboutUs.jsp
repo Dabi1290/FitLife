@@ -94,7 +94,7 @@
     	</div>
     	<div class="description-team-member2">
 			<p>
-    			Breve descrizione della persona 2 e del suo ruolo nell'azienda. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    			CEO and developer
     		</p>
     	</div>
   
@@ -107,7 +107,7 @@
     	</div>
     	<div class="description-team-member3">
     		<p>
-    			Breve descrizione della persona 3 e del suo ruolo nell'azienda. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    			CEO and developer 
      		</p>
     	</div>
     	

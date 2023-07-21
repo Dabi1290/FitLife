@@ -8,7 +8,7 @@
 <link rel="stylesheet"><link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	
+	<%@ include file="header.jsp" %>
 	<h1>Contatti</h1>
   	<div class="contact-info">
     	<div class="contact-info-item">
