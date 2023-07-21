@@ -119,12 +119,14 @@
 }
 #cd-cart .checkout-btn {
   display: block;
-  width: 100%;
   height: 60px;
   line-height: 60px;
   background: #7dcf85;
   color: #FFF;
   text-align: center;
+}
+#svuota{
+	background: #cc3730 !important;
 }
 .no-touch #cd-cart .checkout-btn:hover {
   background: #a2dda8;

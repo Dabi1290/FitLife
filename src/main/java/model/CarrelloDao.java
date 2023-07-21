@@ -174,17 +174,17 @@ public synchronized Boolean doUpdate(CarrelloBean bean) throws SQLException {
 	
 }
 
-public void SvuotaCarrello(int user) throws SQLException {
+public Boolean SvuotaCarrello(int user) throws SQLException {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 
 	String insertSQL = "DELETE FROM " + CarrelloDao.TABLE_NAME+ " WHERE codiceCliente=?";
-	
+	int result = 0;
 	try {
 		connection = ds.getConnection();
 		preparedStatement = connection.prepareStatement(insertSQL);
 		preparedStatement.setInt(1, user);
-		preparedStatement.executeUpdate();
+		result=preparedStatement.executeUpdate();
 		connection.setAutoCommit(false); 
 		connection.commit();
 		
@@ -198,7 +198,7 @@ public void SvuotaCarrello(int user) throws SQLException {
 		}
 	}
 	
-	
+	return (result != 0);
 }
 
 }

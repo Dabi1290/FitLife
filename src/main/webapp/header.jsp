@@ -95,6 +95,7 @@
 		</div> <!-- cd-cart-total -->
 
 		<a href="FinalizzaOrdine" class="checkout-btn">Checkout</a>
+		<div class="checkout-btn" id="svuota" onclick="EmptyCart()">Svuota Carrello</div>
 		
 		
 	</div>

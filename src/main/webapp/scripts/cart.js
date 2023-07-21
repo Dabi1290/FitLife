@@ -111,6 +111,22 @@ function DeleteFromCart(index,codice){
   
 }
 
+function EmptyCart(){
+	 $.get('SvuotaCarrello',
+            function(resp) { // on sucess
+    			if(resp){
+					 $('#cart').empty();
+					 $('#totale').text('0€');
+					 
+				}
+				
+            })
+            .fail(function() { // on failure
+                alert("Request failed.");
+            });
+    
+}
+
 
 
 
