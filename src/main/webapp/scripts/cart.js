@@ -1,4 +1,3 @@
-
 jQuery(document).ready(function($){
 	
 	var $L = 90,
@@ -8,11 +7,6 @@ jQuery(document).ready(function($){
 		$lateral_cart = $('#cd-cart'),
 		$shadow_layer = $('#cd-shadow-layer');
 
-	
-	
-	
-
-	
 	$shadow_layer.on('click', function(){
 		$lateral_cart.removeClass('speed-in');
 		
