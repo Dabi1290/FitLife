@@ -20,7 +20,6 @@
       <div class="column-xs-12">
         <nav>
           <ol class="breadcrumb-list">
-            <li class="breadcrumb-item active"><%=product.getNome() %></li>
           </ol>
         </nav>
       </div>
@@ -29,6 +28,7 @@
       <div class="column-xs-12 column-md-7">
         <div class="product-gallery">
           <div class="product-image">
+          <br>
           <% Blob blob=product.getImmagine();
      								try (InputStream inputStream = blob.getBinaryStream()) {
      					                // Read the Blob data into a byte array
@@ -48,7 +48,7 @@
       </div>
       <div class="column-xs-12 column-md-5">
         <h1><%=product.getNome() %></h1>
-        <h2><%=product.getPrezzo()+"$" %></h2>
+        <h2><%=product.getPrezzo()+"&euro;" %></h2>
         <div class="description">
           <p><%=product.getDescrizione() %></p>
         </div>
