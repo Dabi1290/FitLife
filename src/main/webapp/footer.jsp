@@ -15,7 +15,9 @@
                   <div class="col-md-3">
                      <div class="inror_box">
                         <h3>INFORMATION </h3>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                        <a href="tel:+39123456789">+39 123 456 789</a> 
+                        <a href="https://wa.me/39123456789">+39 123 456 789</a>
+                        <a href="mailto:info@esempio.com">info@esempio.com</a>
                      </div>
                   </div>
                   <div class="col-md-3">
