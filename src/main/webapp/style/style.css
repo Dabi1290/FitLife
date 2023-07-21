@@ -250,7 +250,7 @@ body {
 	display:flex;
 	flex-direction: column;
 	background-color:	#DAE7FD;
-	
+	cursor: pointer;
 }
 
 .box-image {
