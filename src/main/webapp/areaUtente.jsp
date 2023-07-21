@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="go-back">
-<a href="index.jsp"><img src="images/arrow.png"></a>
+<a href="ciao"><img src="images/arrow.png"></a>
 
 
 </div>

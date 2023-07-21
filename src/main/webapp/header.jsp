@@ -62,9 +62,9 @@
 
 		<div class="navbar">
 			<div class="prov">
-			<a href="index.jsp">Home</a> <a href="about.jsp">About</a> <a
+			<a href="ciao">Home</a> <a href="about.jsp">About</a> <a
 				href="Prodotti">Products</a> <a href="Categories">Categories</a>
-			<a href="contact.html">Contact us</a>
+			
 			
 			</div>
 			<div class="search-box">
