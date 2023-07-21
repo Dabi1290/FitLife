@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+
+
+
+
+
+  img {
+    width:170px;
+	height:200px;
+  }
+
+.description1{
+	
+	height:110px;
+	width:1000px;
+	padding:1%;
+	margin-bottom:5%;
+	margin-right:5px;
+	display:flex;
+	flex-direction: column;
+	background-color:	#DAE7FD;
+}
+.description1 p{
+	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #1a1a1a;
+    text-transform: none;
+    letter-spacing: .2px;
+}
+
+
+.descriptionTitle h2{
+    font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+    font-weight: 700;
+    font-size: 1.27rem;
+    line-height: 1.75rem;
+    color: #1a1a1a;
+    text-transform: none;
+    text-align: center;
+    margin-top: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    
+    
+  
+}

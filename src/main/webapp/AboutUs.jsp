@@ -4,12 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+	<title>AboutUs</title>
+	<link rel="stylesheet" href="style/AboutUs.css">
 </head>
 <body>
+	<%@ include file="header.jsp" %>
 
 	<h1>About us</h1>
+	<div class="descriptionTitle">
 	<h2>Chi siamo:</h2>
+	</div>
+	<div class="description1">
  	<p>
     	Siamo un sito specializzato nella vendita di integratori per la palestra e il mondo del fitness. 
     	Nata dall'incontro di menti appassionate e competenti nel settore, la nostra azienda è cresciuta con 
@@ -18,7 +23,7 @@
     	permette di offrirti un'ampia gamma di soluzioni mirate per migliorare le tue prestazioni e il tuo 
     	benessere generale.
   	</p>
-  	
+  	</div>
   	<h2>La nostra filosofia:</h2>
   	<p>Crediamo fermamente che la chiave per ottenere risultati eccezionali nel fitness risieda nell'equilibrio 
   	tra una dieta equilibrata, un'attività fisica costante e il supporto degli integratori giusti. È per questo 
