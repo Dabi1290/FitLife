@@ -15,6 +15,7 @@
 <title>FitLife</title>
 
 <link rel="stylesheet" href="style/style.css">
+<link rel="stylesheet" href="style/cart.css">
 <script src="scripts/searchBox.js"></script>
 <script type="text/javascript" src="scripts/jquery-3.7.0.min.js"></script>
 <script type="text/javascript" src="scripts/cart.js"></script>
@@ -37,7 +38,10 @@
   }
   
   %>
-  <a href="#" class="icon"><img src="images/cart.png" alt="#" onclick="searchCart(<%=userCode%>,<%=isCart%>)"></a>
+  
+<%--  id="cd-cart-trigger" --%>
+  
+  <a href="#" class="icon"><img src="images/cart.png"  onclick="searchCart(<%=userCode%>,<%=isCart%>)" alt="#"></a>
  
   <%Boolean isUser= (Boolean)request.getSession().getAttribute("isUser");
   if(isUser==null || !isUser){
@@ -70,7 +74,31 @@
 			
 			
 		</div>
-		<ul id="cart"></ul>
+		
+		
+		
+		
+		<div id="cd-shadow-layer"></div>
+
+
+
+
+	<div id="cd-cart">
+		<h2>Carrello</h2>
+		<ul class="cd-cart-items " id="cart">
+		
+		</ul> <!-- cd-cart-items -->
+
+		<div class="cd-cart-total">
+			<p >Total <span id="totale"></span></p>
+		</div> <!-- cd-cart-total -->
+
+		<a href="#0" class="checkout-btn">Checkout</a>
+		
+		
+	</div>
+	
+	
 		<ul id="suggestions"></ul>
 	</nav>
 

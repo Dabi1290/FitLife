@@ -187,44 +187,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cart{
-    background: #fff;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    list-style: none;
-    color: #6E6E6E;
-    margin: 0;
-    position: absolute;
-    right: 0;
-    top: 170px;
-    width: 316px;
-    margin-right: 20px;
-    border-radius: 25px;
-    z-index:10;
-    
-    
-}
-
-#cart.active {
-  border-top: 1px solid #5CA4EA;
-}
-#cart li {
-  margin: 18px 0;
-  padding: 0;
-  cursor: pointer;
-}
-#cart li :hover {
-  color: #4D8DCB;
-}
-#cart li b {
-  font-weight: 600;
-  padding-left: 20px;
-}
-#cart a{
-	    color: #6E6E6E;
-    text-decoration:none;
-}
 #suggestions{
     background: #fff;
     font-size: 16px;
@@ -241,6 +203,10 @@ body {
     border-radius: 25px;
     z-index:10;
     
+}
+#cart a{
+	    color: #6E6E6E;
+    text-decoration:none;
 }
 #suggestions.active {
   border-top: 1px solid #5CA4EA;

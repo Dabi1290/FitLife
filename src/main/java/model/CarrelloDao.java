@@ -43,9 +43,7 @@ public Collection<ProductBean> doRetrieveProducts(int codiceCliente) throws SQLE
 	Collection<ProductBean> products = new LinkedList<>();
 	
 	
-	String selectSQL = "SELECT p.*, c.Quantità " + "FROM "+CarrelloDao.TABLE_NAME+" c " + "JOIN prodotti p ON c.codiceProd = p.codiceProdotto " +
-            
-			"WHERE c.codiceCliente = ?";
+	String selectSQL = "SELECT c.Quantità, p.*  " + "FROM "+CarrelloDao.TABLE_NAME+" c " + "JOIN prodotti p ON c.codiceProd = p.codiceProdotto " +"WHERE c.codiceCliente = ?";
 	
 
 	try {
