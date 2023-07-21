@@ -47,7 +47,7 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 			preparedStatement.setInt(5, product.getQuantita());
 			
 			preparedStatement.executeUpdate();
-			System.out.println("Ciao");
+			
 			connection.setAutoCommit(false); 
 			connection.commit();
 			

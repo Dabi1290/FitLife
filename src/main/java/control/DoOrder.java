@@ -1,17 +1,18 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+
 
 import model.CarrelloDao;
 import model.OrdineBean;
@@ -44,7 +45,7 @@ public class DoOrder extends HttpServlet {
 		OrdineDao ordao= new OrdineDao();
 		OrdineBean orbean= new OrdineBean();
 		SelledProductDao venduto=new SelledProductDao();
-		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 		
 		orbean.setCodCliente(query);
 		try{
@@ -61,9 +62,12 @@ public class DoOrder extends HttpServlet {
 				pippo.setOrdine(codice);
 				pippo.setPrezzo(prodotto.getPrezzo());
 				pippo.setQuantita(prodotto.getQuantita());
-				System.out.println("ciccio");
 				venduto.doSave(pippo);
+				
 			}
+			
+			dao.SvuotaCarrello(query);
+			dispatcher.forward(request, response);
 			
 			
 		} catch (SQLException e) {

@@ -174,6 +174,33 @@ public synchronized Boolean doUpdate(CarrelloBean bean) throws SQLException {
 	
 }
 
+public void SvuotaCarrello(int user) throws SQLException {
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+
+	String insertSQL = "DELETE FROM " + CarrelloDao.TABLE_NAME+ " WHERE codiceCliente=?";
+	
+	try {
+		connection = ds.getConnection();
+		preparedStatement = connection.prepareStatement(insertSQL);
+		preparedStatement.setInt(1, user);
+		preparedStatement.executeUpdate();
+		connection.setAutoCommit(false); 
+		connection.commit();
+		
+	} finally {
+		try {
+			if (preparedStatement != null)
+				preparedStatement.close();
+		} finally {
+			if (connection != null)
+				connection.close();
+		}
+	}
+	
+	
+}
+
 }
 
 
