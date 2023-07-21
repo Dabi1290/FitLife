@@ -1,15 +1,6 @@
 @charset "UTF-8";
 
 
-
-
-
-
-  img {
-    width:170px;
-	height:200px;
-  }
-
 .description1{
 	
 	height:130px;
@@ -43,7 +34,29 @@
     margin-top: 16px;
     display: inline-block;
     box-sizing: border-box;
-    
-    
   
 }
+
+.titlePage{
+	justify-content: center;
+	height:50px;
+	width:150px;
+	padding:1%;
+	margin-bottom:1%;
+	margin-right:3px;
+	display:flex;
+	flex-direction: column;
+	text-align: center;
+	
+}
+
+.teamTitle{
+	
+	text-align: center;
+}
+
+  img {
+    width:170px;
+	height:300px;
+	justify-content: center;
+  }

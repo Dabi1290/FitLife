@@ -9,8 +9,10 @@
 </head>
 <body>
 	<%@ include file="header.jsp" %>
-
-	<h1>About us</h1>
+	<div>
+	<div class="titlePage">
+		<h1>About us</h1>
+	</div>
 	<div class="descriptionTitle">
 	<h2>Chi siamo:</h2>
 	</div>
@@ -47,9 +49,13 @@
   		potenzialità.
   		</p>
   	</div>
-  	<h2>Il nostro impegno:</h2>
+  	
+  	<div class="descriptionTitle">
+  		<h2>Il nostro impegno:</h2>
+  	</div>
+  	
   	<div class="description1">
-  	<p>
+  		<p>
   		La tua soddisfazione è la nostra priorità assoluta. Siamo sempre qui per ascoltarti e guidarti nella 
   		scelta degli integratori più adatti alle tue esigenze specifiche. I nostri esperti del settore sono a 
   		tua disposizione per fornirti consigli personalizzati e supporto costante, aiutandoti a prendere decisioni 
@@ -59,12 +65,15 @@
 		fianco lungo questo emozionante percorso.
 		Grazie per aver scelto il nostro sito per il tuo shopping di integratori. Non vediamo l'ora di essere parte del 
 		tuo successo nel raggiungimento di una vita più sana e attiva!	
-  	</p>
+  		</p>
   	</div>
+  	
+  	<div class="teamTitle">
   	<h2>Il Nostro Team</h2>
- 
+ 	</div>
+ 	
  	<div class="team-member1">
- 		<h3>Nome Persona 1</h3>
+ 		<h3>Antonio Landi</h3>
     	<img src="images/antonio.jpeg" alt="Foto Persona 1">
 		<div class="description-team-member1">
     		<p>
@@ -74,7 +83,7 @@
   </div>
 
 	<div class="team-member2">
-    	<h3>Nome Persona 2</h3>
+    	<h3>Giuseppe Farina</h3>
     	<img src="images/giuseppe.jpeg" alt="Foto Persona 2">
     	<div class="description-team-member2">
 			<p>
@@ -84,7 +93,7 @@
   </div>
 	
 	<div class="team-member3">
-		<h3>Nome Persona 3</h3>
+		<h3>Davide Amoruso</h3>
     	<img src="persona3.jpg" alt="Foto Persona 3">
     	<div class="description-team-member3">
     		<p>
@@ -92,6 +101,6 @@
      		</p>
     	</div>
   </div>
-	
+  </div>
 </body>
 </html>
