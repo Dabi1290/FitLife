@@ -31,7 +31,7 @@ if(prodotti!=null){
 for(ProductBean product: prodotti){
 	%>
 	
-	<div class="box">
+	<div class="box" id="ricordatiDiMe">
 
 			<div class="box-image">
 				<%
@@ -75,7 +75,6 @@ for(ProductBean product: prodotti){
 
 
 
-
   <form class="filtri" action="Prodotti" method="get" id="filterForm">
 <div class="price-range">
 <div id="price-range-slider"></div>
@@ -88,7 +87,7 @@ for(ProductBean product: prodotti){
   if(categorie!=null){
   	for(CategoriaBean categoria : categorie){
   		%>
-  	
+  	<div id="categorizza">
     <input type="radio"  class="radios"id="<%=categoria.getIdCategoria()%>-option" value="<%=categoria.getIdCategoria()%>" name="categoria">
     <label for="<%=categoria.getIdCategoria()%>-option"><%=categoria.getNomeCategoria() %></label>
 
@@ -102,7 +101,7 @@ for(ProductBean product: prodotti){
   %>
 
 	<input type="submit" value="Filtra" class="submitButton" onclick="filterFormSubmit()">
-
+	</div>
 
 
   <script src="scripts/nouislider.min.js"></script>
