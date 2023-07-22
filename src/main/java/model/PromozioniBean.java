@@ -7,13 +7,13 @@ public class PromozioniBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	String codice;
-	String categoria;
+	int categoria;
 	Boolean isCategoria;
 	Blob immagine;
 	public PromozioniBean() {
 		super();
 		this.codice = "";
-		this.categoria = "";
+		this.categoria = -1;
 		this.isCategoria=false;
 		this.immagine=null;
 	}
@@ -23,12 +23,7 @@ public class PromozioniBean implements Serializable{
 	public void setCodice(String codice) {
 		this.codice = codice;
 	}
-	public String getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
+	
 	public Boolean getIsCategoria() {
 		return isCategoria;
 	}
@@ -40,6 +35,12 @@ public class PromozioniBean implements Serializable{
 	}
 	public void setImmagine(Blob immagine) {
 		this.immagine = immagine;
+	}
+	public int getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(int categoria) {
+		this.categoria = categoria;
 	}
 	
 	

@@ -52,15 +52,20 @@ public class GestioneOrdine extends HttpServlet {
 		Date date2;
 		
 		Predicate<OrdineBean> filter;
-		if(predicate==null || text==null || text.trim().isEmpty() || text1==null || text1.trim().isEmpty()) {
+		if(predicate==null ) {
 			
 			filter = order -> true;
 		}
 		else {
 			if(predicate.equals("data")) {
+	
 				 try {
 					date1 = dateformat.parse(text);
 					date2 = dateformat.parse(text1);
+					if(date1.compareTo(date2)>=0) {
+						filter = order -> true;
+					}
+					else {
 					filter = order -> {
 						try {
 							return dateformat.parse(order.getData()).compareTo(date1)>=0 && dateformat.parse(order.getData()).compareTo(date2)<=0;
@@ -68,17 +73,19 @@ public class GestioneOrdine extends HttpServlet {
 							return false;
 						}
 						
-					};
+					};}
 				} catch (ParseException e) {
 					filter = order -> true;
 				}
+				
 				 
 			}
-			else if (predicate.equals("cliente")) {
+			else if (predicate.equals("cliente") && !text.equals("")) {
 				filter = order -> String.valueOf(order.getCodCliente()).equals(text);
 			}
 			else {
 				filter = order -> true;
+				
 			}
 		}
 		

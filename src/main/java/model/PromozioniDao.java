@@ -40,7 +40,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getCodice());
-			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setInt(2, product.getCategoria());
 			preparedStatement.setBoolean(3, product.getIsCategoria());
 			preparedStatement.setBlob(4,product.getImmagine());
 			
@@ -105,7 +105,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 
 			while (rs.next()) {
 				bean.setCodice(rs.getString("codicePromozione"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setIsCategoria(rs.getBoolean("isCategoria"));
 				bean.setImmagine(rs.getBlob("Immagine"));
 
@@ -144,7 +144,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 				PromozioniBean bean = new PromozioniBean();
 
 				bean.setCodice(rs.getString("codicePromozione"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setIsCategoria(rs.getBoolean("isCategoria"));
 				bean.setImmagine(rs.getBlob("Immagine"));
 				products.add(bean);

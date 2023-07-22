@@ -45,7 +45,7 @@ public class DoOrder extends HttpServlet {
 		OrdineDao ordao= new OrdineDao();
 		OrdineBean orbean= new OrdineBean();
 		SelledProductDao venduto=new SelledProductDao();
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ciao");
 		
 		orbean.setCodCliente(query);
 		try{
