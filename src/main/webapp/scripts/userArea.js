@@ -1,3 +1,6 @@
+function MyOrder(){
+	window.location.href = 'OrdiniCliente';
+}
 function FreeFields(){
 	if($('#ciao').val()==='1'){
 		$(".camp").prop("readonly", false);
@@ -16,3 +19,4 @@ function ResetPasswd(){
 	
 	document.querySelectorAll("form")[1].submit();
 }
+

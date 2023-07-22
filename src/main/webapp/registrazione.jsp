@@ -4,7 +4,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Pagina di Registrazione</title>
+  <title>FitLife</title>
   <link href="" rel="stylesheet"><link rel="stylesheet" href="style/registrazione.css">
   <link rel="stylesheet" href="style/style.css">
   <script  src="./scripts/registrazione.js"></script>
