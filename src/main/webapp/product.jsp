@@ -51,7 +51,7 @@
         <div class="description">
           <p><%=product.getDescrizione() %></p>
         </div>
-        <button class="add-to-cart">Add To Cart</button>
+        <button class="add-to-cart" onclick="AddToCart(<%=product.getCodice() %>)">Add To Cart</button>
       </div>
     </div>
   </div>

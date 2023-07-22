@@ -13,7 +13,7 @@
 <title>FitLife</title>
 <link rel="stylesheet" href="style/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.css" />
-
+<script type="text/javascript" src="scripts/GoProd.js"></script>
 
 </head>
 <body>
@@ -30,8 +30,7 @@ List<CategoriaBean> categorie= (List<CategoriaBean>)request.getAttribute("catego
 if(prodotti!=null){
 for(ProductBean product: prodotti){
 	%>
-	
-	<div class="box" id="ricordatiDiMe">
+	<div class="box" onclick="GoOnProduct(<%=product.getCodice() %>)">
 
 			<div class="box-image">
 				<%
@@ -60,6 +59,7 @@ for(ProductBean product: prodotti){
 
 
 		</div>
+		
 		<%
 	
 }
@@ -71,6 +71,7 @@ for(ProductBean product: prodotti){
 
 
 </div>
+
 
 
 
@@ -87,7 +88,7 @@ for(ProductBean product: prodotti){
   if(categorie!=null){
   	for(CategoriaBean categoria : categorie){
   		%>
-  	<div id="categorizza">
+  	
     <input type="radio"  class="radios"id="<%=categoria.getIdCategoria()%>-option" value="<%=categoria.getIdCategoria()%>" name="categoria">
     <label for="<%=categoria.getIdCategoria()%>-option"><%=categoria.getNomeCategoria() %></label>
 
@@ -100,8 +101,8 @@ for(ProductBean product: prodotti){
   
   %>
 
-	<input type="submit" value="Filtra" class="submitButton" onclick="filterFormSubmit()">
-	</div>
+	<input type="submit" value="Filtra" class="radios" onclick="filterFormSubmit()">
+
 
 
   <script src="scripts/nouislider.min.js"></script>

@@ -204,6 +204,10 @@ body {
     z-index:10;
     
 }
+#cart a{
+	    color: #6E6E6E;
+    text-decoration:none;
+}
 #suggestions.active {
   border-top: 1px solid #5CA4EA;
 }
@@ -246,7 +250,7 @@ body {
 	display:flex;
 	flex-direction: column;
 	background-color:	#DAE7FD;
-	
+	cursor: pointer;
 }
 
 .box-image {
