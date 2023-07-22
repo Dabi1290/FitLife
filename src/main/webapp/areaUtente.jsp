@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FitLife</title>
 <link rel="stylesheet" href="style/userArea.css">
 <script type="text/javascript" src="scripts/userArea.js"></script>
 <script type="text/javascript" src="scripts/jquery-3.7.0.min.js"></script>
