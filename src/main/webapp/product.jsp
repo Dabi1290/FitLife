@@ -8,8 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style/products.css">
-<script type="text/javascript" src="scripts/GoProd.js"></script>
-<title>Product Page</title>
+<title>FitLife</title>
 </head>
 <body>
 <% ProductBean product = (ProductBean)request.getAttribute("prodotto");%>

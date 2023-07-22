@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FitLife Home</title>
+<title>FitLife</title>
 </head>
 <body>
 	<%@ include file="header.jsp"%>

@@ -10,7 +10,7 @@
 <head>
 <link rel="stylesheet" href="style/all.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FitLife</title>
 </head>
 <body>
 
