@@ -39,7 +39,7 @@
   
   %>
   
-<%--  id="cd-cart-trigger" --%>
+
   
   <a href="#" class="icon"><img src="images/cart.png"  onclick="searchCart(<%=userCode%>,<%=isCart%>)" alt="#"></a>
  
