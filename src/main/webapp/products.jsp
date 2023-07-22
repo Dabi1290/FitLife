@@ -13,7 +13,7 @@
 <title>FitLife</title>
 <link rel="stylesheet" href="style/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.1/nouislider.min.css" />
-
+<script type="text/javascript" src="scripts/GoProd.js"></script>
 
 </head>
 <body>
@@ -30,8 +30,7 @@ List<CategoriaBean> categorie= (List<CategoriaBean>)request.getAttribute("catego
 if(prodotti!=null){
 for(ProductBean product: prodotti){
 	%>
-	
-	<div class="box">
+	<div class="box" onclick="GoOnProduct(<%=product.getCodice() %>)">
 
 			<div class="box-image">
 				<%
@@ -60,6 +59,7 @@ for(ProductBean product: prodotti){
 
 
 		</div>
+		
 		<%
 	
 }

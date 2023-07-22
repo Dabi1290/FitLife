@@ -4,14 +4,14 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Pagina di Login</title>
+  <title>FitLife</title>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet"><link rel="stylesheet" href="style/login.css">
 
 
 </head>
 <body>
 <div class="go-back">
-<a href="index.jsp"><img src="images/cart.png"></a>
+<a href="ciao"><img src="images/arrow.png"></a>
 
 
 </div>
@@ -135,5 +135,4 @@ if (errors != null){
 <script  src="./scripts/login.js"></script>
 
 </body>
-
 </html>

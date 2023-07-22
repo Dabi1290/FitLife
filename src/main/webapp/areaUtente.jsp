@@ -6,14 +6,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FitLife</title>
 <link rel="stylesheet" href="style/userArea.css">
 <script type="text/javascript" src="scripts/userArea.js"></script>
 <script type="text/javascript" src="scripts/jquery-3.7.0.min.js"></script>
 </head>
 <body>
 <div class="go-back">
-<a href="index.jsp"><img src="images/cart.png"></a>
+<a href="ciao"><img src="images/arrow.png"></a>
 
 
 </div>
@@ -22,6 +22,12 @@ UserBean bean= (UserBean) request.getAttribute("utente");
 
 %>
 <div class="main">
+
+<div class="inputGroup ordini" onclick="MyOrder()">
+		<input type="button" id="ordini"  value="I miei Ordini" >
+		
+	</div>	
+
 
 <form action="UpdateUser" method="post" >
 	<div class="inputGroup">

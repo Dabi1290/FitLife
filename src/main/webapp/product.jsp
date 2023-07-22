@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style/products.css">
-<title>Product Page</title>
+<title>FitLife</title>
 </head>
 <body>
 <% ProductBean product = (ProductBean)request.getAttribute("prodotto");%>
@@ -51,7 +51,7 @@
         <div class="description">
           <p><%=product.getDescrizione() %></p>
         </div>
-        <button class="add-to-cart">Add To Cart</button>
+        <button class="add-to-cart" onclick="AddToCart(<%=product.getCodice() %>)">Add To Cart</button>
       </div>
     </div>
   </div>

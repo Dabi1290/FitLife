@@ -6,15 +6,17 @@ public class SelledProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	int codice;
 	String nome;
-	String categoria;
+	int categoria;
 	Double prezzo;
 	int ordine;
+	int quantita;
 	public SelledProductBean() {
 		this.codice = -1;
 		this.nome = "";
-		this.categoria = "";
+		this.categoria = -1;
 		this.prezzo = -1.0;
 		this.ordine = -1;
+		this.quantita=-1;
 	}
 	public int getCodice() {
 		return codice;
@@ -27,12 +29,6 @@ public class SelledProductBean implements Serializable{
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public String getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
 	}
 	
 	public Double getPrezzo() {
@@ -47,5 +43,18 @@ public class SelledProductBean implements Serializable{
 	public void setOrdine(int ordine) {
 		this.ordine = ordine;
 	}
+	public int getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(int categoria) {
+		this.categoria = categoria;
+	}
+	public int getQuantita() {
+		return quantita;
+	}
+	public void setQuantita(int quantita) {
+		this.quantita = quantita;
+	}
+	
 	
 }
