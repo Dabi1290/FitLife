@@ -37,6 +37,11 @@
   	object-fit: cover; /* Copre completamente l'area del div con l'immagine, mantenendo l'aspetto originale */
 }
 
+.inror_box label{
+	
+	color: #57FEFF;
+}
+
 .col-md-3{
 	width: 300px;
 }
