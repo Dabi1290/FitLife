@@ -32,11 +32,18 @@
                   </div>
                   <div class="col-md-3">
                      <div class="inror_box">
-                        <h3>CONTACTS  </h3>      
-                        <a href="tel:+393663653557">+39 3663653557</a><br>
-                        <a href="https://wa.me/39345 615 0128">+39 345 615 0128</a><br>
-                        <a href="mailto:fitlife@assistenza.com">fitlife@assistenza.com</a>
-                        
+                        <h3>CONTACTS  </h3>    
+                        <label> telefono: 
+                        	<a href="tel:+393663653557">+39 3663653557</a>
+                        </label> 
+                        <br>
+                        <label> Whatsapp:
+                        	<a href="https://wa.me/39345 615 0128">+39 345 615 0128</a>
+                        </label>
+                        <br>
+                        <label>email:
+                        	<a href="mailto:fitlife@assistenza.com">fitlife@assistenza.com</a>
+                        </label>
                      </div>
                   </div>
                </div>
