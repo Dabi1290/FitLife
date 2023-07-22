@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 .footer {
-     background: #183661;
+     background:  #183661;
      padding-top: 170px;
-     text-align: center;
+     /*text-align: center;*/
 }
 
 .footer h3 {
@@ -28,6 +28,10 @@
 
 .inror_box a{
 	color: #82CAFA;
+}
+
+.col-md-3{
+	width: 300px;
 }
 
 .copyright {
