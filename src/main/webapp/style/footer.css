@@ -2,8 +2,9 @@
 
 .footer {
      background:  #183661;
-     padding-top: 170px;
+     padding-top: 90px;
      /*text-align: center;*/
+     
 }
 
 .footer h3 {
@@ -26,6 +27,24 @@
      display: inline-block;
 }
 
+.row1{
+	
+	display:flex;
+	flex-wrap: wrap;
+  	align-items:center;
+  
+  	justify-content: space-between;
+  	position:relative;
+}
+
+.inror_box{
+	
+	display:flex;
+  	align-items:inherit;
+  	width:25%;
+  	flex-direction: column;
+}
+
 .inror_box a{
 	color: #82CAFA;
 }
@@ -39,7 +58,8 @@
   	width: auto;
   	height: auto;
   	max-width: 60%;
-  	max-height: 60%;
+    max-height: 60%;
+    padding: 10%;
 }
 
 .inror_box label{
@@ -48,7 +68,8 @@
 }
 
 .col-md-3{
-	width: 300px;
+	width: 25%;
+	
 }
 
 .copyright {
