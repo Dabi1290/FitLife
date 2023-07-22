@@ -15,21 +15,21 @@
                   <div class="col-md-3">
                      <div class="inror_box">
                         <h3>INFORMATION </h3>
-                        <a href="tel:+39123456789">+39 123 456 789</a> 
-                        <a href="https://wa.me/39123456789">+39 123 456 789</a>
-                        <a href="mailto:info@esempio.com">info@esempio.com</a>
+                        <a href="tel:+393663653557">+39 3663653557</a><br>
+                        <a href="https://wa.me/39345 615 0128">+39 345 615 0128</a><br>
+                        <a href="mailto:fitlife@assistenza.com">fitlife@assistenza.com</a>
                      </div>
                   </div>
                   <div class="col-md-3">
                      <div class="inror_box">
                         <h3>MY ACCOUNT </h3>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                        <a href="login.jsp">Accedi</a>
                      </div>
                   </div>
                   <div class="col-md-3">
                      <div class="inror_box">
                         <h3>ABOUT  </h3>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                        	<a href="aboutUs.jsp">AboutUs</a>
                      </div>
                   </div>
                   <div class="col-md-3">
