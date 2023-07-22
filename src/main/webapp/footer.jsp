@@ -14,16 +14,14 @@
                <div class="row">
                   <div class="col-md-3">
                      <div class="inror_box">
-                        <h3>INFORMATION </h3>
-                        <a href="tel:+393663653557">+39 3663653557</a><br>
-                        <a href="https://wa.me/39345 615 0128">+39 345 615 0128</a><br>
-                        <a href="mailto:fitlife@assistenza.com">fitlife@assistenza.com</a>
+                        <a href="index.jsp"><img alt="logo" src="images/logo.png"></a>
                      </div>
                   </div>
                   <div class="col-md-3">
                      <div class="inror_box">
                         <h3>MY ACCOUNT </h3>
-                        <a href="login.jsp">Accedi</a>
+                        <a href="login.jsp">Accedi</a><br>
+                        <a href="registrazione.jsp">Registrati</a>
                      </div>
                   </div>
                   <div class="col-md-3">
@@ -34,8 +32,11 @@
                   </div>
                   <div class="col-md-3">
                      <div class="inror_box">
-                        <h3>CONTACTS  </h3>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                        <h3>CONTACTS  </h3>      
+                        <a href="tel:+393663653557">+39 3663653557</a><br>
+                        <a href="https://wa.me/39345 615 0128">+39 345 615 0128</a><br>
+                        <a href="mailto:fitlife@assistenza.com">fitlife@assistenza.com</a>
+                        
                      </div>
                   </div>
                </div>
@@ -44,7 +45,7 @@
                <div class="container">
                   <div class="row">
                      <div class="col-md-12">
-                        <p>© 2019 All Rights Reserved. Design by<a href="https://html.design/"> Free Html Templates</a></p>
+                        <p>Copyright © 2023 - via dei mille, 51 <a href="index.jsp"> FitLife S.r.l.</a></p>
                      </div>
                   </div>
                </div>
