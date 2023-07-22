@@ -2,6 +2,7 @@ package control;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,6 +45,9 @@ public class PostCheckout extends HttpServlet {
 		    String line;
 		    UserBean user= new UserBean();
 		    UserDao dao= new UserDao();
+		    Boolean sconto=false;
+		    RequestDispatcher dispatcher; 
+		    PromozioniDao prom= new PromozioniDao();
 		    int code= (int)request.getSession().getAttribute("userCode");
 		    while ((line = reader.readLine()) != null) {
 		        sb.append(line);
@@ -63,9 +67,22 @@ public class PostCheckout extends HttpServlet {
 		        String cognome = data.getCognome();
 		        String indirizzo = data.getIndirizzo();
 		        String telefono = data.getTelefono();
+		        String promozione= data.getPromozione();
 		        
-		        
-		        
+		        if(!promozione.trim().isEmpty()) { 
+		        try {
+					PromozioniBean prombean=prom.doRetrieveByKey(promozione);
+					if(prombean.getCodice().trim().isEmpty()) {
+						response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+						throw new SQLException();
+					}
+					sconto=true;
+					
+				} catch(SQLException e) {
+					
+					dispatcher=request.getRequestDispatcher("/Checkout");
+					dispatcher.forward(request, response);
+				}}
 		        user.setNome(nome);
 		        user.setCognome(cognome);
 		        user.setIndirizzo(indirizzo);
@@ -74,7 +91,15 @@ public class PostCheckout extends HttpServlet {
 		        
 		        dao.doUpdateAfterOrder(user);
 		        
-		        RequestDispatcher dispatcher = request.getRequestDispatcher("/FinalizzaOrdine");
+		        
+		        
+		        if(sconto) {
+		        	dispatcher= request.getRequestDispatcher("/FinalizzaOrdine?promozione="+promozione);
+		        }
+		        else {
+		        	dispatcher= request.getRequestDispatcher("/FinalizzaOrdine");
+		        }
+		        
 		        dispatcher.forward(request, response);
 		        
 		    } catch (Exception e) {

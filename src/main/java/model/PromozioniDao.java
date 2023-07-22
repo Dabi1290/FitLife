@@ -35,7 +35,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + PromozioniDao.TABLE_NAME
-				+ " (codicePromozione, categoria, isCategoria, Immagine) VALUES (?, ?, ?, ?)";
+				+ " (codicePromozione, categoria, isCategoria, Immagine,sconto) VALUES (?, ?, ?, ?,?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
@@ -43,7 +43,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 			preparedStatement.setInt(2, product.getCategoria());
 			preparedStatement.setBoolean(3, product.getIsCategoria());
 			preparedStatement.setBlob(4,product.getImmagine());
-			
+			preparedStatement.setInt(5, product.getSconto());
 
 			preparedStatement.executeUpdate();
 			connection.setAutoCommit(false); 
@@ -108,6 +108,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 				bean.setCategoria(rs.getInt("categoria"));
 				bean.setIsCategoria(rs.getBoolean("isCategoria"));
 				bean.setImmagine(rs.getBlob("Immagine"));
+				bean.setSconto(rs.getInt("sconto"));
 
 			}
 
@@ -147,6 +148,7 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 				bean.setCategoria(rs.getInt("categoria"));
 				bean.setIsCategoria(rs.getBoolean("isCategoria"));
 				bean.setImmagine(rs.getBlob("Immagine"));
+				bean.setSconto(rs.getInt("sconto"));
 				products.add(bean);
 			}
 

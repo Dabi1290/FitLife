@@ -167,9 +167,13 @@ function Ordina() {
       },
       body: JSON.stringify(data)
     }).then(function(response) {
-      window.location.href = "OrdiniCliente";
+       if (response.ok) {
+    window.location.href = "OrdiniCliente"; 
+  } else {
+    throw new Error('Network response was not ok'); // Induce an error to trigger the catch block
+  }
     }).catch(function(error) {
-      // Handle errors here if needed
+      window.location.href = "Checkout";
     });
   
     

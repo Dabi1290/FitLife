@@ -10,12 +10,14 @@ public class PromozioniBean implements Serializable{
 	int categoria;
 	Boolean isCategoria;
 	Blob immagine;
+	int sconto;
 	public PromozioniBean() {
 		super();
 		this.codice = "";
 		this.categoria = -1;
 		this.isCategoria=false;
 		this.immagine=null;
+		this.sconto=0;
 	}
 	public String getCodice() {
 		return codice;
@@ -42,6 +44,13 @@ public class PromozioniBean implements Serializable{
 	public void setCategoria(int categoria) {
 		this.categoria = categoria;
 	}
+	public int getSconto() {
+		return sconto;
+	}
+	public void setSconto(int sconto) {
+		this.sconto = sconto;
+	}
+	
 	
 	
 	
