@@ -103,7 +103,7 @@
 			<h3>Davide Amoruso</h3>
 		</div>
 		<div class="image3">
-    		<img src="persona3.jpg" alt="Foto Persona 3">
+    		<img src="images/davide.jpeg" alt="Foto Persona 3">
     	</div>
     	<div class="description-team-member3">
     		<p>
