@@ -32,9 +32,14 @@
 
 .inror_box img{
 	
-	width: 60%; /* Imposta la larghezza dell'immagine al 100% del div */
-  	height: 60%; /* Imposta l'altezza dell'immagine al 100% del div */
-  	object-fit: cover; /* Copre completamente l'area del div con l'immagine, mantenendo l'aspetto originale */
+	/*width: 60%; 
+  	height: 60%; 
+  	
+  	object-fit: cover;  */
+  	width: auto;
+  	height: auto;
+  	max-width: 60%;
+  	max-height: 60%;
 }
 
 .inror_box label{
