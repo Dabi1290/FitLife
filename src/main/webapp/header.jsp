@@ -94,7 +94,9 @@
 			<p >Total <span id="totale"></span></p>
 		</div> <!-- cd-cart-total -->
 
-		<a href="FinalizzaOrdine" class="checkout-btn">Checkout</a>
+
+		<!-- FinalizzaOrdine -->
+		<a href="Checkout" class="checkout-btn">Checkout</a>
 		<div class="checkout-btn" id="svuota" onclick="EmptyCart()">Svuota Carrello</div>
 		
 		

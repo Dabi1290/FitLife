@@ -99,6 +99,38 @@ public class UserDao implements BaseDao<UserBean> {
 		}
 		
 	}
+	
+public synchronized void doUpdateAfterOrder(UserBean user) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "UPDATE " + UserDao.TABLE_NAME
+				+ " SET nome=?, cognome=?, telefono=?, indirizzo=?  WHERE codiceCliente=?";
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, user.getNome());
+			preparedStatement.setString(2, user.getCognome());
+			preparedStatement.setString(3, user.getTelefono());
+			preparedStatement.setString(4, user.getIndirizzo());
+			preparedStatement.setInt(5, user.getCodice());
+
+			preparedStatement.executeUpdate();
+			connection.setAutoCommit(false); 
+			connection.commit();
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		
+	}
 public synchronized void doPass(String pass,int code) throws SQLException {
 		
 		Connection connection = null;
