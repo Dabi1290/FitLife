@@ -30,6 +30,13 @@
 	color: #82CAFA;
 }
 
+.inror_box img{
+	
+	width: 60%; /* Imposta la larghezza dell'immagine al 100% del div */
+  	height: 60%; /* Imposta l'altezza dell'immagine al 100% del div */
+  	object-fit: cover; /* Copre completamente l'area del div con l'immagine, mantenendo l'aspetto originale */
+}
+
 .col-md-3{
 	width: 300px;
 }
