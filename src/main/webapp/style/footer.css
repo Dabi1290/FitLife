@@ -47,6 +47,7 @@
 
 .inror_box a{
 	color: #82CAFA;
+	text-decoration: none;
 }
 
 .inror_box img{
@@ -76,6 +77,8 @@
      margin-top: 80px;
      padding-bottom: 20px;
      background: #fbfdfd;
+     display:flex;
+     justify-content: center;
 }
 
 .copyright p {
@@ -90,6 +93,7 @@
 
 .copyright a {
      color: #292929;
+     text-decoration: none;
 }
 
 .copyright a:hover {
