@@ -39,7 +39,7 @@ public class Index extends HttpServlet {
 		ProductDao dao = new ProductDao();
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
 		try {
-			product= (List<ProductBean>) dao.Newest();
+			product= (List<ProductBean>) dao.newest();
 			request.setAttribute("products", product);
 			dispatcher.forward(request, response);
 		} catch (SQLException e) {

@@ -22,22 +22,24 @@ import model.UserDao;
 public class Login extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private static final String error="errors";
 
-	private String toHash(String password) {
-        String hashString = null;
+	private String toHash(String password) throws SQLException {
+		StringBuilder hashString = null;
         try {
             java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
             byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            hashString = "";
+             hashString = new StringBuilder();
+            
             for (int i = 0; i < hash.length; i++) {
-                hashString += Integer.toHexString( 
-                                  (hash[i] & 0xFF) | 0x100 
-                              ).toLowerCase().substring(1,3);
+                hashString.append(Integer.toHexString( 
+                        (hash[i] & 0xFF) | 0x100 
+                    ).toLowerCase().substring(1,3))   ;
             }
         } catch (java.security.NoSuchAlgorithmException e) {
-            System.out.println(e);
+            throw new SQLException();
         }
-        return hashString;
+        return hashString.toString();
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -55,7 +57,7 @@ public class Login extends HttpServlet {
             	errors.add("Il campo password non può essere vuoto!");
 			}
             if (!errors.isEmpty()) {
-            	request.setAttribute("errors", errors);
+            	request.setAttribute(error, errors);
             	dispatcherToLoginPage.forward(request, response);
             	return; // note the return statement here!!!
             }
@@ -72,7 +74,7 @@ public class Login extends HttpServlet {
 					}
 					else {
 						errors.add("Username o password non validi!");
-						request.setAttribute("errors", errors);
+						request.setAttribute(error, errors);
 		            	dispatcherToLoginPage.forward(request, response);
 		            	
 					}
@@ -94,7 +96,7 @@ public class Login extends HttpServlet {
 					}
 					else {
 						errors.add("Username o password non validi!");
-						request.setAttribute("errors", errors);
+						request.setAttribute(error, errors);
 		            	dispatcherToLoginPage.forward(request, response);
 		            	
 					}

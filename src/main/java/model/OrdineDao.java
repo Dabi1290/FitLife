@@ -16,7 +16,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class OrdineDao implements BaseDao<OrdineBean> {
+public class OrdineDao  {
 
 	private static DataSource ds;
 	private static final Logger logger = Logger.getLogger(OrdineDao.class.getName());
@@ -33,10 +33,14 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 	}
 
 	private static final String TABLE_NAME = "ordini";
+	private static final String selectAll="SELECT * FROM ";
+	private static final String codiceOrdine="codiceOrdine";
+	private static final String codiceClienti="codiceClienti";
+	private static final String isProcessed="isProcessed";
+	private static final String codiceGuest="codiceGuest";
 	
 	
-	
-	public int doSave(OrdineBean bean,int i) throws SQLException {
+	public int doSave(OrdineBean bean) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -84,7 +88,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 	public void doUpdate(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;	
-
+		
 		String insertSQL = "UPDATE "+ OrdineDao.TABLE_NAME+ " SET isProcessed = true"+ " WHERE codiceOrdine=?";
 		try {
 			connection = ds.getConnection();
@@ -103,12 +107,13 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 					connection.close();
 			}}
 	}
-	@Override
+	
 	public boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
+		
 
 		String deleteSQL = "DELETE FROM " + OrdineDao.TABLE_NAME + " WHERE codiceOrdine = ?";
 		try {
@@ -130,14 +135,14 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 		return (result != 0);
 	}
 
-	@Override
+	
 	public OrdineBean doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		OrdineBean bean = new OrdineBean();
-
-		String selectSQL = "SELECT * FROM " + OrdineDao.TABLE_NAME + " WHERE codiceOrdine = ?";
+		
+		String selectSQL = selectAll + OrdineDao.TABLE_NAME + " WHERE codiceOrdine = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -147,12 +152,12 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceOrdine"));
-				bean.setIsProcessed(rs.getBoolean("isProcessed"));
+				bean.setCodice(rs.getInt(codiceOrdine));
+				bean.setIsProcessed(rs.getBoolean(isProcessed));
 				
 				bean.setData(rs.getString("data"));
-				bean.setCodCliente(rs.getInt("codiceClienti"));
-				bean.setCodGuest(rs.getInt("codiceGuests"));
+				bean.setCodCliente(rs.getInt(codiceClienti));
+				bean.setCodGuest(rs.getInt(codiceGuest));
 			}
 
 		} finally {
@@ -167,7 +172,7 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 		return bean;
 	}
 
-	@Override
+	
 	public Collection<OrdineBean> doRetrieveAll() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -187,11 +192,11 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 			while (rs.next()) {
 				OrdineBean bean = new OrdineBean();
 
-				bean.setCodice(rs.getInt("codiceOrdine"));
-				bean.setIsProcessed(rs.getBoolean("isProcessed"));
+				bean.setCodice(rs.getInt(codiceOrdine));
+				bean.setIsProcessed(rs.getBoolean(isProcessed));
 				bean.setData(rs.getString("data"));
-				bean.setCodCliente(rs.getInt("codiceClienti"));
-				bean.setCodGuest(rs.getInt("codiceGuests"));
+				bean.setCodCliente(rs.getInt(codiceClienti));
+				bean.setCodGuest(rs.getInt(codiceGuest));
 				products.add(bean);
 			}
 
@@ -213,8 +218,9 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 		PreparedStatement preparedStatement = null;
 
 		Collection<OrdineBean> products = new LinkedList<>();
+		
 
-		String selectSQL = "SELECT * FROM " + OrdineDao.TABLE_NAME +" WHERE codiceClienti=?";
+		String selectSQL = selectAll + OrdineDao.TABLE_NAME +" WHERE codiceClienti=?";
 
 		
 
@@ -227,11 +233,11 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 			while (rs.next()) {
 				OrdineBean bean = new OrdineBean();
 
-				bean.setCodice(rs.getInt("codiceOrdine"));
-				bean.setIsProcessed(rs.getBoolean("isProcessed"));
+				bean.setCodice(rs.getInt(codiceOrdine));
+				bean.setIsProcessed(rs.getBoolean(isProcessed));
 				bean.setData(rs.getString("data"));
-				bean.setCodCliente(rs.getInt("codiceClienti"));
-				bean.setCodGuest(rs.getInt("codiceGuests"));
+				bean.setCodCliente(rs.getInt(codiceClienti));
+				bean.setCodGuest(rs.getInt(codiceGuest));
 				products.add(bean);
 			}
 
@@ -245,11 +251,6 @@ public class OrdineDao implements BaseDao<OrdineBean> {
 			}
 		}
 		return products;
-	}
-	@Override
-	public void doSave(OrdineBean product) throws SQLException {
-		
-		
 	}
 	
 	   

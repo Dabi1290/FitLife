@@ -34,11 +34,7 @@ public class AccessControlFilter extends HttpFilter implements Filter {
 		chain.doFilter(request, response);
 	}
 	
-	public void init(FilterConfig fConfig) throws ServletException {
-	}
 	
-    public void destroy() {
-	}
 
 	private static final long serialVersionUID = 1L;
 

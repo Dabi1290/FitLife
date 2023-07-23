@@ -167,12 +167,12 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 	
 	@Override
 	public boolean doDelete(int code) throws SQLException {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	@Override
 	public PromozioniBean doRetrieveByKey(int code) throws SQLException {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

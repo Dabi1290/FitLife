@@ -13,8 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import model.CarrelloBean;
-import model.CarrelloDao;
 import model.CarrelloGuest;
 import model.ProductBean;
 import model.ProductDao;
@@ -37,15 +35,15 @@ public class AggiungiGuest extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String CartPlaceHolder="Carrello";
+		String cartPlaceHolder="Carrello";
 		Integer query = Integer.parseInt(request.getParameter("query")) ;
 		
 		HttpSession session=request.getSession();
 		boolean exist=false;
-		CarrelloGuest cart= (CarrelloGuest)session.getAttribute(CartPlaceHolder);
+		CarrelloGuest cart= (CarrelloGuest)session.getAttribute(cartPlaceHolder);
 		if(cart==null) {
-			session.setAttribute(CartPlaceHolder, new CarrelloGuest());
-			cart=(CarrelloGuest) session.getAttribute(CartPlaceHolder);
+			session.setAttribute(cartPlaceHolder, new CarrelloGuest());
+			cart=(CarrelloGuest) session.getAttribute(cartPlaceHolder);
 			
 		}
 		

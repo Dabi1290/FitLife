@@ -11,16 +11,19 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.util.logging.LogRecord;
+
 import java.util.logging.Logger;
 
-import javax.servlet.http.HttpServletResponse;
+
 
 public class AdminDao implements BaseDao<AdminBean> {
 	
 	private static final Logger logger = Logger.getLogger(AdminDao.class.getName());
 	private static DataSource ds;
-
+	private static final String selectAll="SELECT * FROM ";
+	private static final String adminCode="codiceAmministratore";
+	private static final String email="email";
+	private static final String password="password";
 	static {
 		try {
 			Context initCtx = new InitialContext();
@@ -42,7 +45,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + AdminDao.TABLE_NAME
-				+ " (nome, email, password) VALUES (?, ?, ?)";
+				+ " (nome,"+email+", "+password+") VALUES (?, ?, ?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
@@ -100,7 +103,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 
 		AdminBean bean = new AdminBean();
 
-		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME + " WHERE codiceAmministratore = ?";
+		String selectSQL = selectAll + AdminDao.TABLE_NAME + " WHERE "+adminCode+" = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -110,10 +113,10 @@ public class AdminDao implements BaseDao<AdminBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceAmministratore"));
+				bean.setCodice(rs.getInt(adminCode));
 				bean.setNome(rs.getString("nome"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setEmail(rs.getString(email));
+				bean.setPassword(rs.getString(password));
 			}
 
 		} finally {
@@ -133,7 +136,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 
 		AdminBean bean = new AdminBean();
 
-		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME + " WHERE email = ?";
+		String selectSQL = selectAll + AdminDao.TABLE_NAME + " WHERE "+email+" = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -143,10 +146,10 @@ public class AdminDao implements BaseDao<AdminBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceAmministratore"));
+				bean.setCodice(rs.getInt(adminCode));
 				bean.setNome(rs.getString("nome"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setEmail(rs.getString(email));
+				bean.setPassword(rs.getString(password));
 			}
 
 		} finally {
@@ -169,7 +172,7 @@ public class AdminDao implements BaseDao<AdminBean> {
 
 		Collection<AdminBean> products = new LinkedList<>();
 
-		String selectSQL = "SELECT * FROM " + AdminDao.TABLE_NAME;
+		String selectSQL = selectAll + AdminDao.TABLE_NAME;
 
 		
 
@@ -182,10 +185,10 @@ public class AdminDao implements BaseDao<AdminBean> {
 			while (rs.next()) {
 				AdminBean bean = new AdminBean();
 
-				bean.setCodice(rs.getInt("codiceAmministratore"));
+				bean.setCodice(rs.getInt(adminCode));
 				bean.setNome(rs.getString("nome"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setEmail(rs.getString(email));
+				bean.setPassword(rs.getString(password));
 				products.add(bean);
 			}
 

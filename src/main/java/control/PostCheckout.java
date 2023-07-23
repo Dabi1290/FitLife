@@ -40,12 +40,12 @@ public class PostCheckout extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		BufferedReader reader = request.getReader();
+			BufferedReader reader = request.getReader();
 		    StringBuilder sb = new StringBuilder();
 		    String line;
 		    UserBean user= new UserBean();
 		    UserDao dao= new UserDao();
-		    Boolean sconto=false;
+		    boolean sconto=false;
 		    RequestDispatcher dispatcher; 
 		    PromozioniDao prom= new PromozioniDao();
 		    int code= (int)request.getSession().getAttribute("userCode");
@@ -70,19 +70,14 @@ public class PostCheckout extends HttpServlet {
 		        String promozione= data.getPromozione();
 		        
 		        if(!promozione.trim().isEmpty()) { 
-		        try {
-					PromozioniBean prombean=prom.doRetrieveByKey(promozione);
-					if(prombean.getCodice().trim().isEmpty()) {
-						response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-						throw new SQLException();
-					}
-					sconto=true;
-					
-				} catch(SQLException e) {
-					
-					dispatcher=request.getRequestDispatcher("/Checkout");
+		        
+		        
+		        	sconto=Sconto(prom,promozione,response);
+		        	if(!sconto) {
+		        	dispatcher=request.getRequestDispatcher("/Checkout");
 					dispatcher.forward(request, response);
-				}}
+		        	}
+		        }
 		        user.setNome(nome);
 		        user.setCognome(cognome);
 		        user.setIndirizzo(indirizzo);
@@ -105,6 +100,21 @@ public class PostCheckout extends HttpServlet {
 		    } catch (Exception e) {
 		    	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		    }
+	}
+	
+	public boolean Sconto(PromozioniDao prom,String promozione,HttpServletResponse response) {
+		try {
+			PromozioniBean prombean=prom.doRetrieveByKey(promozione);
+			if(prombean.getCodice().trim().isEmpty()) {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				throw new SQLException();
+			}
+			return true;
+			
+		} catch(SQLException e) {
+			
+			return false;
+		}
 	}
 
 }

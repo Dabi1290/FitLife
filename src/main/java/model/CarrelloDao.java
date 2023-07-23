@@ -174,7 +174,7 @@ public synchronized Boolean doUpdate(CarrelloBean bean) throws SQLException {
 	
 }
 
-public Boolean SvuotaCarrello(int user) throws SQLException {
+public Boolean svuotaCarrello(int user) throws SQLException {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 

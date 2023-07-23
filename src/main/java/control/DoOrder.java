@@ -64,7 +64,7 @@ public class DoOrder extends HttpServlet {
 			
 			List<ProductBean> beans= (List<ProductBean>) dao.doRetrieveProducts(query);
 			
-			int codice= ordao.doSave(orbean, 0);
+			int codice= ordao.doSave(orbean);
 			
 			
 			for(ProductBean prodotto:beans) {
@@ -78,7 +78,7 @@ public class DoOrder extends HttpServlet {
 				
 			}
 			
-			dao.SvuotaCarrello(query);
+			dao.svuotaCarrello(query);
 			dispatcher.forward(request, response);
 			
 			

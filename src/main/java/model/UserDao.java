@@ -33,6 +33,14 @@ public class UserDao{
 	}
 
 	private static final String TABLE_NAME = "clienti";
+	private static final String selectAll="SELECT * FROM ";
+	private static final String update="UPDATE ";
+	private static final String cliente="codiceCliente";
+	private static final String cognome="cognome";
+	private static final String telefono="telefono";
+	private static final String indirizzo="indirizzo";
+	private static final String email="email";
+	private static final String password="password";
 
 	public synchronized int doSave(UserBean user) throws SQLException {
 		
@@ -82,7 +90,7 @@ public class UserDao{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "UPDATE " + UserDao.TABLE_NAME
+		String insertSQL = update + UserDao.TABLE_NAME
 				+ " SET nome=?, cognome=?, telefono=?, indirizzo=?, email=? WHERE codiceCliente=?";
 		try {
 			connection = ds.getConnection();
@@ -115,7 +123,7 @@ public synchronized void doUpdateAfterOrder(UserBean user) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "UPDATE " + UserDao.TABLE_NAME
+		String insertSQL = update + UserDao.TABLE_NAME
 				+ " SET nome=?, cognome=?, telefono=?, indirizzo=?  WHERE codiceCliente=?";
 		try {
 			connection = ds.getConnection();
@@ -145,7 +153,7 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String insertSQL = "UPDATE " + UserDao.TABLE_NAME
+		String insertSQL = update + UserDao.TABLE_NAME
 				+ " SET password=? WHERE codiceCliente=?";
 		try {
 			connection = ds.getConnection();
@@ -203,7 +211,7 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 
 		UserBean bean = new UserBean();
 
-		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME + " WHERE codiceCliente = ?";
+		String selectSQL = selectAll + UserDao.TABLE_NAME + " WHERE codiceCliente = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -213,13 +221,13 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceCliente"));
+				bean.setCodice(rs.getInt(cliente));
 				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setTelefono(rs.getString("telefono"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setCognome(rs.getString(cognome));
+				bean.setTelefono(rs.getString(telefono));
+				bean.setIndirizzo(rs.getString(indirizzo));
+				bean.setEmail(rs.getString(email));
+				bean.setPassword(rs.getString(password));
 			}
 
 		} finally {
@@ -239,7 +247,7 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 
 		UserBean bean = new UserBean();
 
-		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME + " WHERE email = ?";
+		String selectSQL = selectAll + UserDao.TABLE_NAME + " WHERE email = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -249,13 +257,13 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt("codiceCliente"));
+				bean.setCodice(rs.getInt(cliente));
 				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setTelefono(rs.getString("telefono"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setCognome(rs.getString(cognome));
+				bean.setTelefono(rs.getString(telefono));
+				bean.setIndirizzo(rs.getString(indirizzo));
+				bean.setEmail(rs.getString(email));
+				bean.setPassword(rs.getString(password));
 			}
 
 		} finally {
@@ -277,7 +285,7 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 
 		Collection<UserBean> products = new LinkedList<>();
 
-		String selectSQL = "SELECT * FROM " + UserDao.TABLE_NAME;
+		String selectSQL = selectAll + UserDao.TABLE_NAME;
 
 		
 
@@ -290,13 +298,13 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 			while (rs.next()) {
 				UserBean bean = new UserBean();
 
-				bean.setCodice(rs.getInt("codiceCliente"));
+				bean.setCodice(rs.getInt(cliente));
 				bean.setNome(rs.getString("nome"));
-				bean.setCognome(rs.getString("cognome"));
-				bean.setTelefono(rs.getString("telefono"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setEmail(rs.getString("email"));
-				bean.setPassword(rs.getString("password"));
+				bean.setCognome(rs.getString(cognome));
+				bean.setTelefono(rs.getString(telefono));
+				bean.setIndirizzo(rs.getString(indirizzo));
+				bean.setEmail(rs.getString(email));
+				bean.setPassword(rs.getString(password));
 				products.add(bean);
 			}
 
@@ -312,20 +320,21 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 		return products;
 	}
 	
-	private String toHash(String password) {
-        String hashString = null;
+	private String toHash(String password) throws SQLException {
+		StringBuilder hashString = null;
         try {
             java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
             byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            hashString = "";
+             hashString = new StringBuilder();
+            
             for (int i = 0; i < hash.length; i++) {
-                hashString += Integer.toHexString( 
-                                  (hash[i] & 0xFF) | 0x100 
-                              ).toLowerCase().substring(1,3);
+                hashString.append(Integer.toHexString( 
+                        (hash[i] & 0xFF) | 0x100 
+                    ).toLowerCase().substring(1,3))   ;
             }
         } catch (java.security.NoSuchAlgorithmException e) {
-            System.out.println(e);
+            throw new SQLException();
         }
-        return hashString;
+        return hashString.toString();
     }
 }

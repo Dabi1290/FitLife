@@ -21,7 +21,7 @@ public class CarrelloGuest {
 
 	public CarrelloGuest() {
 		super();
-		this.prodotti= new ArrayList<ProductBean>();
+		this.prodotti= new ArrayList<>();
 	}
 	
 }

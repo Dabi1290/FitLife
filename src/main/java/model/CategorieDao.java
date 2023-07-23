@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 public class CategorieDao implements BaseDao<CategoriaBean> {
 
-	private static final Logger logger = Logger.getLogger(AdminDao.class.getName());
+	private static final Logger logger = Logger.getLogger(CategorieDao.class.getName());
 	private static DataSource ds;
 
 	static {

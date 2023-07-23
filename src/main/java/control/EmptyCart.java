@@ -64,7 +64,7 @@ public class EmptyCart extends HttpServlet {
 	public boolean Svuotami(Integer user,HttpServletResponse response ) {
 		CarrelloDao dao= new CarrelloDao();
 		try {
-			return dao.SvuotaCarrello(user);
+			return dao.svuotaCarrello(user);
 		} catch (SQLException e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
