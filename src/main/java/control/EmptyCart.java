@@ -34,7 +34,7 @@ public class EmptyCart extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		CarrelloDao dao= new CarrelloDao();
-		Integer user= (int) request.getSession().getAttribute("userCode");
+		Integer user= (Integer) request.getSession().getAttribute("userCode");
 		try {
 			Boolean answer=false;
 			if(user!=null) {
@@ -45,7 +45,7 @@ public class EmptyCart extends HttpServlet {
 				}
 			}
 			else {
-				request.getSession().removeAttribute("cart");
+				request.getSession().removeAttribute("Carrello");
 				answer=true;
 			}
 			 Gson gson = new Gson();

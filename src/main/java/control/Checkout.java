@@ -34,11 +34,19 @@ public class Checkout extends HttpServlet {
 		UserDao dao=new UserDao();
 		UserBean bean;
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Checkout.jsp");
-		int codice=(int) request.getSession().getAttribute("userCode");
+		Integer codice=(Integer) request.getSession().getAttribute("userCode");
+		
 		
 		try {
-			bean=dao.doRetrieveByKey(codice);
-			request.setAttribute("user", bean);
+			
+			if(codice!=null) {
+				bean=dao.doRetrieveByKey(codice);
+				request.setAttribute("user", bean);
+			}
+			else {
+				dispatcher=request.getRequestDispatcher("registrazione.jsp");
+			}
+			
 			dispatcher.forward(request, response);
 		} catch (SQLException e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

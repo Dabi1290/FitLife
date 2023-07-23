@@ -46,7 +46,7 @@ function searchCart(userCode,isCart) {
 	
   console.log(userCode);
 
-  if (userCode!=-1 && userCode>=0) {
+  if (userCode==-1 || userCode>=0) {
     $.get('Carrello', {"query": userCode},
             function(resp) { // on sucess
     			showCart(resp);
