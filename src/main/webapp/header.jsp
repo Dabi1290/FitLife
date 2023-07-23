@@ -62,7 +62,7 @@
 
 		<div class="navbar">
 			<div class="prov">
-			<a href="ciao">Home</a> <a href="about.jsp">About</a> <a
+			<a href="ciao">Home</a> <a href="aboutUs.jsp">About</a> <a
 				href="Prodotti">Products</a> <a href="Categories">Categories</a>
 			
 			
