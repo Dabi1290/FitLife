@@ -112,6 +112,6 @@ for(ProductBean product: prodotti){
 
 
 </div>
-
+<%@ include file="footer.jsp" %>
 </body>
 </html>

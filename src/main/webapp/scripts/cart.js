@@ -46,7 +46,7 @@ function searchCart(userCode,isCart) {
 	
   console.log(userCode);
 
-  if (userCode!=-1 && userCode>=0) {
+  if (userCode==-1 || userCode>=0) {
     $.get('Carrello', {"query": userCode},
             function(resp) { // on sucess
     			showCart(resp);
@@ -93,7 +93,15 @@ function DeleteFromCart(index,codice){
     $.get('RimuoviProdotto', {"query": codice},
             function(resp) { // on sucess
     			if(resp){
-					 $('#row'+index).remove();
+					$('#row'+index).remove();
+					 var Prices = $("#cart div.cd-price");
+					 var quantity= $("#cart span.cd-qty")
+					 console.log(Prices);
+					 var totalPrice = calculateTotal(Prices, quantity);
+					 $('#totale').text(totalPrice+'€');
+					 
+					 
+					 
 				}
 				
             })
@@ -120,7 +128,20 @@ function EmptyCart(){
             });
     
 }
-
+function parseQuantity(qtyString) {
+        return parseInt(qtyString.replace("x", ""));
+    }
+    
+    
+    function calculateTotal(prices, quantities) {
+        var total = 0;
+        prices.each(function(index) {
+            var price = parseFloat($(this).text());
+            var quantity = parseQuantity(quantities.eq(index).text());
+            total += price * quantity;
+        });
+        return total;
+    }
 
 
 

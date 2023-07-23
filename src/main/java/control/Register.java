@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.CarrelloBean;
+import model.CarrelloDao;
+import model.CarrelloGuest;
+import model.ProductBean;
 import model.UserBean;
 import model.UserDao;
 
@@ -31,6 +35,8 @@ public class Register extends HttpServlet {
 		String cognome=request.getParameter("cognome");
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
+		String code=request.getParameter("code");
+		int codice=-1;
 		if(nome.trim().length()<3 || cognome.trim().length()<3 || password.trim().length()<6) {
 			RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("/registrazione.jsp");
 			dispatcherToLoginPage.forward(request, response);
@@ -43,11 +49,23 @@ public class Register extends HttpServlet {
 			bean.setPassword(password);
 			UserDao dao= new UserDao();
 			try {
-				dao.doSave(bean);
+				codice=dao.doSave(bean);
+				if(code.equals("-1")) {
+					CarrelloGuest cart=(CarrelloGuest) request.getSession().getAttribute("Carrello");
+					CarrelloDao savecart=new CarrelloDao();
+					for(ProductBean prodotto:cart.getProdotti()) {
+						CarrelloBean holder= new CarrelloBean();
+						holder.setCodiceCliente(codice);
+						holder.setCodiceProdotto(prodotto.getCodice());
+						holder.setQuantita(prodotto.getQuantita());
+						savecart.doSave(holder);
+					}
+					request.getSession().removeAttribute("Carrello");
+				}
 				RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("/login.jsp");
 				dispatcherToLoginPage.forward(request, response);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}	
 		}
 	}

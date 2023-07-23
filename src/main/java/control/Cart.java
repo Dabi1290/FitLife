@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import model.CarrelloDao;
+import model.CarrelloGuest;
 import model.ProductBean;
 import model.ProductDao;
 
@@ -37,9 +39,19 @@ public class Cart extends HttpServlet {
 		Integer query = Integer.parseInt(request.getParameter("query")) ;
 		CarrelloDao dao= new CarrelloDao();
 		try {
+			List<ProductBean> beans;
+			if(query!=-1) {
+			beans= (List<ProductBean>) dao.doRetrieveProducts(query);
+			}
+			else {
+				
+			CarrelloGuest cart= (CarrelloGuest)request.getSession().getAttribute("Carrello");
+			if(cart!=null)beans=cart.getProdotti();
+			else beans=new ArrayList<ProductBean>();
+			}
 			
-			List<ProductBean> beans= (List<ProductBean>) dao.doRetrieveProducts(query);
-			 Gson gson = new Gson();
+			
+			Gson gson = new Gson();
 		        String json = gson.toJson(beans);
 		        
 		        response.setContentType("application/json");

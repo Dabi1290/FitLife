@@ -11,11 +11,11 @@ function Filtering(){
       var text2 = document.getElementById('text2');
 
       if (option1Radio.checked) {
-    	  var data = { predicate: "date" };
+    	  
     	  window.location.href = "GestioneOrdine?predicate=data&testo="+text1.value+"&testo1="+text2.value;
     	  
       } else if (option2Radio.checked) {
-    	  var data = { predicate: "client" };
+    	  
     	  window.location.href = "GestioneOrdine?predicate=cliente&testo="+text.value;
       }
     }

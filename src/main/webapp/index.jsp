@@ -12,7 +12,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
+<script type="text/javascript" src="scripts/GoProd.js"></script>
+
 <title>FitLife</title>
+
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -32,7 +36,7 @@
 		%>
 		
 
-		<div class="box">
+		<div class="box" onclick="GoOnProduct(<%=prodotto.getCodice() %>)">
 
 			<div class="box-image">
 			
@@ -72,5 +76,6 @@
 	
 
 	</div>
+	<%@ include file="footer.jsp" %>
 </body>
 </html>

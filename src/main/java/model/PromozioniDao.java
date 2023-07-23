@@ -35,15 +35,15 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + PromozioniDao.TABLE_NAME
-				+ " (codicePromozione, categoria, isCategoria, Immagine) VALUES (?, ?, ?, ?)";
+				+ " (codicePromozione, categoria, isCategoria, Immagine,sconto) VALUES (?, ?, ?, ?,?)";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, product.getCodice());
-			preparedStatement.setString(2, product.getCategoria());
+			preparedStatement.setInt(2, product.getCategoria());
 			preparedStatement.setBoolean(3, product.getIsCategoria());
 			preparedStatement.setBlob(4,product.getImmagine());
-			
+			preparedStatement.setInt(5, product.getSconto());
 
 			preparedStatement.executeUpdate();
 			connection.setAutoCommit(false); 
@@ -105,9 +105,10 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 
 			while (rs.next()) {
 				bean.setCodice(rs.getString("codicePromozione"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setIsCategoria(rs.getBoolean("isCategoria"));
 				bean.setImmagine(rs.getBlob("Immagine"));
+				bean.setSconto(rs.getInt("sconto"));
 
 			}
 
@@ -144,9 +145,10 @@ public class PromozioniDao implements BaseDao<PromozioniBean> {
 				PromozioniBean bean = new PromozioniBean();
 
 				bean.setCodice(rs.getString("codicePromozione"));
-				bean.setCategoria(rs.getString("categoria"));
+				bean.setCategoria(rs.getInt("categoria"));
 				bean.setIsCategoria(rs.getBoolean("isCategoria"));
 				bean.setImmagine(rs.getBlob("Immagine"));
+				bean.setSconto(rs.getInt("sconto"));
 				products.add(bean);
 			}
 

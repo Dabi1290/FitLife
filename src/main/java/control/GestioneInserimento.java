@@ -159,7 +159,8 @@ public class GestioneInserimento extends HttpServlet {
 			PromozioniBean promoz=new PromozioniBean();
 			PromozioniDao daopromoz=new PromozioniDao();
 			String codice=request.getParameter("codice");
-			String cat=request.getParameter("categoria");
+			String cat=request.getParameter("categoria") ;
+			Integer numcat;
 			Boolean isCategoria=Boolean.parseBoolean(request.getParameter("isCategoria"));
 			
 			try {
@@ -197,6 +198,16 @@ public class GestioneInserimento extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 			
+			try {
+				numcat=Integer.parseInt(cat);
+			}
+			catch(NumberFormatException e){
+				errors.add("Problema con la categoria!!!");
+				request.setAttribute(GestioneInserimento.ERROR, errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			}
+			
 			inputStream = filePart.getInputStream();
 			outputStream = new ByteArrayOutputStream();
 	        buffer = new byte[4096];
@@ -213,7 +224,7 @@ public class GestioneInserimento extends HttpServlet {
 	        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	        }
 				promoz.setCodice(codice);
-				promoz.setCategoria(cat);
+				promoz.setCategoria(numcat);
 				promoz.setIsCategoria(isCategoria);
 				promoz.setImmagine(blob);
 				try {

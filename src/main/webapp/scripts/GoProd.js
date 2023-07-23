@@ -9,3 +9,11 @@ function AddToCart(product){
             
 	
 }
+
+function AddToCartGuest(product){
+	
+	$.get('AggiungiProdottoGuest', {"query": product});
+            
+	
+}
+

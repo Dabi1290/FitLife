@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="go-back">
-<a href="ciao"><img src="images/arrow.png"></a>
+<a href="ciao"><img src="images/arrow.png" alt="Home"></a>
 
 
 </div>

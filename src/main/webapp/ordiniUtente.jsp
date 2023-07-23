@@ -4,7 +4,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Arrays"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>I miei Ordini</title>
@@ -24,6 +24,7 @@
 <%@ include file="header.jsp" %>
 
 <table id="dynamic-table">
+<caption>I miei Ordini</caption>
         <thead>
             <tr>
                 <th>Codice Ordine</th>
@@ -54,6 +55,6 @@
 
 
 
-
+</table>
 </body>
 </html>

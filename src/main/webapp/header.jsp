@@ -39,15 +39,15 @@
   
   %>
   
-<%--  id="cd-cart-trigger" --%>
+
   
-  <a href="#" class="icon"><img src="images/cart.png"  onclick="searchCart(<%=userCode%>,<%=isCart%>)" alt="#"></a>
+  <a href="#" class="icon"><img src="images/cart.png"  onclick="searchCart(<%=userCode%>,<%=isCart%>)" alt="#" id="resize1"></a>
  
   <%Boolean isUser= (Boolean)request.getSession().getAttribute("isUser");
   if(isUser==null || !isUser){
   
   %>
-  <a href="login.jsp" class="icon"><img src="images/user.png" alt="#"></a>
+  <a href="login.jsp" class="icon"><img src="images/user.png" alt="#" id="resize2"></a>
   <%}
   else{
   
@@ -62,12 +62,12 @@
 
 		<div class="navbar">
 			<div class="prov">
-			<a href="ciao">Home</a> <a href="about.jsp">About</a> <a
+			<a href="ciao">Home</a> <a href="aboutUs.jsp">About</a> <a
 				href="Prodotti">Products</a> <a href="Categories">Categories</a>
 			
 			
 			</div>
-			<div class="search-box">
+			<div class="search-box" id="search">
 				<input type="text" id="searchBox" placeholder="Search..." onkeyup="searchProducts()">
 				
 				
@@ -94,7 +94,9 @@
 			<p >Total <span id="totale"></span></p>
 		</div> <!-- cd-cart-total -->
 
-		<a href="FinalizzaOrdine" class="checkout-btn">Checkout</a>
+
+		<!-- FinalizzaOrdine -->
+		<a href="Checkout" class="checkout-btn">Checkout</a>
 		<div class="checkout-btn" id="svuota" onclick="EmptyCart()">Svuota Carrello</div>
 		
 		

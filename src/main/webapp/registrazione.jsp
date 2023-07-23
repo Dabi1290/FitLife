@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="principale">
-<div class="row"><div class="left-side"><div class="icon"><a href="index.jsp"><img alt="#" src="images/arrow.png" class="arrow"></a></div></div><img class="logo" alt="#" src="images/logo.png"></div> 
+<div class="row"><div class="left-side"><div class="icon"><a href="ciao"><img alt="#" src="images/arrow.png" class="arrow"></a></div></div><img class="logo" alt="#" src="images/logo.png"></div> 
 
 
 <form action="Register" method="post" class="registrazioneForm">
@@ -36,7 +36,17 @@
 		<input type="password" id="password" name="password"class="password" placeholder="Password" onchange="rightPassword()"/>
 			<p class="errore" id="errore4"></p>
 	</div>
+	<%
+	Integer code= (Integer) request.getSession().getAttribute("userCode");
+	if(code==null){
+	%>
+	<input type="hidden" name="code" value="-1">
+	<%}
+	else{
 
+	%>
+	<input type="hidden" name="code" value="0">
+	<%} %>
 	<div class="inputGroup inputGroup3">
 		<input type="button" id="login" value="Register" onclick="Check()">
 	</div>	
