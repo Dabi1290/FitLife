@@ -23,7 +23,6 @@
 }
 
 
-
 .first {
   order: -1;
 }
@@ -690,9 +689,7 @@ img {
   transition: transform 0.3s ease-out;
 }
 
-.grid > [class*=column-] {
-  padding: 1rem;
-}
+
 .grid.menu, .grid.product {
   border-bottom: 0.0625rem solid #e3dddd;
 }

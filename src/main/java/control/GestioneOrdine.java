@@ -140,7 +140,7 @@ public class GestioneOrdine extends HttpServlet {
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		return;
+		
 	}
 
 }

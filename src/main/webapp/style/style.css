@@ -465,6 +465,7 @@ body {
   font-weight: 600;
   font-family: inherit;
   transition: background-color 0.2s ease-out;
+  margin-top:25px;
 }
 
 /*--------------------------------------------------------------------- Fine Categorie  ---------------------------------------------------------------------*/
