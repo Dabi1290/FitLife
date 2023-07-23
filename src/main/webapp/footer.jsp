@@ -12,7 +12,7 @@
 	<div class="footer">
                <div class="row1">
                      <div class="inror_box">
-                        <a href="index.jsp"><img alt="logo" src="images/logo.png"></a>
+                        <a href="ciao"><img alt="logo" src="images/logo.png"></a>
                     
                   </div>
         

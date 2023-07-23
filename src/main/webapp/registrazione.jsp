@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="principale">
-<div class="row"><div class="left-side"><div class="icon"><a href="index.jsp"><img alt="#" src="images/arrow.png" class="arrow"></a></div></div><img class="logo" alt="#" src="images/logo.png"></div> 
+<div class="row"><div class="left-side"><div class="icon"><a href="ciao"><img alt="#" src="images/arrow.png" class="arrow"></a></div></div><img class="logo" alt="#" src="images/logo.png"></div> 
 
 
 <form action="Register" method="post" class="registrazioneForm">
