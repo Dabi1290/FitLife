@@ -32,9 +32,10 @@ import model.PromozioniDao;
 	    maxRequestSize = 1024 * 1024 * 50 // 50MB
 	)
 public class GestioneUpdate extends HttpServlet {
+	
 	private static final String UPDT_BTN="updateBtn";
 	private static final long serialVersionUID = 1L;
-     
+    private static final String CODE="codice";
     public GestioneUpdate() {
         super();
         
@@ -98,22 +99,26 @@ public class GestioneUpdate extends HttpServlet {
 
 	private List<String> validateProductFields(HttpServletRequest request, String riga) {
 	    List<String> errors = new ArrayList<>();
-	    String codice = request.getParameter("codice" + riga);
+	    String codice = request.getParameter(CODE + riga);
 	    String nome = request.getParameter("nome" + riga);
 	    String categoria = request.getParameter("categoria" + riga);
 	    String prezzo = request.getParameter("prezzo" + riga);
+	    String descrizione = request.getParameter("descrizione" + riga);
+	    String quantita = request.getParameter("quantita" + riga);
 
 	    if (codice == null || codice.trim().isEmpty()
 	            || nome == null || nome.trim().isEmpty()
 	            || categoria == null || categoria.trim().isEmpty()
-	            || prezzo == null || prezzo.trim().isEmpty()) {
+	            || prezzo == null || prezzo.trim().isEmpty()
+	            || descrizione==null || descrizione.trim().isEmpty()
+	            || quantita==null || quantita.trim().isEmpty()) {
 	        errors.add("Non lasciare i campi vuoti!!!");
 	    }
 	    return errors;
 	}
 
 	private ProductBean createProductBean(HttpServletRequest request, String riga) throws IOException, ServletException {
-	    String codice = request.getParameter("codice" + riga);
+	    String codice = request.getParameter(CODE + riga);
 	    String nome = request.getParameter("nome" + riga);
 	    String categoria = request.getParameter("categoria" + riga);
 	    String prezzo = request.getParameter("prezzo" + riga);
@@ -170,7 +175,7 @@ public class GestioneUpdate extends HttpServlet {
 	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneOrdine");
 
 	    if (operazione.charAt(0) == '0') { // operazione di salvataggio
-	        int codice = Integer.parseInt(request.getParameter("codice" + riga));
+	        int codice = Integer.parseInt(request.getParameter(CODE + riga));
 
 	        try {
 	            daoOrdine.doUpdate(codice);

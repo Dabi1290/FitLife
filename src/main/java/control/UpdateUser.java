@@ -29,7 +29,7 @@ public class UpdateUser extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userArea");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AreaUtente");
 		UserBean bean= new UserBean();
 		UserDao dao= new UserDao();
 		bean.setCodice((int) request.getSession().getAttribute("userCode"));

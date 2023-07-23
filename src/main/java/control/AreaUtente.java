@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import model.UserBean;
 import model.UserDao;
 
-@WebServlet("/userArea")
-public class userArea extends HttpServlet {
+@WebServlet("/AreaUtente")
+public class AreaUtente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public userArea() {
+    public AreaUtente() {
         super();
        
     }

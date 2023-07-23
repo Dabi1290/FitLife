@@ -33,7 +33,7 @@ public class PasswordReset extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pass= (String) request.getParameter("Password");
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userArea");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/AreaUtente");
 		UserDao dao= new UserDao();
 		
 		try {
