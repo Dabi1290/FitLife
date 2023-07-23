@@ -33,16 +33,13 @@ public class EmptyCart extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		CarrelloDao dao= new CarrelloDao();
+		
 		Integer user= (Integer) request.getSession().getAttribute("userCode");
 		try {
-			Boolean answer=false;
+			boolean answer=false;
 			if(user!=null) {
-				try {
-					answer=dao.SvuotaCarrello(user);
-				} catch (SQLException e) {
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
+				
+				answer=Svuotami(user,response);
 			}
 			else {
 				request.getSession().removeAttribute("Carrello");
@@ -62,6 +59,16 @@ public class EmptyCart extends HttpServlet {
 		}
 		
 		
+	}
+	
+	public boolean Svuotami(Integer user,HttpServletResponse response ) {
+		CarrelloDao dao= new CarrelloDao();
+		try {
+			return dao.SvuotaCarrello(user);
+		} catch (SQLException e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		return false;
 	}
 
 }

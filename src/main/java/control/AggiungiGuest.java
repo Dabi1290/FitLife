@@ -36,17 +36,19 @@ public class AggiungiGuest extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String CartPlaceHolder="Carrello";
 		Integer query = Integer.parseInt(request.getParameter("query")) ;
 		
 		HttpSession session=request.getSession();
-		Boolean exist=false;
-		CarrelloGuest cart= (CarrelloGuest)session.getAttribute("Carrello");
+		boolean exist=false;
+		CarrelloGuest cart= (CarrelloGuest)session.getAttribute(CartPlaceHolder);
 		if(cart==null) {
-			session.setAttribute("Carrello", new CarrelloGuest());
-			cart=(CarrelloGuest) session.getAttribute("Carrello");
+			session.setAttribute(CartPlaceHolder, new CarrelloGuest());
+			cart=(CarrelloGuest) session.getAttribute(CartPlaceHolder);
 			
 		}
-		CarrelloBean bean = new CarrelloBean();
+		
 		ProductDao dao= new ProductDao();
 		ProductBean prodb= new ProductBean();
 		
@@ -59,14 +61,12 @@ public class AggiungiGuest extends HttpServlet {
 			for(ProductBean prod:cart.getProdotti()) {
 				if(prod.getCodice()==prodb.getCodice()) {
 					exist=true;
-					prod.setQuantita(prod.getQuantita()+1);;
+					prod.setQuantita(prod.getQuantita()+1);
 				}
 			}
 			if(!exist)cart.getProdotti().add(prodb);
 			
-			for(ProductBean prod:cart.getProdotti()) {
-				System.out.println(prod.getNome()+" "+ prod.getQuantita());
-			}
+			
 			
 			Gson gson = new Gson();
 	        String json = gson.toJson("True");

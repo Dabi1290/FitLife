@@ -45,7 +45,7 @@ public class Fattura extends HttpServlet {
 		try {
 			products = (List<SelledProductBean>) dao.doRetrieveByOrder(code);
 		} catch (SQLException e) {
-			
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 
         // Set response content type and attachment header
@@ -92,7 +92,7 @@ public class Fattura extends HttpServlet {
             final float rowHeight = 20;
             final float tableWidth = 400;
             final float tableHeight = rowHeight * rows;
-            final float columnWidth = tableWidth / (float) columns;
+            final float columnWidth = tableWidth /  columns;
             final float tableMargin = 5;
 
             // Draw the table borders
@@ -116,9 +116,9 @@ public class Fattura extends HttpServlet {
 
         private void drawTableRow(PDPageContentStream contentStream, float startX, float startY, String... values) throws IOException {
             final int columns = values.length;
-            final float rowHeight = 20;
+            
             final float tableWidth = 400;
-            final float columnWidth = tableWidth / (float) columns;
+            final float columnWidth = tableWidth /  columns;
             final float tableMargin = 5;
 
             float textX = startX + tableMargin;

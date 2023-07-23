@@ -37,11 +37,11 @@ public class AddProduct extends HttpServlet {
 		Integer query = Integer.parseInt(request.getParameter("query")) ;
 		CarrelloDao dao= new CarrelloDao();
 		CarrelloBean bean = new CarrelloBean();
-		Boolean f;
+		
 		bean.setCodiceProdotto(query);
 		bean.setCodiceCliente((int)request.getSession().getAttribute("userCode"));
 		try {
-			f=dao.doUpdate(bean);
+			dao.doUpdate(bean);
 			Gson gson = new Gson();
 	        String json = gson.toJson("True");
 	        
@@ -55,7 +55,7 @@ public class AddProduct extends HttpServlet {
 		catch(SQLException e){
 			try {
 				
-				f=dao.doSave(bean);
+				dao.doSave(bean);
 			 	Gson gson = new Gson();
 		        String json = gson.toJson("True");
 		        
