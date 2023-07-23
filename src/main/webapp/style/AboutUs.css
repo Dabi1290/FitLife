@@ -13,7 +13,7 @@
 	background-color:	#DAE7FD;
 }
 .description1 p{
-	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica,sans-serif;
     font-weight: 400;
     font-size: 1rem;
     line-height: 1.5rem;
@@ -24,7 +24,7 @@
 
 
 .descriptionTitle h2{
-    font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+    font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica,sans-serif;
     font-weight: 700;
     font-size: 1.27rem;
     line-height: 1.75rem;
@@ -79,7 +79,7 @@
 	display: flex;
   	justify-content: center;
   	align-items: center;
-  	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+  	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica,sans-serif;
 }
 
 .name2{
@@ -101,7 +101,7 @@
 	display: flex;
   	justify-content: center;
   	align-items: center;
-  	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+  	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica,sans-serif;
 }
 
 .name3{
@@ -123,5 +123,5 @@
 	display: flex;
   	justify-content: center;
   	align-items: center;
-  	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica;
+  	font-family: Biotif,"Noto Sans","Noto Sans JP","Noto Sans KR",Helvetica,sans-serif;
 }
