@@ -31,12 +31,12 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 	private static final String TABLE_NAME = "prodotti";
 	
-	private static final String selectAll="SELECT * FROM ";
-	private static final String codiceProdotto="codiceProdotto";
-	private static final String categoria="categoria";
-	private static final String immagine="Immagine";
-	private static final String descrizione="descrizione";
-	private static final String quantita="quantità";
+	private static final String SELECTALL="SELECT * FROM ";
+	private static final String PROD="codiceProdotto";
+	private static final String CATEG="categoria";
+	private static final String IMAGE="Immagine";
+	private static final String DESCRP="descrizione";
+	private static final String QTY="quantità";
 	@Override
 	public synchronized void doSave(ProductBean product) throws SQLException {
 
@@ -151,7 +151,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 		ProductBean bean = new ProductBean();
 
-		String selectSQL = selectAll + ProductDao.TABLE_NAME + " WHERE codiceProdotto = ?";
+		String selectSQL = SELECTALL + ProductDao.TABLE_NAME + " WHERE codiceProdotto = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -161,13 +161,13 @@ public class ProductDao implements BaseDao<ProductBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt(codiceProdotto));
+				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getInt(categoria));
+				bean.setCategoria(rs.getInt(CATEG));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setImmagine(rs.getBlob(immagine));
-				bean.setDescrizione(rs.getString(descrizione));
-				bean.setQuantita(rs.getInt(quantita));
+				bean.setImmagine(rs.getBlob(IMAGE));
+				bean.setDescrizione(rs.getString(DESCRP));
+				bean.setQuantita(rs.getInt(QTY));
 				
 			}
 
@@ -195,7 +195,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 		Collection<ProductBean> products = new LinkedList<>();
 		query=query+"%";
 
-		String selectSQL = selectAll + ProductDao.TABLE_NAME + " WHERE nome LIKE ?";
+		String selectSQL = SELECTALL + ProductDao.TABLE_NAME + " WHERE nome LIKE ?";
 		
 		
 		
@@ -209,13 +209,13 @@ public class ProductDao implements BaseDao<ProductBean> {
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
-				bean.setCodice(rs.getInt(codiceProdotto));
+				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getInt(categoria));
+				bean.setCategoria(rs.getInt(CATEG));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setImmagine(rs.getBlob(immagine));
-				bean.setDescrizione(rs.getString(descrizione));
-				bean.setQuantita(rs.getInt(quantita));
+				bean.setImmagine(rs.getBlob(IMAGE));
+				bean.setDescrizione(rs.getString(DESCRP));
+				bean.setQuantita(rs.getInt(QTY));
 				products.add(bean);
 			}
 
@@ -239,7 +239,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 		Collection<ProductBean> products = new LinkedList<>();
 
-		String selectSQL = selectAll + ProductDao.TABLE_NAME;
+		String selectSQL = SELECTALL + ProductDao.TABLE_NAME;
 
 		
 
@@ -252,13 +252,13 @@ public class ProductDao implements BaseDao<ProductBean> {
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
-				bean.setCodice(rs.getInt(codiceProdotto));
+				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getInt(categoria));
+				bean.setCategoria(rs.getInt(CATEG));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setImmagine(rs.getBlob(immagine));
-				bean.setDescrizione(rs.getString(descrizione));
-				bean.setQuantita(rs.getInt(quantita));
+				bean.setImmagine(rs.getBlob(IMAGE));
+				bean.setDescrizione(rs.getString(DESCRP));
+				bean.setQuantita(rs.getInt(QTY));
 				products.add(bean);
 			}
 
@@ -282,7 +282,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 
 		Collection<ProductBean> products = new LinkedList<>();
 
-		String selectSQL = selectAll + ProductDao.TABLE_NAME +" ORDER BY codiceProdotto DESC LIMIT 8";
+		String selectSQL = SELECTALL + ProductDao.TABLE_NAME +" ORDER BY codiceProdotto DESC LIMIT 8";
 
 		
 
@@ -295,13 +295,13 @@ public class ProductDao implements BaseDao<ProductBean> {
 			while (rs.next()) {
 				ProductBean bean = new ProductBean();
 
-				bean.setCodice(rs.getInt(codiceProdotto));
+				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getInt(categoria));
+				bean.setCategoria(rs.getInt(CATEG));
 				bean.setPrezzo(rs.getDouble("prezzo"));
-				bean.setImmagine(rs.getBlob(immagine));
-				bean.setDescrizione(rs.getString(descrizione));
-				bean.setQuantita(rs.getInt(quantita));
+				bean.setImmagine(rs.getBlob(IMAGE));
+				bean.setDescrizione(rs.getString(DESCRP));
+				bean.setQuantita(rs.getInt(QTY));
 				products.add(bean);
 			}
 

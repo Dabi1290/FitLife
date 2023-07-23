@@ -33,11 +33,11 @@ public class OrdineDao  {
 	}
 
 	private static final String TABLE_NAME = "ordini";
-	private static final String selectAll="SELECT * FROM ";
-	private static final String codiceOrdine="codiceOrdine";
-	private static final String codiceClienti="codiceClienti";
-	private static final String isProcessed="isProcessed";
-	private static final String codiceGuest="codiceGuest";
+	private static final String SELECTALL="SELECT * FROM ";
+	private static final String CODICEORD="codiceOrdine";
+	private static final String CODICECLI="codiceClienti";
+	private static final String PROCESSED="isProcessed";
+	private static final String GUEST="codiceGuest";
 	
 	
 	public int doSave(OrdineBean bean) throws SQLException {
@@ -142,7 +142,7 @@ public class OrdineDao  {
 
 		OrdineBean bean = new OrdineBean();
 		
-		String selectSQL = selectAll + OrdineDao.TABLE_NAME + " WHERE codiceOrdine = ?";
+		String selectSQL = SELECTALL + OrdineDao.TABLE_NAME + " WHERE codiceOrdine = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -152,12 +152,12 @@ public class OrdineDao  {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt(codiceOrdine));
-				bean.setIsProcessed(rs.getBoolean(isProcessed));
+				bean.setCodice(rs.getInt(CODICEORD));
+				bean.setIsProcessed(rs.getBoolean(PROCESSED));
 				
 				bean.setData(rs.getString("data"));
-				bean.setCodCliente(rs.getInt(codiceClienti));
-				bean.setCodGuest(rs.getInt(codiceGuest));
+				bean.setCodCliente(rs.getInt(CODICECLI));
+				bean.setCodGuest(rs.getInt(GUEST));
 			}
 
 		} finally {
@@ -179,7 +179,7 @@ public class OrdineDao  {
 
 		Collection<OrdineBean> products = new LinkedList<>();
 
-		String selectSQL = "SELECT * FROM " + OrdineDao.TABLE_NAME;
+		String selectSQL = SELECTALL + OrdineDao.TABLE_NAME;
 
 		
 
@@ -192,11 +192,11 @@ public class OrdineDao  {
 			while (rs.next()) {
 				OrdineBean bean = new OrdineBean();
 
-				bean.setCodice(rs.getInt(codiceOrdine));
-				bean.setIsProcessed(rs.getBoolean(isProcessed));
+				bean.setCodice(rs.getInt(CODICEORD));
+				bean.setIsProcessed(rs.getBoolean(PROCESSED));
 				bean.setData(rs.getString("data"));
-				bean.setCodCliente(rs.getInt(codiceClienti));
-				bean.setCodGuest(rs.getInt(codiceGuest));
+				bean.setCodCliente(rs.getInt(CODICECLI));
+				bean.setCodGuest(rs.getInt(GUEST));
 				products.add(bean);
 			}
 
@@ -220,7 +220,7 @@ public class OrdineDao  {
 		Collection<OrdineBean> products = new LinkedList<>();
 		
 
-		String selectSQL = selectAll + OrdineDao.TABLE_NAME +" WHERE codiceClienti=?";
+		String selectSQL = SELECTALL + OrdineDao.TABLE_NAME +" WHERE codiceClienti=?";
 
 		
 
@@ -233,11 +233,11 @@ public class OrdineDao  {
 			while (rs.next()) {
 				OrdineBean bean = new OrdineBean();
 
-				bean.setCodice(rs.getInt(codiceOrdine));
-				bean.setIsProcessed(rs.getBoolean(isProcessed));
+				bean.setCodice(rs.getInt(CODICEORD));
+				bean.setIsProcessed(rs.getBoolean(PROCESSED));
 				bean.setData(rs.getString("data"));
-				bean.setCodCliente(rs.getInt(codiceClienti));
-				bean.setCodGuest(rs.getInt(codiceGuest));
+				bean.setCodCliente(rs.getInt(CODICECLI));
+				bean.setCodGuest(rs.getInt(GUEST));
 				products.add(bean);
 			}
 

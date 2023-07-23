@@ -8,9 +8,7 @@ function FreeFields(){
 		$('#ciao').val('0');
 	}
 	else{
-		/*$(".camp").prop("readonly", true);
-		$('#modifica').val('Modifica');
-		$('#ciao').val('1')*/
+		
 		document.querySelector("form").submit();
 	}
 }

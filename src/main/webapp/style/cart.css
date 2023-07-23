@@ -39,6 +39,11 @@
   
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   z-index: 13;
+  right: -100%;
+  background: #FFF;
+  -webkit-transition: right 0.3s;
+  -moz-transition: right 0.3s;
+  transition: right 0.3s;
 }
 
 
@@ -48,13 +53,6 @@
 
   
 
-#cd-cart {
-  right: -100%;
-  background: #FFF;
-  -webkit-transition: right 0.3s;
-  -moz-transition: right 0.3s;
-  transition: right 0.3s;
-}
 #cd-cart.speed-in {
   right: 0;
 }

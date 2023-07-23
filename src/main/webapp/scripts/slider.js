@@ -34,16 +34,16 @@
     
  function filterFormSubmit() {
  
-  var form = document.getElementById("filterForm");
+  let form = document.getElementById("filterForm");
 
   // Set the variables as form parameters
-  var input1 = document.createElement("input");
+  let input1 = document.createElement("input");
   input1.type = "hidden";
   input1.name = "min";
   input1.value = minValue;
   form.appendChild(input1);
 
-  var input2 = document.createElement("input");
+  let input2 = document.createElement("input");
   input2.type = "hidden";
   input2.name = "max";
   input2.value = maxValue;

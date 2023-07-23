@@ -66,14 +66,12 @@ form input[type=text]{
   font-weight: 600;
   font-family: inherit;
   transition: box-shadow 0.2s linear, border-color 0.25s ease-out;
+  padding: 14px 1em 0px;
 }
 form input[type=text]:focus {
   outline: none;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border: solid 2px #4eb8dd;
-}
-form input[type=text] {
-  padding: 14px 1em 0px;
 }
 form input[type=button] {
   display: block;

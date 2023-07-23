@@ -27,9 +27,9 @@ function rightSurname(){
 }
 
 function rightEmail(){
-	let nome=" ";
-	nome=document.getElementById("email").value;
-	var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+	
+	let nome=document.getElementById("email").value;
+	let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if(!pattern.test(nome)){
     	document.getElementById("errore3").innerHTML = "email non valida";
     	return false;}
@@ -39,8 +39,8 @@ function rightEmail(){
 }
 
 function rightPassword(){
-	let nome=" ";
-	nome=document.getElementById("password").value;
+	
+	let nome=document.getElementById("password").value;
 	if(nome.trim().length<6){
 		document.getElementById("errore4").innerHTML = "La password non può essere inferiore a 7 caratteri";
 		return false;}
@@ -70,7 +70,7 @@ function Check() {
 function rightIndirizzo(){
 	
 	let nome=document.getElementById("indirizzo").value;
-	var pattern=/^(Via|Strada|Viale|Vicolo|Corso|Piazza|Largo|Borgo|Piazzale|Lungomare|Corte)\s+[\w\s]{1,50}\s+\d+$/
+	let pattern=/^(Via|Strada|Viale|Vicolo|Corso|Piazza|Largo|Borgo|Piazzale|Lungomare|Corte)\s+[\w\s]{1,50}\s+\d+$/
 
 
 	if( !pattern.test(nome)){
@@ -97,7 +97,7 @@ function rightTelefono(){
 function rightCarta(){
 	
 	let nome=document.getElementById("carta").value;
-	var pattern=/^\d{16}$/;
+	let pattern=/^\d{16}$/;
 	if(!pattern.test(nome)){
 		document.getElementById("errore7").innerHTML = "Carta errata";
 		return false;}
@@ -108,7 +108,7 @@ function rightCarta(){
 function rightCvv(){
 	
 	let nome=document.getElementById("cvv").value;
-	var pattern=/^\d{3}$/;
+	let pattern=/^\d{3}$/;
 	if(!pattern.test(nome)){
 		document.getElementById("errore8").innerHTML = "Cvv errato";
 		return false;}
@@ -141,13 +141,13 @@ function Ordina() {
 
   if (isNameValid && isSurnameValid && isTelefonoValid && isIndirizzoValid && isCartaValid && isCvvValid && isPromoValid) {
    
-    var nome = document.getElementById("nome").value;
-    var cognome = document.getElementById("cognome").value;
-    var indirizzo = document.getElementById("indirizzo").value;
-    var telefono = document.getElementById("telefono").value;
-    var carta = document.getElementById("carta").value;
-    var cvv = document.getElementById("cvv").value;
-    var promozione = document.getElementById("promozione").value;
+    let nome = document.getElementById("nome").value;
+    let cognome = document.getElementById("cognome").value;
+    let indirizzo = document.getElementById("indirizzo").value;
+    let telefono = document.getElementById("telefono").value;
+    let carta = document.getElementById("carta").value;
+    let cvv = document.getElementById("cvv").value;
+    let promozione = document.getElementById("promozione").value;
 
     // Create the data object with the input values
     var data = {

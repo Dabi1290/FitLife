@@ -22,7 +22,7 @@ import model.UserDao;
 public class Login extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String error="errors";
+	private static final String ERROR="errors";
 
 	private String toHash(String password) throws SQLException {
 		StringBuilder hashString = null;
@@ -57,7 +57,7 @@ public class Login extends HttpServlet {
             	errors.add("Il campo password non può essere vuoto!");
 			}
             if (!errors.isEmpty()) {
-            	request.setAttribute(error, errors);
+            	request.setAttribute(ERROR, errors);
             	dispatcherToLoginPage.forward(request, response);
             	return; // note the return statement here!!!
             }
@@ -74,7 +74,7 @@ public class Login extends HttpServlet {
 					}
 					else {
 						errors.add("Username o password non validi!");
-						request.setAttribute(error, errors);
+						request.setAttribute(ERROR, errors);
 		            	dispatcherToLoginPage.forward(request, response);
 		            	
 					}
@@ -96,7 +96,7 @@ public class Login extends HttpServlet {
 					}
 					else {
 						errors.add("Username o password non validi!");
-						request.setAttribute(error, errors);
+						request.setAttribute(ERROR, errors);
 		            	dispatcherToLoginPage.forward(request, response);
 		            	
 					}

@@ -1,5 +1,5 @@
 function searchProducts() {
-  var searchValue = document.getElementById("searchBox").value;
+  let searchValue = document.getElementById("searchBox").value;
 
   if (searchValue.length >= 2) {
     $.get('Ricerca', {"query": searchValue},

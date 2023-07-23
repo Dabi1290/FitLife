@@ -30,11 +30,11 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 	}
 
 	private static final String TABLE_NAME = "prodottiVenduti";
-	private static final String selectAll="SELECT * FROM ";
-	private static final String codiceProdotto="codiceProdotto";
-	private static final String categoria="categoria";
-	private static final String prezzo="prezzo";
-	private static final String codordine="codiceOrdine";
+	private static final String SELECTALL="SELECT * FROM ";
+	private static final String PROD="codiceProdotto";
+	private static final String CATEG="categoria";
+	private static final String PRICE="prezzo";
+	private static final String ORDER="codiceOrdine";
 	
 	@Override
 	public synchronized void doSave(SelledProductBean product) throws SQLException {
@@ -102,7 +102,7 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 
 		SelledProductBean bean = new SelledProductBean();
 
-		String selectSQL = selectAll + SelledProductDao.TABLE_NAME + " WHERE CODE = ?";
+		String selectSQL = SELECTALL + SelledProductDao.TABLE_NAME + " WHERE CODE = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -112,11 +112,11 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				bean.setCodice(rs.getInt(codiceProdotto));
+				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getInt(categoria));
-				bean.setPrezzo(rs.getDouble(prezzo));
-				bean.setOrdine(rs.getInt(codordine));
+				bean.setCategoria(rs.getInt(CATEG));
+				bean.setPrezzo(rs.getDouble(PRICE));
+				bean.setOrdine(rs.getInt(ORDER));
 			}
 
 		} finally {
@@ -138,7 +138,7 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 
 		Collection<SelledProductBean> products = new LinkedList<>();
 
-		String selectSQL = selectAll + SelledProductDao.TABLE_NAME;
+		String selectSQL = SELECTALL + SelledProductDao.TABLE_NAME;
 
 		
 
@@ -151,11 +151,11 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 			while (rs.next()) {
 				SelledProductBean bean = new SelledProductBean();
 
-				bean.setCodice(rs.getInt(codiceProdotto));
+				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getInt(categoria));
-				bean.setPrezzo(rs.getDouble(prezzo));
-				bean.setOrdine(rs.getInt(codordine));
+				bean.setCategoria(rs.getInt(CATEG));
+				bean.setPrezzo(rs.getDouble(PRICE));
+				bean.setOrdine(rs.getInt(ORDER));
 				products.add(bean);
 			}
 
@@ -177,7 +177,7 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 
 		Collection<SelledProductBean> products = new LinkedList<>();
 
-		String selectSQL = selectAll + SelledProductDao.TABLE_NAME +" WHERE codiceOrdine=?";
+		String selectSQL = SELECTALL + SelledProductDao.TABLE_NAME +" WHERE codiceOrdine=?";
 
 		
 
@@ -190,11 +190,11 @@ public class SelledProductDao implements BaseDao<SelledProductBean> {
 			while (rs.next()) {
 				SelledProductBean bean = new SelledProductBean();
 
-				bean.setCodice(rs.getInt(codiceProdotto));
+				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
-				bean.setCategoria(rs.getInt(categoria));
-				bean.setPrezzo(rs.getDouble(prezzo));
-				bean.setOrdine(rs.getInt(codordine));
+				bean.setCategoria(rs.getInt(CATEG));
+				bean.setPrezzo(rs.getDouble(PRICE));
+				bean.setOrdine(rs.getInt(ORDER));
 				bean.setQuantita(rs.getInt("quantità"));
 				products.add(bean);
 			}
