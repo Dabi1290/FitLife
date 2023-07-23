@@ -41,8 +41,8 @@ public class OrdiniCliente extends HttpServlet {
 			dispatcher.forward(request, response);
 			
 		} catch (SQLException e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			
-			e.printStackTrace();
 		}
 		
 	}

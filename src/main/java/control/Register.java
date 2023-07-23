@@ -65,7 +65,7 @@ public class Register extends HttpServlet {
 				RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("/login.jsp");
 				dispatcherToLoginPage.forward(request, response);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}	
 		}
 	}

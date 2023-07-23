@@ -103,7 +103,7 @@ public class PostCheckout extends HttpServlet {
 		        dispatcher.forward(request, response);
 		        
 		    } catch (Exception e) {
-		    	e.printStackTrace();
+		    	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		    }
 	}
 

@@ -29,7 +29,7 @@ function rightSurname(){
 function rightEmail(){
 	let nome=" ";
 	nome=document.getElementById("email").value;
-	var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if(!pattern.test(nome)){
     	document.getElementById("errore3").innerHTML = "email non valida";
     	return false;}
@@ -70,7 +70,8 @@ function Check() {
 function rightIndirizzo(){
 	
 	let nome=document.getElementById("indirizzo").value;
-	var pattern=/^(Via|Strada|Viale|Vicolo|Corso|Piazza|Largo|Borgo|Piazzale|Lungomare|Corte)\s+[\w\s]+\s+\d+$/;
+	var pattern=/^(Via|Strada|Viale|Vicolo|Corso|Piazza|Largo|Borgo|Piazzale|Lungomare|Corte)\s+[\w\s]{1,50}\s+\d+$/
+
 
 	if( !pattern.test(nome)){
 		document.getElementById("errore5").innerHTML = "L'indirizzo non è nel formato giusto";
