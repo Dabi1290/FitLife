@@ -29,7 +29,7 @@ function rightSurname(){
 function rightEmail(){
 	
 	let nome=document.getElementById("email").value;
-	let pattern = /^[^\s@]{,32}+@[^\s@]{,32}+\.[^\s@]{,32}$/;
+	let pattern =/^[^\s@]{1,32}@[^\s@]{1,32}\.[^\s@]{1,32}$/;
     if(!pattern.test(nome)){
     	document.getElementById("errore3").innerHTML = "email non valida";
     	return false;}

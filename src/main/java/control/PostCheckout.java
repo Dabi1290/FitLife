@@ -71,13 +71,14 @@ public class PostCheckout extends HttpServlet {
 		        
 		        if(!promozione.trim().isEmpty()) { 
 		        
-		        
+		        	
 		        	sconto=Sconto(prom,promozione,response);
 		        	if(!sconto) {
 		        	dispatcher=request.getRequestDispatcher("/Checkout");
 					dispatcher.forward(request, response);
 		        	}
 		        }
+		        
 		        user.setNome(nome);
 		        user.setCognome(cognome);
 		        user.setIndirizzo(indirizzo);
