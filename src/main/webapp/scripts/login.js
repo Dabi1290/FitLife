@@ -25,7 +25,7 @@ function getCoord(e) {
 	caretPos = caretCoords.x + emailCoords.x;					
 	
 	dFromC = screenCenter - caretPos; 							
-	let pFromC = Math.round((caretPos / screenCenter) * 100) / 100;
+	
 	
 
 	eyeDistH = -dFromC * .05;
