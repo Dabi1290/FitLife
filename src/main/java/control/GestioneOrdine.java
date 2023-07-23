@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.servlet.RequestDispatcher;
@@ -57,33 +58,47 @@ public class GestioneOrdine extends HttpServlet {
 	}
 
 	private Predicate<OrdineBean> buildFilter(String predicate, String text, String text1, SimpleDateFormat dateFormat) {
+	    // Default filter if no predicate is provided
 	    if (predicate == null || predicate.isEmpty()) {
 	        return order -> true;
-	    } else if (predicate.equals("data") && text != null && text1 != null) {
-	        try {
-	            final Date date1 = dateFormat.parse(text);
-	            final Date date2 = dateFormat.parse(text1);
-	            if (date1.compareTo(date2) >= 0) {
-	                return order -> true;
-	            } else {
-	                return order -> {
-	                    try {
-	                        Date orderDate = dateFormat.parse(order.getData());
-	                        return orderDate.compareTo(date1) >= 0 && orderDate.compareTo(date2) <= 0;
-	                    } catch (ParseException e) {
-	                        return false;
-	                    }
-	                };
-	            }
-	        } catch (ParseException e) {
-	            return order -> true;
-	        }
-	    } else if (predicate.equals("cliente") && text != null && !text.isEmpty()) {
-	        return order -> String.valueOf(order.getCodCliente()).equals(text);
-	    } else {
-	        return order -> true;
 	    }
+
+	    // Helper method to parse date strings or return null
+	    Function<String, Date> parseDate = dateString -> {
+	        try {
+	            return dateFormat.parse(dateString);
+	        } catch (ParseException e) {
+	            return null;
+	        }
+	    };
+
+	    // Date filter
+	    if (predicate.equals("data") && text != null && text1 != null) {
+	        Date date1 = parseDate.apply(text);
+	        Date date2 = parseDate.apply(text1);
+
+	        if (date1 != null && date2 != null && date1.compareTo(date2) >= 0) {
+	            return order -> true;
+	        } else {
+	            return order -> {
+	                Date orderDate = parseDate.apply(order.getData());
+	                return date1 != null && date2 != null &&
+	                       orderDate != null &&
+	                       orderDate.compareTo(date1) >= 0 &&
+	                       orderDate.compareTo(date2) <= 0;
+	            };
+	        }
+	    }
+
+	    // Cliente filter
+	    if (predicate.equals("cliente") && text != null && !text.isEmpty()) {
+	        return order -> text.equals(String.valueOf(order.getCodCliente()));
+	    }
+
+	    // Default filter for unknown predicates or missing values
+	    return order -> true;
 	}
+
 
 	private List<OrdineBean> retrieveFilteredOrders(Predicate<OrdineBean> filter, HttpServletResponse response) throws ServletException, IOException {
 	    try {
