@@ -502,9 +502,7 @@ body {
       	display:none;
       }
       
-      div#search{
-      	width: 25%;
-      }
+      
       
       img#resize2{
       position: absolute;
@@ -524,6 +522,20 @@ body {
       max-height: 50%;
       }
 }
+@media screen and (max-width: 725px) {
+	
+	#searchBox{
+      	width: 150px;
+      	
+      }
+}
+
+@media screen and (max-width: 725px) {
+	#searchBox{
+      	width: 100px;
+      	
+      }
+	}
 
 
 

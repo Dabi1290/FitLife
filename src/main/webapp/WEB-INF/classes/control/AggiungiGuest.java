@@ -3,26 +3,25 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
-import model.CarrelloBean;
-import model.CarrelloDao;
+import model.CarrelloGuest;
 import model.ProductBean;
+import model.ProductDao;
 
-@WebServlet("/AggiungiProdotto")
-public class AddProduct extends HttpServlet {
+@WebServlet("/AggiungiProdottoGuest")
+public class AggiungiGuest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
     
-    public AddProduct() {
+    public AggiungiGuest() {
         super();
        
     }
@@ -33,16 +32,40 @@ public class AddProduct extends HttpServlet {
 		doPost(request, response);
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer query = Integer.parseInt(request.getParameter("query")) ;
-		CarrelloDao dao= new CarrelloDao();
-		CarrelloBean bean = new CarrelloBean();
 		
-		bean.setCodiceProdotto(query);
-		bean.setCodiceCliente((int)request.getSession().getAttribute("userCode"));
-		bean.setQuantita(1);
+		String cartPlaceHolder="Carrello";
+		Integer query = Integer.parseInt(request.getParameter("query")) ;
+		
+		HttpSession session=request.getSession();
+		boolean exist=false;
+		CarrelloGuest cart= (CarrelloGuest)session.getAttribute(cartPlaceHolder);
+		if(cart==null) {
+			session.setAttribute(cartPlaceHolder, new CarrelloGuest());
+			cart=(CarrelloGuest) session.getAttribute(cartPlaceHolder);
+			
+		}
+		
+		ProductDao dao= new ProductDao();
+		ProductBean prodb= new ProductBean();
+		
+		
 		try {
-			dao.doUpdate(bean);
+			prodb=dao.doRetrieveByKey(query);
+			prodb.setQuantita(1);
+			
+			
+			for(ProductBean prod:cart.getProdotti()) {
+				if(prod.getCodice()==prodb.getCodice()) {
+					exist=true;
+					prod.setQuantita(prod.getQuantita()+1);
+				}
+			}
+			if(!exist)cart.getProdotti().add(prodb);
+			
+			
+			
 			Gson gson = new Gson();
 	        String json = gson.toJson("True");
 	        
@@ -54,22 +77,10 @@ public class AddProduct extends HttpServlet {
 	        out.flush();
 		}
 		catch(SQLException e){
-			try {
-				
-				dao.doSave(bean);
-			 	Gson gson = new Gson();
-		        String json = gson.toJson("True");
-		        
-		        response.setContentType("application/json");
-		        response.setCharacterEncoding("UTF-8");
-
-		        PrintWriter out = response.getWriter();
-		        out.print(json);
-		        out.flush();
-		} catch (SQLException b) {
+			
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		}
+		
 		
 
 	}

@@ -41,19 +41,19 @@
   
 
   
-  <a href="#" class="icon"><img src="images/cart.png"  onclick="searchCart(<%=userCode%>,<%=isCart%>)" alt="#"></a>
+  <a href="#" class="icon"><img id="resize1"src="images/cart.png"  onclick="searchCart(<%=userCode%>,<%=isCart%>)" alt="#"></a>
  
   <%Boolean isUser= (Boolean)request.getSession().getAttribute("isUser");
   if(isUser==null || !isUser){
   
   %>
-  <a href="Accesso.jsp" class="icon"><img src="images/user.png" alt="#"></a>
+  <a href="Accesso.jsp" class="icon"><img id="resize2" src="images/user.png" alt="#"></a>
   <%}
   else{
   
   %>
-  <a href="AreaUtente" class="icon"><img src="images/user.png" alt="#"></a>
-  <a href="Logout" class="icon"><img alt="#" src="images/logout.png"></a>
+  <a href="AreaUtente" class="icon"><img src="images/user.png" alt="#" id="resize2"></a>
+  <a href="Logout" class="icon"><img alt="#" src="images/logout.png" id="resize1"></a>
   <%} %>
   
   </div>
@@ -67,7 +67,7 @@
 			
 			
 			</div>
-			<div class="search-box">
+			<div class="search-box" >
 				<input type="text" id="searchBox" placeholder="Search..." onkeyup="searchProducts()">
 				
 				

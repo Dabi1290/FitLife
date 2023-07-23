@@ -3,7 +3,6 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import model.CarrelloBean;
 import model.CarrelloDao;
-import model.ProductBean;
 
-@WebServlet("/AggiungiProdotto")
-public class AddProduct extends HttpServlet {
+@WebServlet("/SvuotaCarrello")
+public class EmptyCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
-    public AddProduct() {
+   
+    public EmptyCart() {
         super();
        
     }
@@ -31,34 +27,26 @@ public class AddProduct extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doPost(request, response);
+
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer query = Integer.parseInt(request.getParameter("query")) ;
-		CarrelloDao dao= new CarrelloDao();
-		CarrelloBean bean = new CarrelloBean();
 		
-		bean.setCodiceProdotto(query);
-		bean.setCodiceCliente((int)request.getSession().getAttribute("userCode"));
-		bean.setQuantita(1);
+		
+		Integer user= (Integer) request.getSession().getAttribute("userCode");
 		try {
-			dao.doUpdate(bean);
-			Gson gson = new Gson();
-	        String json = gson.toJson("True");
-	        
-	        response.setContentType("application/json");
-	        response.setCharacterEncoding("UTF-8");
-
-	        PrintWriter out = response.getWriter();
-	        out.print(json);
-	        out.flush();
-		}
-		catch(SQLException e){
-			try {
+			boolean answer=false;
+			if(user!=null) {
 				
-				dao.doSave(bean);
-			 	Gson gson = new Gson();
-		        String json = gson.toJson("True");
+				answer=Svuotami(user,response);
+			}
+			else {
+				request.getSession().removeAttribute("Carrello");
+				answer=true;
+			}
+			 Gson gson = new Gson();
+		        String json = gson.toJson(answer);
 		        
 		        response.setContentType("application/json");
 		        response.setCharacterEncoding("UTF-8");
@@ -66,14 +54,21 @@ public class AddProduct extends HttpServlet {
 		        PrintWriter out = response.getWriter();
 		        out.print(json);
 		        out.flush();
-		} catch (SQLException b) {
+		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
+		
+		
+	}
+	
+	public boolean Svuotami(Integer user,HttpServletResponse response ) {
+		CarrelloDao dao= new CarrelloDao();
+		try {
+			return dao.svuotaCarrello(user);
+		} catch (SQLException e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		
-
-	}
-		
+		return false;
 	}
 
-
+}
