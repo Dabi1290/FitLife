@@ -77,8 +77,8 @@ function showCart(products) {
 		});
   }
   $('#totale').text(totale+'€');
-  $lateral_cart = $('#cd-cart');
-		$shadow_layer = $('#cd-shadow-layer');
+  let $lateral_cart = $('#cd-cart');
+		let $shadow_layer = $('#cd-shadow-layer');
 	
 	
 	toggle_panel_visibility($lateral_cart, $shadow_layer, $('body'));

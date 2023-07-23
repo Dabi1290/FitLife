@@ -150,7 +150,7 @@ function Ordina() {
     let promozione = document.getElementById("promozione").value;
 
     // Create the data object with the input values
-    var data = {
+    let data = {
       nome: nome,
       cognome: cognome,
       indirizzo: indirizzo,
