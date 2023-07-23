@@ -45,147 +45,149 @@ public class GestioneUpdate extends HttpServlet {
 		doPost(request,response);
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String type=request.getParameter("tipo");
-		String operazione;
-		String riga;
-		List<String> errors = new ArrayList<>();
-		RequestDispatcher dispatcherToLoginPage ;
-		switch(type) {
-		case "ProductBean":
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
-			operazione= request.getParameter(GestioneUpdate.UPDT_BTN);
-			riga=String.valueOf(Integer.parseInt(operazione.substring(1, operazione.length())));
-			ProductBean prodotto=new ProductBean();
-			ProductDao dao=new ProductDao();
-			dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestioneProdotti");
-			if(operazione.charAt(0)=='0') { // operazione di salvataggio
-				
-				String codice=request.getParameter("codice"+riga);
-				String nome=request.getParameter("nome"+riga);
-				String categoria=request.getParameter("categoria"+riga);
-				String prezzo=request.getParameter("prezzo"+riga);
-				Part filePart = request.getPart("immagine"+riga);
-				
-				String descrizione=request.getParameter("descrizione"+riga);
-				String quantita=request.getParameter("quantita"+riga);
-				Blob blob = null;
-				if(codice == null || codice.trim().isEmpty() || nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty() ) {
-					errors.add("Non lasciare i campi vuoti!!!");
-					request.setAttribute("errors", errors);
-					dispatcherToLoginPage.forward(request, response);
-	            	return;
-				}
-				
-				int newc=Integer.parseInt(categoria);
-		
-				
-				InputStream inputStream = filePart.getInputStream();
-		        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		        byte[] buffer = new byte[4096];
-		        int bytesRead;
-		        while ((bytesRead = inputStream.read(buffer)) != -1) {
-		            outputStream.write(buffer, 0, bytesRead);
-		        }
-		        byte[] fileData = outputStream.toByteArray();
+	    String type = request.getParameter("tipo");
 
-		        
-		        try {
-		            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
-		        } catch (Exception e) {
-		        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		        }
-
-				
-				
-				
-				prodotto.setCodice(Integer.parseInt(codice));
-				prodotto.setNome(nome);
-				prodotto.setCategoria(newc);
-				prodotto.setPrezzo(Double.parseDouble(prezzo));
-				prodotto.setImmagine(blob);
-				prodotto.setDescrizione(descrizione);
-				prodotto.setQuantita(Integer.parseInt(quantita));
-				
-				
-				try {
-					dao.doUpdate(prodotto);
-					
-					dispatcher.forward(request, response);
-				} catch (SQLException e) {
-					
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
-			}
-			else { //operazione di eliminazione
-				try {
-					
-					dao.doDelete(Integer.parseInt(riga));
-					
-					dispatcher.forward(request, response);
-				} catch (SQLException e) {
-					
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
-			}
-			break;
-		case "PromozioniBean": //posso Solo eliminarle
-			dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
-			operazione= request.getParameter(GestioneUpdate.UPDT_BTN);
-			riga=operazione.substring(1, operazione.length());
-			
-			PromozioniDao daopromoz=new PromozioniDao();
-			
-				try {
-					
-					daopromoz.doDelete(riga);
-					
-					dispatcher.forward(request, response);
-				} catch (SQLException e) {
-					
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
-			
-			break;
-		case "OrdineBean":
-			dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneOrdine");
-			operazione= request.getParameter(GestioneUpdate.UPDT_BTN);
-			riga=String.valueOf(Integer.parseInt(operazione.substring(1, operazione.length())));
-			
-			OrdineDao daoOrdine=new OrdineDao();
-			if(operazione.charAt(0)=='0') { // operazione di salvataggio
-				
-				int codice=Integer.parseInt(request.getParameter("codice"+riga));
-				
-			
-				try {
-					daoOrdine.doUpdate(codice);
-					
-					dispatcher.forward(request, response);
-				} catch (SQLException e) {
-					
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
-			}
-			else { //operazione di eliminazione
-				try {
-					
-					daoOrdine.doDelete(Integer.parseInt(riga));
-					
-					dispatcher.forward(request, response);
-				} catch (SQLException e) {
-					
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
-			}
-			break;
-			
-			
-			default:
-				break;
-		}
+	    switch (type) {
+	        case "ProductBean":
+	            handleProductBean(request, response);
+	            break;
+	        case "PromozioniBean":
+	            handlePromozioniBean(request, response);
+	            break;
+	        case "OrdineBean":
+	            handleOrdineBean(request, response);
+	            break;
+	        default:
+	            // Handle unknown type or invalid request
+	            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+	            break;
+	    }
 	}
+
+	private void handleProductBean(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String operazione = request.getParameter(GestioneUpdate.UPDT_BTN);
+	    String riga = operazione.substring(1);
+	    ProductDao dao = new ProductDao();
+	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
+
+	    if (operazione.charAt(0) == '0') { // operazione di salvataggio
+	        List<String> errors = validateProductFields(request, riga);
+	        if (!errors.isEmpty()) {
+	            request.setAttribute("errors", errors);
+	            dispatcher.forward(request, response);
+	            return;
+	        }
+
+	        ProductBean prodotto = createProductBean(request, riga);
+	        try {
+	            dao.doUpdate(prodotto);
+	            dispatcher.forward(request, response);
+	        } catch (SQLException e) {
+	            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	        }
+	    } else { //operazione di eliminazione
+	        try {
+	            dao.doDelete(Integer.parseInt(riga));
+	            dispatcher.forward(request, response);
+	        } catch (SQLException e) {
+	            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	        }
+	    }
+	}
+
+	private List<String> validateProductFields(HttpServletRequest request, String riga) {
+	    List<String> errors = new ArrayList<>();
+	    String codice = request.getParameter("codice" + riga);
+	    String nome = request.getParameter("nome" + riga);
+	    String categoria = request.getParameter("categoria" + riga);
+	    String prezzo = request.getParameter("prezzo" + riga);
+
+	    if (codice == null || codice.trim().isEmpty()
+	            || nome == null || nome.trim().isEmpty()
+	            || categoria == null || categoria.trim().isEmpty()
+	            || prezzo == null || prezzo.trim().isEmpty()) {
+	        errors.add("Non lasciare i campi vuoti!!!");
+	    }
+	    return errors;
+	}
+
+	private ProductBean createProductBean(HttpServletRequest request, String riga) throws IOException, ServletException {
+	    String codice = request.getParameter("codice" + riga);
+	    String nome = request.getParameter("nome" + riga);
+	    String categoria = request.getParameter("categoria" + riga);
+	    String prezzo = request.getParameter("prezzo" + riga);
+	    String descrizione = request.getParameter("descrizione" + riga);
+	    String quantita = request.getParameter("quantita" + riga);
+	    Part filePart = request.getPart("immagine" + riga);
+	    int newc = Integer.parseInt(categoria);
+
+	    InputStream inputStream = filePart.getInputStream();
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	    byte[] buffer = new byte[4096];
+	    int bytesRead;
+	    while ((bytesRead = inputStream.read(buffer)) != -1) {
+	        outputStream.write(buffer, 0, bytesRead);
+	    }
+	    byte[] fileData = outputStream.toByteArray();
+	    Blob blob = null;
+	    try {
+	        blob = new javax.sql.rowset.serial.SerialBlob(fileData);
+	    } catch (Exception e) {
+	        // Handle Blob creation error
+	    }
+
+	    ProductBean prodotto = new ProductBean();
+	    prodotto.setCodice(Integer.parseInt(codice));
+	    prodotto.setNome(nome);
+	    prodotto.setCategoria(newc);
+	    prodotto.setPrezzo(Double.parseDouble(prezzo));
+	    prodotto.setImmagine(blob);
+	    prodotto.setDescrizione(descrizione);
+	    prodotto.setQuantita(Integer.parseInt(quantita));
+
+	    return prodotto;
+	}
+
+	private void handlePromozioniBean(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String operazione = request.getParameter(GestioneUpdate.UPDT_BTN);
+	    String riga = operazione.substring(1);
+	    PromozioniDao daopromoz = new PromozioniDao();
+	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
+
+	    try {
+	        daopromoz.doDelete(riga);
+	        dispatcher.forward(request, response);
+	    } catch (SQLException e) {
+	        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	    }
+	}
+
+	private void handleOrdineBean(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String operazione = request.getParameter(GestioneUpdate.UPDT_BTN);
+	    String riga = operazione.substring(1);
+	    OrdineDao daoOrdine = new OrdineDao();
+	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneOrdine");
+
+	    if (operazione.charAt(0) == '0') { // operazione di salvataggio
+	        int codice = Integer.parseInt(request.getParameter("codice" + riga));
+
+	        try {
+	            daoOrdine.doUpdate(codice);
+	            dispatcher.forward(request, response);
+	        } catch (SQLException e) {
+	            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	        }
+	    } else { //operazione di eliminazione
+	        try {
+	            daoOrdine.doDelete(Integer.parseInt(riga));
+	            dispatcher.forward(request, response);
+	        } catch (SQLException e) {
+	            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	        }
+	    }
+	}
+
 	
 
 }
