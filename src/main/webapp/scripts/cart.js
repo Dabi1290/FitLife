@@ -1,8 +1,8 @@
 jQuery(document).ready(function($){
 	
-	var $L = 90,
+	let $L = 90,
 		
-		$cart_trigger = $('#cd-cart-trigger'),
+		
 		
 		$lateral_cart = $('#cd-cart'),
 		$shadow_layer = $('#cd-shadow-layer');
@@ -64,9 +64,9 @@ function searchCart(userCode,isCart) {
 
 function showCart(products) {
   $("#cart").empty();
-	var totale=0;
+	let totale=0;
   if (products.length > 0) {
-	  var i=0;
+	  let i=0;
 	  $.each(products, function(i,prodotto) {
 		
 		
@@ -94,10 +94,10 @@ function DeleteFromCart(index,codice){
             function(resp) { // on sucess
     			if(resp){
 					$('#row'+index).remove();
-					 var Prices = $("#cart div.cd-price");
-					 var quantity= $("#cart span.cd-qty")
+					 let Prices = $("#cart div.cd-price");
+					 let quantity= $("#cart span.cd-qty")
 					 console.log(Prices);
-					 var totalPrice = calculateTotal(Prices, quantity);
+					 let totalPrice = calculateTotal(Prices, quantity);
 					 $('#totale').text(totalPrice+'€');
 					 
 					 
@@ -134,10 +134,10 @@ function parseQuantity(qtyString) {
     
     
     function calculateTotal(prices, quantities) {
-        var total = 0;
+        let total = 0;
         prices.each(function(index) {
-            var price = parseFloat($(this).text());
-            var quantity = parseQuantity(quantities.eq(index).text());
+            let price = parseFloat($(this).text());
+            let quantity = parseQuantity(quantities.eq(index).text());
             total += price * quantity;
         });
         return total;
