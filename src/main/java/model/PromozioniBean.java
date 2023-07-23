@@ -9,7 +9,7 @@ public class PromozioniBean implements Serializable{
 	String codice;
 	int categoria;
 	Boolean isCategoria;
-	Blob immagine;
+	transient Blob immagine;
 	int sconto;
 	public PromozioniBean() {
 		super();

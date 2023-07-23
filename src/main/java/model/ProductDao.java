@@ -37,6 +37,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 	private static final String IMAGE="Immagine";
 	private static final String DESCRP="descrizione";
 	private static final String QTY="quantità";
+	private static final String PRICE="prezzo";
 	@Override
 	public synchronized void doSave(ProductBean product) throws SQLException {
 
@@ -164,7 +165,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
 				bean.setCategoria(rs.getInt(CATEG));
-				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setPrezzo(rs.getDouble(PRICE));
 				bean.setImmagine(rs.getBlob(IMAGE));
 				bean.setDescrizione(rs.getString(DESCRP));
 				bean.setQuantita(rs.getInt(QTY));
@@ -212,7 +213,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
 				bean.setCategoria(rs.getInt(CATEG));
-				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setPrezzo(rs.getDouble(PRICE));
 				bean.setImmagine(rs.getBlob(IMAGE));
 				bean.setDescrizione(rs.getString(DESCRP));
 				bean.setQuantita(rs.getInt(QTY));
@@ -255,7 +256,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
 				bean.setCategoria(rs.getInt(CATEG));
-				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setPrezzo(rs.getDouble(PRICE));
 				bean.setImmagine(rs.getBlob(IMAGE));
 				bean.setDescrizione(rs.getString(DESCRP));
 				bean.setQuantita(rs.getInt(QTY));
@@ -298,7 +299,7 @@ public class ProductDao implements BaseDao<ProductBean> {
 				bean.setCodice(rs.getInt(PROD));
 				bean.setNome(rs.getString("nome"));
 				bean.setCategoria(rs.getInt(CATEG));
-				bean.setPrezzo(rs.getDouble("prezzo"));
+				bean.setPrezzo(rs.getDouble(PRICE));
 				bean.setImmagine(rs.getBlob(IMAGE));
 				bean.setDescrizione(rs.getString(DESCRP));
 				bean.setQuantita(rs.getInt(QTY));

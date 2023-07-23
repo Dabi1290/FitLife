@@ -40,72 +40,79 @@ public class Login extends HttpServlet {
             throw new SQLException();
         }
         return hashString.toString();
-    }
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			List<String> errors = new ArrayList<>();
-        	RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("login.jsp");
+    }protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        List<String> errors = new ArrayList<>();
+        RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("login.jsp");
 
-			
-			if(username == null || username.trim().isEmpty()) {
-				errors.add("Il campo username non può essere vuoto!");
-			}
-            if(password == null || password.trim().isEmpty()) {
-            	errors.add("Il campo password non può essere vuoto!");
-			}
-            if (!errors.isEmpty()) {
-            	request.setAttribute(ERROR, errors);
-            	dispatcherToLoginPage.forward(request, response);
-            	return; // note the return statement here!!!
+        if (username == null || username.trim().isEmpty()) {
+            errors.add("Il campo username non può essere vuoto!");
+        }
+        if (password == null || password.trim().isEmpty()) {
+            errors.add("Il campo password non può essere vuoto!");
+        }
+        if (!errors.isEmpty()) {
+            request.setAttribute(ERROR, errors);
+            dispatcherToLoginPage.forward(request, response);
+            return;
+        }
+
+        if (username.contains("FitLife.com")) { // Admin
+            processAdminLogin(username, password, request, response, dispatcherToLoginPage);
+        } else { // User
+            processUserLogin(username, password, request, response, dispatcherToLoginPage);
+        }
+    }
+
+    private void processAdminLogin(String username, String password,
+                                   HttpServletRequest request, HttpServletResponse response,
+                                   RequestDispatcher dispatcherToLoginPage) throws IOException, ServletException {
+        AdminBean admin = new AdminBean();
+        AdminDao admindao = new AdminDao();
+
+        try {
+            admin = admindao.doRetrieveByEmail(username);
+            if (admin.getPassword().equals(toHash(password))) {
+                request.getSession().setAttribute("isAdmin", Boolean.TRUE);
+                response.sendRedirect("admin/index.jsp");
+            } else {
+                handleLoginError(request, response, dispatcherToLoginPage);
             }
-			
-			if(username.contains("FitLife.com")){//admin
-				AdminBean admin= new AdminBean();
-				AdminDao admindao= new AdminDao();
-				try {
-					admin=admindao.doRetrieveByEmail(username);
-					if(admin.getPassword().equals(toHash(password))) {
-					
-						request.getSession().setAttribute("isAdmin", Boolean.TRUE);
-						response.sendRedirect("admin/index.jsp");
-					}
-					else {
-						errors.add("Username o password non validi!");
-						request.setAttribute(ERROR, errors);
-		            	dispatcherToLoginPage.forward(request, response);
-		            	
-					}
-				} catch (SQLException e) {
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
-				
-				
-			} else{//user
-				UserBean user = new UserBean();
-				UserDao userdao = new UserDao();
-				try {
-					user=userdao.doRetrieveByEmail(username);
-					if(user.getPassword().equals(toHash(password))) {
-						request.getSession().setAttribute("isUser", Boolean.TRUE);
-						request.getSession().setAttribute("isAdmin", Boolean.FALSE);
-						request.getSession().setAttribute("userCode", user.getCodice());
-						response.sendRedirect("ciao");
-					}
-					else {
-						errors.add("Username o password non validi!");
-						request.setAttribute(ERROR, errors);
-		            	dispatcherToLoginPage.forward(request, response);
-		            	
-					}
-				} catch (SQLException e) {
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
-				
-			} 
-	}	
+        } catch (SQLException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private void processUserLogin(String username, String password,
+                                  HttpServletRequest request, HttpServletResponse response,
+                                  RequestDispatcher dispatcherToLoginPage) throws IOException, ServletException {
+        UserBean user = new UserBean();
+        UserDao userdao = new UserDao();
+
+        try {
+            user = userdao.doRetrieveByEmail(username);
+            if (user.getPassword().equals(toHash(password))) {
+                request.getSession().setAttribute("isUser", Boolean.TRUE);
+                request.getSession().setAttribute("isAdmin", Boolean.FALSE);
+                request.getSession().setAttribute("userCode", user.getCodice());
+                response.sendRedirect("ciao");
+            } else {
+                handleLoginError(request, response, dispatcherToLoginPage);
+            }
+        } catch (SQLException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    private void handleLoginError(HttpServletRequest request, HttpServletResponse response,
+                                  RequestDispatcher dispatcherToLoginPage) throws ServletException, IOException {
+        List<String> errors = new ArrayList<>();
+        errors.add("Username o password non validi!");
+        request.setAttribute(ERROR, errors);
+        dispatcherToLoginPage.forward(request, response);
+    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

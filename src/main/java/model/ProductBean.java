@@ -11,7 +11,7 @@ public class ProductBean implements Serializable{
 	String nome;
 	int categoria;
 	Double prezzo;
-	Blob immagine;
+	transient Blob immagine;
 	String descrizione;
 	int quantita;
 	
