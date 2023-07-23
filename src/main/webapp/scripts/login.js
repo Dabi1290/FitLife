@@ -27,7 +27,7 @@ function getCoord(e) {
 	dFromC = screenCenter - caretPos; 							
 	let pFromC = Math.round((caretPos / screenCenter) * 100) / 100;
 	if(pFromC > 1) {
-		pFromC -= 2;
+		
 		
 	}
 

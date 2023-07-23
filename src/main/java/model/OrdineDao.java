@@ -37,7 +37,7 @@ public class OrdineDao  {
 	private static final String CODICEORD="codiceOrdine";
 	private static final String CODICECLI="codiceClienti";
 	private static final String PROCESSED="isProcessed";
-	private static final String GUEST="codiceGuest";
+	private static final String GUEST="codiceGuests";
 	
 	
 	public int doSave(OrdineBean bean) throws SQLException {

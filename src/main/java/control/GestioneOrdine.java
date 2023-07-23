@@ -49,6 +49,9 @@ public class GestioneOrdine extends HttpServlet {
 	    Predicate<OrdineBean> filter = buildFilter(predicate, text, text1, dateFormat);
 
 	    List<OrdineBean> product = retrieveFilteredOrders(filter, response);
+	    
+	    
+	   
 
 	    handleOrderTypeAndForward(product, ordtypeReq, ordtypeSes, request, response);
 	}
@@ -86,34 +89,29 @@ public class GestioneOrdine extends HttpServlet {
 	    try {
 	        OrdineDao dao = new OrdineDao();
 	        List<OrdineBean> product = (List<OrdineBean>) dao.doRetrieveAll();
-	        return product.stream().filter(filter).toList();
+	        product=product.stream().filter(filter).toList();
+	        if(product.isEmpty()) return (List<OrdineBean>) dao.doRetrieveAll();
+	        return product;
 	    } catch (SQLException e) {
 	        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	        return Collections.emptyList();
 	    }
 	}
 
-	private void handleOrderTypeAndForward(List<OrdineBean> product, String ordtypeReq, String ordtypeSes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    if (ordtypeReq == null && ordtypeSes == null) {
-	        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");
-	        dispatcher.forward(request, response);
-	        return;
-	    }
+	private void handleOrderTypeAndForward(List<OrdineBean> product,String ordtypeReq, String ordtypeSes, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	    if (ordtypeReq == null && ordtypeSes == null) goOnHomePage(request, response);
 
 	    boolean isProcessed = (ordtypeReq != null) ? ordtypeReq.equals("1") : ordtypeSes.equals("1");
 	    product = filterAndSetOrderType(product, isProcessed);
 	    request.getSession().setAttribute(GestioneOrdine.OTYPE, isProcessed ? "1" : "0");
-
+	    
 	    if (product.isEmpty()) {
-	        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");
-	        dispatcher.forward(request, response);
-	    } else {
-	        request.setAttribute("void", false);
-	        request.setAttribute("tipo", new OrdineBean());
-	        request.setAttribute("prodotti", product);
-	        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/gestione.jsp");
-	        dispatcher.forward(request, response);
+	    	
+	    	goOnHomePage(request, response);
+	    	
 	    }
+	     else gestisci(product,request,response);
+	    
 	}
 
 	private List<OrdineBean> filterAndSetOrderType(List<OrdineBean> product, boolean isProcessed) {
@@ -121,6 +119,28 @@ public class GestioneOrdine extends HttpServlet {
 	            .filter(order -> order.getIsProcessed() == isProcessed)
 	            .toList();
 	}
-
+	
+	
+	private void gestisci(List<OrdineBean> product, HttpServletRequest request, HttpServletResponse response) throws  IOException {
+		request.setAttribute("void", false);
+        request.setAttribute("tipo", new OrdineBean());
+        request.setAttribute("prodotti", product);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/gestione.jsp");
+        try {
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	private void goOnHomePage(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/index.jsp");
+		try {
+			dispatcher.forward(request, response);
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		return;
+	}
 
 }
