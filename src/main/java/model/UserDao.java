@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 
 import javax.naming.Context;
@@ -15,7 +16,7 @@ import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
-public class UserDao implements BaseDao<UserBean> {
+public class UserDao{
 	private static DataSource ds;
 	 private static final Logger logger = Logger.getLogger(UserDao.class.getName());
 
@@ -32,17 +33,18 @@ public class UserDao implements BaseDao<UserBean> {
 	}
 
 	private static final String TABLE_NAME = "clienti";
-	@Override
-	public synchronized void doSave(UserBean user) throws SQLException {
+
+	public synchronized int doSave(UserBean user) throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + UserDao.TABLE_NAME
 				+ " (nome, cognome, telefono, indirizzo, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+		int lastInsertedId=-1;
 		try {
 			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement = connection.prepareStatement(insertSQL,Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, user.getNome());
 			preparedStatement.setString(2, user.getCognome());
 			preparedStatement.setString(3, user.getTelefono());
@@ -52,6 +54,13 @@ public class UserDao implements BaseDao<UserBean> {
 
 			preparedStatement.executeUpdate();
 			connection.setAutoCommit(false); 
+			
+			ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+			 if (generatedKeys.next()) {
+	                lastInsertedId = generatedKeys.getInt(1);
+	                // Now lastInsertedId holds the primary key value of the inserted row
+	            }
+			 generatedKeys.close();
 			connection.commit();
 			
 		} finally {
@@ -63,6 +72,7 @@ public class UserDao implements BaseDao<UserBean> {
 					connection.close();
 			}
 		}
+		return lastInsertedId;
 		
 	}
 
@@ -159,7 +169,7 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 	}
 	
 	
-	@Override
+	
 	public synchronized boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -186,7 +196,7 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 		return (result != 0);
 	}
 
-	@Override
+	
 	public synchronized UserBean doRetrieveByKey(int code) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -259,7 +269,7 @@ public synchronized void doPass(String pass,int code) throws SQLException {
 		}
 		return bean;
 	}
-	@Override
+	
 	public Collection<UserBean> doRetrieveAll() throws SQLException {
 		
 		Connection connection = null;

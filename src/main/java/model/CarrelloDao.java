@@ -121,10 +121,10 @@ public synchronized Boolean doSave(CarrelloBean bean) throws SQLException {
 		preparedStatement = connection.prepareStatement(insertSQL);
 		preparedStatement.setInt(1, bean.getCodiceCliente());
 		preparedStatement.setInt(2, bean.getCodiceProdotto());
-		preparedStatement.setInt(3, 1/*bean.getQuantita()*/);
+		preparedStatement.setInt(3, bean.getQuantita());
 
 		result=preparedStatement.executeUpdate();
-
+		connection.setAutoCommit(false);
 		connection.commit();
 		
 	} finally {

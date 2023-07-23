@@ -36,7 +36,17 @@
 		<input type="password" id="password" name="password"class="password" placeholder="Password" onchange="rightPassword()"/>
 			<p class="errore" id="errore4"></p>
 	</div>
+	<%
+	Integer code= (Integer) request.getSession().getAttribute("userCode");
+	if(code==null){
+	%>
+	<input type="hidden" name="code" value="-1">
+	<%}
+	else{
 
+	%>
+	<input type="hidden" name="code" value="0">
+	<%} %>
 	<div class="inputGroup inputGroup3">
 		<input type="button" id="login" value="Register" onclick="Check()">
 	</div>	
