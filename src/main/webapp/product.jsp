@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style/products.css">
 <title>FitLife</title>
+<script type="text/javascript" src="scripts/GoProd.js"></script>
 </head>
 <body>
 <% ProductBean product = (ProductBean)request.getAttribute("prodotto");%>
@@ -51,7 +52,27 @@
         <div class="description">
           <p><%=product.getDescrizione() %></p>
         </div>
-        <button class="add-to-cart" onclick="AddToCart(<%=product.getCodice() %>)">Add To Cart</button>
+        
+        <%
+ 			Integer ciccio=(Integer)request.getSession().getAttribute("userCode");       
+        	if(ciccio==null){
+        		%>
+        		
+        		<button class="add-to-cart" onclick="AddToCartGuest(<%=product.getCodice() %>)">Add To Cart</button>
+        		
+        		<%
+        	}
+        	else{
+        		%>
+        		
+        		
+        		<button class="add-to-cart" onclick="AddToCart(<%=product.getCodice() %>)">Add To Cart</button>
+        		<%
+        		
+        		
+        	}
+        %>
+        
       </div>
     </div>
   </div>
