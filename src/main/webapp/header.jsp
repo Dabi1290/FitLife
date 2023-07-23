@@ -47,7 +47,7 @@
   if(isUser==null || !isUser){
   
   %>
-  <a href="login.jsp" class="icon"><img src="images/user.png" alt="#"></a>
+  <a href="Accesso.jsp" class="icon"><img src="images/user.png" alt="#"></a>
   <%}
   else{
   
