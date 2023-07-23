@@ -1,12 +1,12 @@
 function submitForm(page,value) {
   // Create a form element
-  var form = document.createElement('form');
+  let form = document.createElement('form');
   form.method = 'POST'; // Set the HTTP method to POST
   form.action = page;   // Set the action URL
 
   // Create an attribute element
   if(value!=null){
-  var attribute = document.createElement('input');
+  let attribute = document.createElement('input');
   attribute.type = 'hidden';
   attribute.name = 'OrdType';
   attribute.value = value;

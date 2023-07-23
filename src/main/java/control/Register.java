@@ -36,6 +36,7 @@ public class Register extends HttpServlet {
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
 		String code=request.getParameter("code");
+		CarrelloGuest cart=(CarrelloGuest) request.getSession().getAttribute("Carrello");
 		int codice=-1;
 		if(nome.trim().length()<3 || cognome.trim().length()<3 || password.trim().length()<6) {
 			RequestDispatcher dispatcherToLoginPage = request.getRequestDispatcher("/registrazione.jsp");
@@ -50,8 +51,8 @@ public class Register extends HttpServlet {
 			UserDao dao= new UserDao();
 			try {
 				codice=dao.doSave(bean);
-				if(code.equals("-1")) {
-					CarrelloGuest cart=(CarrelloGuest) request.getSession().getAttribute("Carrello");
+				if(code.equals("-1") && cart!=null) {
+					
 					CarrelloDao savecart=new CarrelloDao();
 					for(ProductBean prodotto:cart.getProdotti()) {
 						CarrelloBean holder= new CarrelloBean();

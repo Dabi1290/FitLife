@@ -47,194 +47,12 @@ public class GestioneInserimento extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String type=request.getParameter("tipo");
-		List<String> errors = new ArrayList<>();
-		RequestDispatcher dispatcherToLoginPage ;
-		Part filePart;
-		Blob blob = null;
 		switch(type) {
 		case "ProductBean":
-			dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestioneProdotti");
-			ProductBean prodotto=new ProductBean();
-			ProductDao dao=new ProductDao();
-			String nome=request.getParameter("nome");
-			String categoria=request.getParameter("categoria");
-			String prezzo=request.getParameter("prezzo");
-			
-			try {
-				filePart = request.getPart("immagine");
-			} catch (IOException e3) {
-				errors.add(GestioneInserimento.IMAGE_ERROR);
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			} catch (ServletException e3) {
-				errors.add(GestioneInserimento.IMAGE_ERROR);
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			}
-
-			String descrizione=request.getParameter("descrizione");
-			String quantita=request.getParameter("quantita");
-			
-			Double newp;
-			int newc;
-			int newq;
-			if(nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty()) {
-				errors.add("Non puoi inserire campi vuoti!!!");
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			}
-			
-			try {
-				newp=Double.parseDouble(prezzo);
-			} catch (NumberFormatException e1) {
-				errors.add("Prezzo Errato!!!");
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			}
-			
-			
-			try {
-				newq=Integer.parseInt(quantita);
-				if(newq<0)throw new NumberFormatException();
-			} catch (NumberFormatException e2) {
-				errors.add("Problema con la quantità");
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			}
-
-			try {
-				newc=Integer.parseInt(categoria);
-				if(newc<0)throw new NumberFormatException();
-			} catch (NumberFormatException e2) {
-				errors.add("Problema con la categoria");
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			}
-			
-			
-			
-			InputStream inputStream = filePart.getInputStream();
-	        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-	        byte[] buffer = new byte[4096];
-	        int bytesRead;
-	        while ((bytesRead = inputStream.read(buffer)) != -1) {
-	            outputStream.write(buffer, 0, bytesRead);
-	        }
-	        byte[] fileData = outputStream.toByteArray();
-
-	        
-	        try {
-	            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
-	        } catch (Exception e) {
-	        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-	        }
-			
-			
-				prodotto.setNome(nome);
-				prodotto.setCategoria(newc);
-				prodotto.setPrezzo(newp);
-				prodotto.setImmagine(blob);
-				prodotto.setDescrizione(descrizione);
-				prodotto.setQuantita(newq);
-				
-				try {
-					dao.doSave(prodotto);
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
-					dispatcher.forward(request, response);
-				} catch (SQLException e) {
-					
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
-			
-			
+			handleProductRequest(request, response);
 			break;
 		case "PromozioniBean":
-			dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestionePromozioni");
-			PromozioniBean promoz=new PromozioniBean();
-			PromozioniDao daopromoz=new PromozioniDao();
-			String codice=request.getParameter("codice");
-			String cat=request.getParameter("categoria") ;
-			Integer numcat;
-			Boolean isCategoria=Boolean.parseBoolean(request.getParameter("isCategoria"));
-			
-			try {
-				filePart = request.getPart("immagine");
-			} catch (IOException e3) {
-				errors.add(GestioneInserimento.IMAGE_ERROR);
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			} catch (ServletException e3) {
-				errors.add(GestioneInserimento.IMAGE_ERROR);
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			}
-			
-			if(codice == null || codice.trim().isEmpty() || cat == null || cat.trim().isEmpty()) {
-				errors.add("Non puoi inserire campi vuoti!!!");
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			}
-			
-			try {
-				promoz=daopromoz.doRetrieveByKey(codice);
-				if(!promoz.getCodice().isEmpty()) {
-					errors.add("Promozione già esistente!!!");
-					request.setAttribute(GestioneInserimento.ERROR, errors);
-					dispatcherToLoginPage.forward(request, response);
-	            	return;
-				}
-				
-			} catch (SQLException e1) {
-				
-				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			}
-			
-			try {
-				numcat=Integer.parseInt(cat);
-			}
-			catch(NumberFormatException e){
-				errors.add("Problema con la categoria!!!");
-				request.setAttribute(GestioneInserimento.ERROR, errors);
-				dispatcherToLoginPage.forward(request, response);
-            	return;
-			}
-			
-			inputStream = filePart.getInputStream();
-			outputStream = new ByteArrayOutputStream();
-	        buffer = new byte[4096];
-	        
-	        while ((bytesRead = inputStream.read(buffer)) != -1) {
-	            outputStream.write(buffer, 0, bytesRead);
-	        }
-	        fileData = outputStream.toByteArray();
-
-	        
-	        try {
-	            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
-	        } catch (Exception e) {
-	        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-	        }
-				promoz.setCodice(codice);
-				promoz.setCategoria(numcat);
-				promoz.setIsCategoria(isCategoria);
-				promoz.setImmagine(blob);
-				try {
-					daopromoz.doSave(promoz);
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
-					dispatcher.forward(request, response);
-				} catch (SQLException e) {
-					
-					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
+			handlePromozioniRequest(request, response);
 			break;
 		
 			
@@ -242,5 +60,201 @@ public class GestioneInserimento extends HttpServlet {
 				break;
 		}
 	}
+	
+	private void handleProductRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		List<String> errors = new ArrayList<>();
+		RequestDispatcher dispatcherToLoginPage ;
+		Part filePart;
+		Blob blob = null;
+		dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestioneProdotti");
+		ProductBean prodotto=new ProductBean();
+		ProductDao dao=new ProductDao();
+		String nome=request.getParameter("nome");
+		String categoria=request.getParameter("categoria");
+		String prezzo=request.getParameter("prezzo");
+		
+		try {
+			filePart = request.getPart("immagine");
+		} catch (IOException e3) {
+			errors.add(GestioneInserimento.IMAGE_ERROR);
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		} catch (ServletException e3) {
+			errors.add(GestioneInserimento.IMAGE_ERROR);
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		}
 
-}
+		String descrizione=request.getParameter("descrizione");
+		String quantita=request.getParameter("quantita");
+		
+		Double newp;
+		int newc;
+		int newq;
+		if(nome == null || nome.trim().isEmpty() || categoria == null || categoria.trim().isEmpty() || prezzo == null || prezzo.trim().isEmpty()) {
+			errors.add("Non puoi inserire campi vuoti!!!");
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		}
+		
+		try {
+			newp=Double.parseDouble(prezzo);
+		} catch (NumberFormatException e1) {
+			errors.add("Prezzo Errato!!!");
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		}
+		
+		
+		try {
+			newq=Integer.parseInt(quantita);
+			if(newq<0)throw new NumberFormatException();
+		} catch (NumberFormatException e2) {
+			errors.add("Problema con la quantità");
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		}
+
+		try {
+			newc=Integer.parseInt(categoria);
+			if(newc<0)throw new NumberFormatException();
+		} catch (NumberFormatException e2) {
+			errors.add("Problema con la categoria");
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		}
+		
+		
+		
+		InputStream inputStream = filePart.getInputStream();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] fileData = outputStream.toByteArray();
+
+        
+        try {
+            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
+        } catch (Exception e) {
+        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+		
+		
+			prodotto.setNome(nome);
+			prodotto.setCategoria(newc);
+			prodotto.setPrezzo(newp);
+			prodotto.setImmagine(blob);
+			prodotto.setDescrizione(descrizione);
+			prodotto.setQuantita(newq);
+			
+			try {
+				dao.doSave(prodotto);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestioneProdotti");
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
+		
+		
+	
+	}
+	
+	private void handlePromozioniRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		List<String> errors = new ArrayList<>();
+		RequestDispatcher dispatcherToLoginPage ;
+		Part filePart;
+		Blob blob = null;
+		dispatcherToLoginPage= request.getRequestDispatcher("/admin/GestionePromozioni");
+		PromozioniBean promoz=null;
+		PromozioniDao daopromoz=new PromozioniDao();
+		String codice=request.getParameter("codice");
+		String cat=request.getParameter("categoria") ;
+		Integer numcat;
+		Boolean isCategoria=Boolean.parseBoolean(request.getParameter("isCategoria"));
+		
+		try {
+			filePart = request.getPart("immagine");
+		} catch (IOException e3) {
+			errors.add(GestioneInserimento.IMAGE_ERROR);
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		} catch (ServletException e3) {
+			errors.add(GestioneInserimento.IMAGE_ERROR);
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		}
+		
+		if(codice == null || codice.trim().isEmpty() || cat == null || cat.trim().isEmpty()) {
+			errors.add("Non puoi inserire campi vuoti!!!");
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		}
+		
+		try {
+			promoz=daopromoz.doRetrieveByKey(codice);
+			if(!promoz.getCodice().isEmpty()) {
+				errors.add("Promozione già esistente!!!");
+				request.setAttribute(GestioneInserimento.ERROR, errors);
+				dispatcherToLoginPage.forward(request, response);
+            	return;
+			}
+			
+		} catch (SQLException e1) {
+			
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		
+		try {
+			numcat=Integer.parseInt(cat);
+		}
+		catch(NumberFormatException e){
+			errors.add("Problema con la categoria!!!");
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		}
+		
+		InputStream inputStream = filePart.getInputStream();
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		byte[] buffer = new byte[4096];
+		int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        byte[]  fileData = outputStream.toByteArray();
+
+        
+        try {
+            blob = new javax.sql.rowset.serial.SerialBlob(fileData);
+        } catch (Exception e) {
+        	response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+			promoz.setCodice(codice);
+			promoz.setCategoria(numcat);
+			promoz.setIsCategoria(isCategoria);
+			promoz.setImmagine(blob);
+			try {
+				daopromoz.doSave(promoz);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");
+				dispatcher.forward(request, response);
+			} catch (SQLException e) {
+				
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
+	}
+	}

@@ -47,7 +47,7 @@ public class Cart extends HttpServlet {
 				
 			CarrelloGuest cart= (CarrelloGuest)request.getSession().getAttribute("Carrello");
 			if(cart!=null)beans=cart.getProdotti();
-			else beans=new ArrayList<ProductBean>();
+			else beans=new ArrayList<>();
 			}
 			
 			

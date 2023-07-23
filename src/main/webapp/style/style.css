@@ -484,6 +484,22 @@ body {
       .price-range{
       	display:none;
       }
+}
+@media screen and (max-width: 999px) {
+      #ricordatiDiMe{
+      	width: 100%;
+  		display: flex;
+ 	 	justify-content: center; /* Centrare orizzontalmente */
+ 		 align-items: center;
+      }
+      
+      #categorizza{
+      	display:none;
+      }
+      
+      .price-range{
+      	display:none;
+      }
       
       div#search{
       	width: 25%;
@@ -507,6 +523,5 @@ body {
       max-height: 50%;
       }
 }
-
 
 

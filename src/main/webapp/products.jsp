@@ -101,7 +101,7 @@ for(ProductBean product: prodotti){
   
   %>
 
-	<input type="submit" value="Filtra" class="radios" onclick="filterFormSubmit()">
+	<input type="submit" value="Filtra" class="submitButton" onclick="filterFormSubmit()" id="ricercaFiltrata">
 
 
 
