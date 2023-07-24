@@ -70,7 +70,7 @@ function Check() {
 function rightIndirizzo(){
 	
 	let nome=document.getElementById("indirizzo").value;
-	let pattern=/^(Via|Strada|Viale|Vicolo|Corso|Piazza|Largo|Borgo|Piazzale|Lungomare|Corte)\s+[a-zA-Z\d\s]{1,50}(?=\s+\d+$)/
+	let pattern=/^(Via|Strada|Viale|Vicolo|Corso|Piazza|Largo|Borgo|Piazzale|Lungomare|Corte)\s+\S.{0,48}\s+\d+$/
 
 
 	if( !pattern.test(nome)){
