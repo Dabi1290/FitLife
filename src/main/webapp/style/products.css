@@ -729,7 +729,7 @@ footer {
   margin: 0;
 }
 
-@media (min-width: 62rem) {
+
   .product-image img,
 .image-list img {
     width: 100%;
@@ -767,7 +767,7 @@ footer {
     opacity: 0.7;
   }
 
-}
+
 @-webkit-keyframes fadeImg {
   from {
     opacity: 0;

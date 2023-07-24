@@ -71,7 +71,7 @@ if (errors != null){
       	     	
       	      	
       	      	if(clazz.getSimpleName().equals("OrdineBean")==true){ 
-      	      		btn1="Processa"; lowerbound=2;  // se si tratta di un ordine Cambio il valore del bottone dell'ordine da Salva(default) a Processa
+      	      		btn1="Processa"; lowerbound=0;  // se si tratta di un ordine Cambio il valore del bottone dell'ordine da Salva(default) a Processa
       	      		if(ordType.equals("1")==true){
       	      			ord=true;
       	      		}
@@ -81,6 +81,7 @@ if (errors != null){
       	      	
       	      	else if(clazz.getSimpleName().equals("PromozioniBean")==true) {lowerbound=0;
       	      			isPromoz=true;
+      	      			ord=false;
       	      	
       	      %>
 
@@ -194,7 +195,7 @@ if (errors != null){
 					
       %>
 					<input type="hidden" name="tipo" value="<%=clazz.getSimpleName()%>">
-					<%if(lowerbound!=0 && ord){ %>
+					<%if(ord){ %>
 					<td><button type="submit" name="updateBtn"
 							value="0<%=m.invoke(elements)%>"><%=btn1 %></button></td>
 					<%} %>

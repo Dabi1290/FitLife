@@ -46,7 +46,7 @@ public class PostCheckout extends HttpServlet {
 		    UserBean user= new UserBean();
 		    UserDao dao= new UserDao();
 		    boolean sconto=false;
-		    RequestDispatcher dispatcher; 
+		    RequestDispatcher dispatcher;
 		    PromozioniDao prom= new PromozioniDao();
 		    int code= (int)request.getSession().getAttribute("userCode");
 		    while ((line = reader.readLine()) != null) {
@@ -71,14 +71,13 @@ public class PostCheckout extends HttpServlet {
 		        
 		        if(!promozione.trim().isEmpty()) { 
 		        
-		        	
+		        
 		        	sconto=Sconto(prom,promozione,response);
 		        	if(!sconto) {
 		        	dispatcher=request.getRequestDispatcher("/Checkout");
 					dispatcher.forward(request, response);
 		        	}
 		        }
-		        
 		        user.setNome(nome);
 		        user.setCognome(cognome);
 		        user.setIndirizzo(indirizzo);

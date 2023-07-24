@@ -181,6 +181,8 @@ public class GestioneInserimento extends HttpServlet {
 		PromozioniDao daopromoz=new PromozioniDao();
 		String codice=request.getParameter("codice");
 		String cat=request.getParameter("categoria") ;
+		String sconto=request.getParameter("sconto") ;
+		Integer sales;
 		Integer numcat;
 		Boolean isCategoria=Boolean.parseBoolean(request.getParameter("isCategoria"));
 		
@@ -198,7 +200,7 @@ public class GestioneInserimento extends HttpServlet {
         	return;
 		}
 		
-		if(codice == null || codice.trim().isEmpty() || cat == null || cat.trim().isEmpty()) {
+		if(codice == null || codice.trim().isEmpty() || cat == null || cat.trim().isEmpty() || sconto==null || sconto.trim().isEmpty()) {
 			errors.add("Non puoi inserire campi vuoti!!!");
 			request.setAttribute(GestioneInserimento.ERROR, errors);
 			dispatcherToLoginPage.forward(request, response);
@@ -214,16 +216,29 @@ public class GestioneInserimento extends HttpServlet {
             	return;
 			}
 			
+			
 		} catch (SQLException e1) {
 			
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
+		
+		
 		
 		try {
 			numcat=Integer.parseInt(cat);
 		}
 		catch(NumberFormatException e){
 			errors.add("Problema con la categoria!!!");
+			request.setAttribute(GestioneInserimento.ERROR, errors);
+			dispatcherToLoginPage.forward(request, response);
+        	return;
+		}
+
+		try {
+			sales=Integer.parseInt(sconto);
+		}
+		catch(NumberFormatException e){
+			errors.add("Problema con lo sconto!!!");
 			request.setAttribute(GestioneInserimento.ERROR, errors);
 			dispatcherToLoginPage.forward(request, response);
         	return;
@@ -248,6 +263,7 @@ public class GestioneInserimento extends HttpServlet {
 			promoz.setCategoria(numcat);
 			promoz.setIsCategoria(isCategoria);
 			promoz.setImmagine(blob);
+			promoz.setSconto(sales);
 			try {
 				daopromoz.doSave(promoz);
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/GestionePromozioni");

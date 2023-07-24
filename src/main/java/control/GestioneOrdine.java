@@ -118,7 +118,7 @@ public class GestioneOrdine extends HttpServlet {
 
 	    boolean isProcessed = (ordtypeReq != null) ? ordtypeReq.equals("1") : ordtypeSes.equals("1");
 	    product = filterAndSetOrderType(product, isProcessed);
-	    request.getSession().setAttribute(GestioneOrdine.OTYPE, isProcessed ? "1" : "0");
+	    request.getSession().setAttribute(GestioneOrdine.OTYPE, isProcessed ? "0" : "1");
 	    
 	    if (product.isEmpty()) {
 	    	

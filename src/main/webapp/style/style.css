@@ -86,7 +86,14 @@ body {
   
 }
 
-
+.homie{
+	display: flex;
+    justify-content: center;
+    height: 100px;
+    align-items: center;
+    font-size: 300%;
+    margin-top: 5%;
+}
 
 .prov{
 	 
@@ -499,13 +506,19 @@ body {
  		 align-items: center;
       }
       
-      #categorizza{
-      	display:none;
-      }
+     
       
-      .price-range{
-      	display:none;
-      }
+     
+}
+
+@media screen and (max-width: 1365px) {
+	
+	 .container-products{
+		flex-direction: column;     
+     }
+     .filtri{
+     	width:450px;
+     }
 }
 @media screen and (max-width: 999px) {
       #ricordatiDiMe{
@@ -515,13 +528,9 @@ body {
  		 align-items: center;
       }
       
-      #categorizza{
-      	display:none;
-      }
+     
       
-      .price-range{
-      	display:none;
-      }
+    
       
       
       
@@ -541,6 +550,9 @@ body {
       	
       }
 	}
+
+
+
 
 
 

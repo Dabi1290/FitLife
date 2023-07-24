@@ -5,6 +5,7 @@
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-evenly;
+        flex-direction: column;
 }
 
 
@@ -17,7 +18,7 @@ button {
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: none;
-  width: 20%;
+  width: auto;
   height: 65px;
   font-size: 1.55em;
   color: #FFF;

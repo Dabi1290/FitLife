@@ -16,7 +16,7 @@
     
   <%@ include file="/admin/header.html" %>
   
-  Admin<br>
+  <div class="homie">HomePage Admin</div>
   
   
   

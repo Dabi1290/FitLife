@@ -8,15 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>I miei Ordini</title>
-<style>
-        table {
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-        }
-    </style>
+<link rel="stylesheet" href="style/tabOrdini.css">
+
 </head>
 
 
@@ -38,13 +31,16 @@
         
         	<%
                 List<OrdineBean> ordini= (List<OrdineBean>) request.getAttribute("ordini");
+        		String status;
                 for (OrdineBean ordine : ordini) {
+                	if(ordine.getIsProcessed())status="Spedito";
+                	else status="In Preparazione";
             %>
             
             <tr>
                     <td><%= ordine.getCodice() %></td>
                     <td><%= ordine.getData()%></td>
-                    <td><%= ordine.getIsProcessed()%></td>
+                    <td><%=status%></td>
                     <td><a href="Fattura?ordcode=<%=ordine.getCodice()%>">Fattura</a></td>
                 </tr>
                 

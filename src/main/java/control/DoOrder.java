@@ -42,22 +42,28 @@ public class DoOrder extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Integer query = (int) request.getSession().getAttribute("userCode");
+		Integer query = (Integer) request.getSession().getAttribute("userCode");
 		CarrelloDao dao= new CarrelloDao();
 		OrdineDao ordao= new OrdineDao();
 		OrdineBean orbean= new OrdineBean();
 		PromozioniDao prom= new PromozioniDao();
-		int calculus=100;
+		int calculus=0;
+		
 		
 		SelledProductDao venduto=new SelledProductDao();
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/OrdiniCliente");
 		try {
+			
 			String promozione= request.getParameter("promozione");
+			if(promozione==null) throw new SQLException();
 			PromozioniBean promos=prom.doRetrieveByKey(promozione);
 			calculus=promos.getSconto();
 			
+			
 		} catch (Exception e1) {
 			calculus=0;
+			
+			
 		}
 		orbean.setCodCliente(query);
 		try{
@@ -74,6 +80,7 @@ public class DoOrder extends HttpServlet {
 				pippo.setOrdine(codice);
 				pippo.setPrezzo(prodotto.getPrezzo()-((calculus*prodotto.getPrezzo())/100));
 				pippo.setQuantita(prodotto.getQuantita());
+				
 				venduto.doSave(pippo);
 				
 			}

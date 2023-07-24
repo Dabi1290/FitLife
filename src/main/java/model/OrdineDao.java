@@ -37,7 +37,7 @@ public class OrdineDao  {
 	private static final String CODICEORD="codiceOrdine";
 	private static final String CODICECLI="codiceClienti";
 	private static final String PROCESSED="isProcessed";
-	private static final String GUEST="codiceGuests";
+	
 	
 	
 	public int doSave(OrdineBean bean) throws SQLException {
@@ -157,7 +157,7 @@ public class OrdineDao  {
 				
 				bean.setData(rs.getString("data"));
 				bean.setCodCliente(rs.getInt(CODICECLI));
-				bean.setCodGuest(rs.getInt(GUEST));
+				
 			}
 
 		} finally {
@@ -196,7 +196,7 @@ public class OrdineDao  {
 				bean.setIsProcessed(rs.getBoolean(PROCESSED));
 				bean.setData(rs.getString("data"));
 				bean.setCodCliente(rs.getInt(CODICECLI));
-				bean.setCodGuest(rs.getInt(GUEST));
+				
 				products.add(bean);
 			}
 
@@ -237,7 +237,7 @@ public class OrdineDao  {
 				bean.setIsProcessed(rs.getBoolean(PROCESSED));
 				bean.setData(rs.getString("data"));
 				bean.setCodCliente(rs.getInt(CODICECLI));
-				bean.setCodGuest(rs.getInt(GUEST));
+				
 				products.add(bean);
 			}
 

@@ -95,7 +95,6 @@ function DeleteFromCart(index,codice){
 					$('#row'+index).remove();
 					 let Prices = $("#cart div.cd-price");
 					 let quantity= $("#cart span.cd-qty")
-					 console.log(Prices);
 					 let totalPrice = calculateTotal(Prices, quantity);
 					 $('#totale').text(totalPrice+'€');
 					 
@@ -157,7 +156,10 @@ function MinusCart(i,cod){
 		DeleteFromCart(i,cod)
 	}
 	UpdateProducts(cod,qty-1);
-	
+	let Prices = $("#cart div.cd-price");
+	let quantity= $("#cart label")
+	let totalPrice = calculateTotal(Prices, quantity);
+	$('#totale').text(totalPrice+'€');
 }
 
 function PlusCart(product,i){
@@ -171,6 +173,10 @@ function PlusCart(product,i){
     // Update the text attribute with the new value
     $('#row'+i).find('label').text(newValue)
     UpdateProducts(product,prec+1);
+     let Prices = $("#cart div.cd-price");
+	 let quantity= $("#cart label")
+	 let totalPrice = calculateTotal(Prices, quantity);
+	 $('#totale').text(totalPrice+'€');
 }).fail(function() {
   
 });
