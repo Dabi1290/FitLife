@@ -721,13 +721,12 @@ footer {
   text-align: center;
 }
 
-.product-image {
-  display: none;
-}
+
 
 .image-list li {
-  margin: 0;
-}
+    margin: 0 0.75rem 0 0;
+    flex-basis: 100%;
+  }
 
 
   .product-image img,
@@ -750,10 +749,7 @@ footer {
     display: flex;
     overflow: hidden;
   }
-  .image-list li {
-    margin: 0 0.75rem 0 0;
-    flex-basis: 100%;
-  }
+  
   .image-list li:nth-child(3) {
     margin: 0;
   }
