@@ -90,7 +90,7 @@
     		<h3>Giuseppe Farina</h3>
     	</div>
     	<div class="image2">
-    		<img src="images/giuseppe.jpeg" alt="Foto Persona 2">
+    		<img src="images/peppe.jpeg" alt="Foto Persona 2">
     	</div>
     	<div class="description-team-member2">
 			<p>
