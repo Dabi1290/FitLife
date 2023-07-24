@@ -90,7 +90,7 @@ public class UserDao{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "UPDATE " + UserDao.TABLE_NAME
+		String insertSQL = UPDATE + UserDao.TABLE_NAME
 				+ " SET nome=?, cognome=?, telefono=?, indirizzo=?, email=? WHERE codiceCliente=?";
 		try {
 			
@@ -125,7 +125,7 @@ public synchronized void doUpdateAfterOrder(UserBean user) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "UPDATE " + UserDao.TABLE_NAME
+		String insertSQL = UPDATE + UserDao.TABLE_NAME
 				+ " SET nome=?, cognome=?, telefono=?, indirizzo=?  WHERE codiceCliente=?";
 		
 		try {

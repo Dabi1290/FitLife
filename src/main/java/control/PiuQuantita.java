@@ -39,19 +39,19 @@ public class PiuQuantita extends HttpServlet {
 		
 		
 		
-		String Req= request.getParameter("qty");
+		String req= request.getParameter("qty");
 		String key= request.getParameter("query");
 		
-		if(Req.trim().isEmpty() || key.trim().isEmpty()
-								|| Req==null
+		if(req.trim().isEmpty() || key.trim().isEmpty()
+								|| req==null
 								|| key==null) response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		
-		int qtyReq= Integer.parseInt(Req);
-		int Realkey= Integer.parseInt(key);
+		int qtyReq= Integer.parseInt(req);
+		int realkey= Integer.parseInt(key);
 		ProductDao dao = new ProductDao();
 		try {
-			ProductBean bean= dao.doRetrieveByKey(Realkey);
-			if(bean.getQuantita()<=qtyReq)response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);;
+			ProductBean bean= dao.doRetrieveByKey(realkey);
+			if(bean.getQuantita()<=qtyReq)response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		} catch (SQLException e) {
 			
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

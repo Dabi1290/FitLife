@@ -74,9 +74,9 @@
         %>
         
         <div class="qty">
-        <img class="sign"src="images/minus.png" onclick="Minus()">
+        <img class="sign"src="images/minus.png" alt="-"onclick="Minus()">
         <label id="qty-number" >1</label>
-        <img class="sign"src="images/plus.png" onclick="Plus(<%=product.getCodice() %>)">
+        <img class="sign"src="images/plus.png" alt="+"onclick="Plus(<%=product.getCodice() %>)">
         </div>
         
         </div>
