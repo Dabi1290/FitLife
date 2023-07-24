@@ -148,13 +148,14 @@ public synchronized Boolean doUpdate(CarrelloBean bean) throws SQLException {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 
-	String insertSQL = "UPDATE  " + CarrelloDao.TABLE_NAME+ " SET Quantità = Quantità + 1 WHERE codiceCliente=? AND codiceProd=?";
+	String insertSQL = "UPDATE  " + CarrelloDao.TABLE_NAME+ " SET Quantità = Quantità + ? WHERE codiceCliente=? AND codiceProd=?";
 	int result = 0;
 	try {
 		connection = ds.getConnection();
 		preparedStatement = connection.prepareStatement(insertSQL);
-		preparedStatement.setInt(1, bean.getCodiceCliente());
-		preparedStatement.setInt(2, bean.getCodiceProdotto());
+		preparedStatement.setInt(1,bean.getQuantita());
+		preparedStatement.setInt(2, bean.getCodiceCliente());
+		preparedStatement.setInt(3, bean.getCodiceProdotto());
 
 		result=preparedStatement.executeUpdate();
 

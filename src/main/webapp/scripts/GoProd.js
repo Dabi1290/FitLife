@@ -4,15 +4,15 @@ function GoOnProduct(product){
 
 
 function AddToCart(product){
-	
-	$.get('AggiungiProdotto', {"query": product});
+	let qty=$('#qty-number').text();
+	$.get('AggiungiProdotto', {"query": product,"qty":qty});
             
 	
 }
 
 function AddToCartGuest(product){
-	
-	$.get('AggiungiProdottoGuest', {"query": product});
+	let qty=$('#qty-number').text();
+	$.get('AggiungiProdottoGuest', {"query": product,"qty":qty});
             
 	
 }

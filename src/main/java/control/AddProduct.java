@@ -35,12 +35,13 @@ public class AddProduct extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer query = Integer.parseInt(request.getParameter("query")) ;
+		Integer qty = Integer.parseInt(request.getParameter("qty")) ;
 		CarrelloDao dao= new CarrelloDao();
 		CarrelloBean bean = new CarrelloBean();
 		
 		bean.setCodiceProdotto(query);
 		bean.setCodiceCliente((int)request.getSession().getAttribute("userCode"));
-		bean.setQuantita(1);
+		bean.setQuantita(qty);
 		try {
 			dao.doUpdate(bean);
 			Gson gson = new Gson();

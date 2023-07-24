@@ -37,7 +37,7 @@ public class AggiungiGuest extends HttpServlet {
 		
 		String cartPlaceHolder="Carrello";
 		Integer query = Integer.parseInt(request.getParameter("query")) ;
-		
+		Integer qty = Integer.parseInt(request.getParameter("qty")) ;
 		HttpSession session=request.getSession();
 		boolean exist=false;
 		CarrelloGuest cart= (CarrelloGuest)session.getAttribute(cartPlaceHolder);
@@ -53,7 +53,7 @@ public class AggiungiGuest extends HttpServlet {
 		
 		try {
 			prodb=dao.doRetrieveByKey(query);
-			prodb.setQuantita(1);
+			prodb.setQuantita(qty);
 			
 			
 			for(ProductBean prod:cart.getProdotti()) {
