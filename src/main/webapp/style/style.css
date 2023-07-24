@@ -42,7 +42,7 @@
 	right: 0;
 	margin-right:3%;
 	height: 60px;
-	width:10%;
+	width:200px;
 	display:flex;
 	
 }
@@ -228,6 +228,27 @@ body {
     text-decoration:none;
 }
 
+
+.sign{
+	width:28px;
+	height: 28px;
+	cursor:pointer;
+	z-index:20;
+}
+.line-cart{
+	display: flex;
+}
+.qty{
+	    display: flex;
+    
+    flex-wrap: nowrap;
+    
+    justify-content: space-evenly;
+    width:150px;
+}
+.buttons{
+	display: flex;
+}
 
 /*--------------------------------------------------------------------- Fine Header ---------------------------------------------------------------------*/
 
@@ -504,23 +525,7 @@ body {
       
       
       
-      img#resize2{
-      position: absolute;
-      top: 50%;
-      right: 0; 
-      transform: translateY(-50%);
-      max-width: 50%;
-      max-height: 50%;
-      }
-      
-      img#resize1{
-      position: absolute;
-      top: 50%;
-      right: 100%; 
-      transform: translateY(-50%);
-      max-width: 50%;
-      max-height: 50%;
-      }
+     
 }
 @media screen and (max-width: 725px) {
 	

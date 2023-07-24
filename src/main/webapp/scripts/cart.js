@@ -43,8 +43,7 @@ function toggle_panel_visibility ($lateral_panel, $background_layer, $body) {
 
 function searchCart(userCode,isCart) {
 	
-	
-  console.log(userCode);
+
 
   if (userCode==-1 || userCode>=0) {
     $.get('Carrello', {"query": userCode},
@@ -71,7 +70,7 @@ function showCart(products) {
 		
 		
 		totale+=prodotto.prezzo*prodotto.quantita;
-		$("#cart").append($('<li />', { id: 'row' + i,html: '<a href="Product?codProd='+prodotto.codice+'"><span class="cd-qty">'+prodotto.quantita+'x</span>'+prodotto.nome+'<div class="cd-price">'+prodotto.prezzo+'€</div></a><div class="cd-item-remove cd-img-replace" onclick="DeleteFromCart('+i+','+prodotto.codice+')">Remove</div>'}));
+		$("#cart").append($('<li />', { id: 'row' + i,html: '<div class="line-cart"><span class="cd-qty">'+prodotto.quantita+'x</span>'+prodotto.nome+'<span class="qty"><img class="sign" src="images/minus.png" onclick="MinusCart('+i+','+prodotto.codice+')"><label id="qty-number" >1</label><img class="sign"src="images/plus.png"onclick="PlusCart('+prodotto.codice+','+i+')"></span></div><a href="Product?codProd='+prodotto.codice+'"><div class="cd-price">'+prodotto.prezzo+'€</div></a><div class="cd-item-remove cd-img-replace" onclick="DeleteFromCart('+i+','+prodotto.codice+')">Remove</div>'}));
 		i+=0;
 		
 		});
@@ -143,5 +142,42 @@ function parseQuantity(qtyString) {
         return total;
     }
 
+
+
+function MinusCart(i,cod){
+	
+	let qty=parseInt($('#row'+i).find('label').text());
+	if(qty>1){
+	let prec = parseInt($('#qty-number').text());
+    let newValue = prec -1;
+    $('#qty-number').text(newValue);
+    }
+    if(qty==1){
+		
+		DeleteFromCart(i,cod)
+	}
+	
+}
+
+function PlusCart(product,i){
+	let qty=$('#row'+i).find('label').text();
+	$.get('NumberOfProductPlus', {"query": product,"qty":qty},function() {
+  	let prec = parseInt(qty);
+
+    // Increment the value by 1
+    let newValue = prec + 1;
+
+    // Update the text attribute with the new value
+    $('#row'+i).find('label').text(newValue)
+}).fail(function() {
+  
+});
+}
+
+
+function UpdateProducts(prod,qty){
+	
+	
+}
 
 
