@@ -70,7 +70,7 @@ function showCart(products) {
 		
 		
 		totale+=prodotto.prezzo*prodotto.quantita;
-		$("#cart").append($('<li />', { id: 'row' + i,html: '<div class="line-cart"><span class="cd-qty">'+prodotto.quantita+'x</span>'+prodotto.nome+'<span class="qty"><img class="sign" src="images/minus.png" onclick="MinusCart('+i+','+prodotto.codice+')"><label id="qty-number" >1</label><img class="sign"src="images/plus.png"onclick="PlusCart('+prodotto.codice+','+i+')"></span></div><a href="Product?codProd='+prodotto.codice+'"><div class="cd-price">'+prodotto.prezzo+'€</div></a><div class="cd-item-remove cd-img-replace" onclick="DeleteFromCart('+i+','+prodotto.codice+')">Remove</div>'}));
+		$("#cart").append($('<li />', { id: 'row' + i,html: '<div class="line-cart">'+prodotto.nome+'<span class="qty"><img class="sign" src="images/minus.png" onclick="MinusCart('+i+','+prodotto.codice+')"><label id="qty-number" >'+prodotto.quantita+'</label><img class="sign"src="images/plus.png"onclick="PlusCart('+prodotto.codice+','+i+')"></span></div><a href="Product?codProd='+prodotto.codice+'"><div class="cd-price">'+prodotto.prezzo+'€</div></a><div class="cd-item-remove cd-img-replace" onclick="DeleteFromCart('+i+','+prodotto.codice+')">Remove</div>'}));
 		i+=0;
 		
 		});
@@ -156,6 +156,7 @@ function MinusCart(i,cod){
 		
 		DeleteFromCart(i,cod)
 	}
+	UpdateProducts(cod,qty-1);
 	
 }
 
@@ -169,6 +170,7 @@ function PlusCart(product,i){
 
     // Update the text attribute with the new value
     $('#row'+i).find('label').text(newValue)
+    UpdateProducts(product,prec+1);
 }).fail(function() {
   
 });
@@ -177,7 +179,7 @@ function PlusCart(product,i){
 
 function UpdateProducts(prod,qty){
 	
-	
+	$.get('AggiornaQuantita', {"query": prod,"qty":qty});
 }
 
 

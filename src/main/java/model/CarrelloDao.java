@@ -175,6 +175,38 @@ public synchronized Boolean doUpdate(CarrelloBean bean) throws SQLException {
 	
 }
 
+public synchronized Boolean doStrongUpdate(CarrelloBean bean) throws SQLException {
+
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+
+	String insertSQL = "UPDATE  " + CarrelloDao.TABLE_NAME+ " SET Quantità = ? WHERE codiceCliente=? AND codiceProd=?";
+	int result = 0;
+	try {
+		connection = ds.getConnection();
+		preparedStatement = connection.prepareStatement(insertSQL);
+		preparedStatement.setInt(1,bean.getQuantita());
+		preparedStatement.setInt(2, bean.getCodiceCliente());
+		preparedStatement.setInt(3, bean.getCodiceProdotto());
+
+		result=preparedStatement.executeUpdate();
+
+		connection.commit();
+		
+	} finally {
+		try {
+			if (preparedStatement != null)
+				preparedStatement.close();
+		} finally {
+			if (connection != null)
+				connection.close();
+		}
+	}
+	
+	return (result != 0);
+	
+}
+
 public Boolean svuotaCarrello(int user) throws SQLException {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;

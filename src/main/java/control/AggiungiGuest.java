@@ -59,7 +59,7 @@ public class AggiungiGuest extends HttpServlet {
 			for(ProductBean prod:cart.getProdotti()) {
 				if(prod.getCodice()==prodb.getCodice()) {
 					exist=true;
-					prod.setQuantita(prod.getQuantita()+1);
+					prod.setQuantita(prod.getQuantita()+prod.getQuantita());
 				}
 			}
 			if(!exist)cart.getProdotti().add(prodb);
