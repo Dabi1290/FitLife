@@ -52,7 +52,7 @@
         <div class="description">
           <p><%=product.getDescrizione() %></p>
         </div>
-        
+        <div class="buttons">
         <%
  			Integer ciccio=(Integer)request.getSession().getAttribute("userCode");       
         	if(ciccio==null){
@@ -72,6 +72,14 @@
         		
         	}
         %>
+        
+        <div class="qty">
+        <img class="sign"src="images/minus.png" onclick="Minus()">
+        <label id="qty-number" >1</label>
+        <img class="sign"src="images/plus.png" onclick="Plus(<%=product.getCodice() %>)">
+        </div>
+        
+        </div>
         
       </div>
     </div>
